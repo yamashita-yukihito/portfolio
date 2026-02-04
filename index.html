@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio Vol.2</title>
+    <title>Portfolio</title>
     <style>
-        /* シンプルなモダンデザインの指定 */
         body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
             line-height: 1.6;
             color: #333;
             max-width: 800px;
@@ -17,33 +16,36 @@
         }
         header {
             text-align: center;
-            padding: 50px 0;
+            padding: 60px 0;
             background: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        h1 { margin: 0; color: #2c3e50; }
+        h1 { margin: 0; color: #2c3e50; font-size: 2.5em; }
         .container { margin-top: 30px; }
         section {
             background: #fff;
-            padding: 20px;
+            padding: 30px;
             margin-bottom: 20px;
             border-radius: 10px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
-        h2 { border-left: 5px solid #3498db; padding-left: 10px; color: #2c3e50; }
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        .project-card {
-            border: 1px solid #eee;
-            padding: 15px;
+        h2 { border-left: 5px solid #3498db; padding-left: 15px; color: #2c3e50; margin-bottom: 20px; }
+        
+        .placeholder-message {
+            color: #7f8c8d;
+            font-style: italic;
+            text-align: center;
+            padding: 40px 0;
+            border: 2px dashed #bdc3c7;
             border-radius: 8px;
-            transition: transform 0.2s;
         }
-        .project-card:hover { transform: translateY(-5px); }
+
+        .email-container {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #3498db;
+        }
         footer { text-align: center; font-size: 0.8em; color: #888; margin-top: 50px; }
         a { color: #3498db; text-decoration: none; }
         a:hover { text-decoration: underline; }
@@ -52,41 +54,43 @@
 <body>
 
 <header>
-    <h1>Portfolio Vol.2</h1>
-    <p>プログラマ / AI興味あり</p>
+    <h1>Portfolio</h1>
+    <p>Programmer / Creator</p>
 </header>
 
 <div class="container">
-    <section id="about">
-        <h2>About Me</h2>
-        <p>新しい技術やツールを試すためのサブ・ポートフォリオです。メインサイトとは別に、特定のプロジェクトや実験的な制作物をまとめています。</p>
-    </section>
-
-    <section id="projects">
-        <h2>Projects</h2>
-        <div class="project-grid">
-            <div class="project-card">
-                <h3>プロジェクト名 1</h3>
-                <p>プロジェクトの概要をここに書きます。どんな技術を使ったかなど。</p>
-                <a href="#">GitHub Repo →</a>
-            </div>
-            <div class="project-card">
-                <h3>プロジェクト名 2</h3>
-                <p>AI画像生成やローカルLLMを活用した試行錯誤の記録など。</p>
-                <a href="#">GitHub Repo →</a>
-            </div>
+    <section id="works">
+        <h2>過去の制作実績</h2>
+        <div class="placeholder-message">
+            <p>現在準備中です。これまでの制作実績を順次追加していきます。</p>
         </div>
     </section>
 
     <section id="contact">
         <h2>Contact</h2>
-        <p>メインサイトはこちら: <a href="https://yamashita-yukihito.github.io/">yamashita-yukihito.github.io</a></p>
+        <p>お問い合わせは以下のメールアドレスまでお願いいたします。</p>
+        <div class="email-container">
+            <span id="email-link">kojin3251あっとまーくgmail.com</span>
+        </div>
     </section>
 </div>
 
 <footer>
     <p>&copy; 2026 yamashita-yukihito</p>
 </footer>
+
+<script>
+    // スパム対策: メールアドレスを分解して保持し、実行時に結合
+    (function() {
+        var user = 'kojin3251';
+        var domain = 'gmail.com';
+        var emailAddr = user + '@' + domain;
+        var emailElement = document.getElementById('email-link');
+        
+        // テキストを実際のアドレスに書き換え、リンク化する
+        emailElement.innerHTML = '<a href="mailto:' + emailAddr + '">' + emailAddr + '</a>';
+    })();
+</script>
 
 </body>
 </html>
