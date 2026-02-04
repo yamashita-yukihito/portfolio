@@ -9,66 +9,133 @@
             font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
             line-height: 1.6;
             color: #333;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f4f7f6;
+            background-color: #f8fafb;
         }
         header {
             text-align: center;
             padding: 60px 0;
             background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
         }
-        h1 { margin: 0; color: #2c3e50; font-size: 2.5em; }
-        .container { margin-top: 30px; }
+        h1 { margin: 0; color: #2c3e50; font-size: 2.5em; letter-spacing: 1px; }
+        .container { display: flex; flex-direction: column; gap: 30px; }
         section {
             background: #fff;
-            padding: 30px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
-        h2 { border-left: 5px solid #3498db; padding-left: 15px; color: #2c3e50; margin-bottom: 20px; }
+        h2 { border-left: 6px solid #3498db; padding-left: 15px; color: #2c3e50; margin-bottom: 25px; font-size: 1.5em; }
         
-        .placeholder-message {
-            color: #7f8c8d;
-            font-style: italic;
-            text-align: center;
-            padding: 40px 0;
-            border: 2px dashed #bdc3c7;
-            border-radius: 8px;
+        /* 実績カードのデザイン */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        .project-card {
+            border: 1px solid #edf2f7;
+            padding: 24px;
+            border-radius: 10px;
+            background: #ffffff;
+            transition: all 0.3s ease;
+        }
+        .project-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px rgba(0,0,0,0.05); border-color: #3498db; }
+        .project-card h3 { margin-top: 0; color: #2d3748; font-size: 1.25em; border-bottom: 1px solid #edf2f7; padding-bottom: 10px; margin-bottom: 15px; }
+        .project-card p { font-size: 0.95em; color: #4a5568; margin-bottom: 15px; }
+        
+        .tech-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+        .tag {
+            background: #ebf8ff;
+            color: #2b6cb0;
+            font-size: 0.8em;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: bold;
         }
 
-        .email-container {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #3498db;
-        }
-        footer { text-align: center; font-size: 0.8em; color: #888; margin-top: 50px; }
+        .email-container { font-size: 1.2em; font-weight: bold; margin-top: 10px; }
+        footer { text-align: center; font-size: 0.85em; color: #a0aec0; margin-top: 60px; padding-bottom: 20px; }
         a { color: #3498db; text-decoration: none; }
         a:hover { text-decoration: underline; }
+
+        @media (max-width: 600px) {
+            .project-grid { grid-template-columns: 1fr; }
+            section { padding: 25px; }
+        }
     </style>
 </head>
 <body>
 
 <header>
     <h1>Portfolio</h1>
-    <p>Programmer / Creator</p>
+    <p>Web Developer / Full Stack Engineer</p>
 </header>
 
 <div class="container">
     <section id="works">
         <h2>過去の制作実績</h2>
-        <div class="placeholder-message">
-            <p>現在準備中です。これまでの制作実績を順次追加していきます。</p>
+        <div class="project-grid">
+            
+            <div class="project-card">
+                <h3>レンタカー予約・管理システム</h3>
+                <p>ユーザー向け予約サイトおよび店舗用管理画面の開発。バックエンド全般とフロントエンドの一部を担当し、クレジットカード決済機能の実装も行いました。</p>
+                <div class="tech-tags">
+                    <span class="tag">PHP</span><span class="tag">CakePHP2</span><span class="tag">jQuery</span><span class="tag">決済連携</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>車両リアルタイム位置管理システム</h3>
+                <p>SORACOM SIMを搭載したIoT機器からの位置情報をNode.jsサーバーで受信。Google Maps APIと連携し、車両の現在地をブラウザ上で可視化するシステムを構築しました。</p>
+                <div class="tech-tags">
+                    <span class="tag">Node.js</span><span class="tag">PHP</span><span class="tag">IoT</span><span class="tag">Google Maps API</span><span class="tag">SORACOM</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>会員制ショッピングサイト改修</h3>
+                <p>既存のショッピングサイトにおいて、ショッピングカートシステムを中心とした機能改修および最適化を担当しました。</p>
+                <div class="tech-tags">
+                    <span class="tag">PHP</span><span class="tag">CakePHP2</span><span class="tag">jQuery</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>社内業務管理システム改修</h3>
+                <p>請求書のPDF出力機能の新規実装や、既存機能のバグ修正・メンテナンスを行い、業務効率化を支援しました。</p>
+                <div class="tech-tags">
+                    <span class="tag">PHP</span><span class="tag">CakePHP2</span><span class="tag">PDF出力</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>RSS自動収集アンテナサイト</h3>
+                <p>VPSの構築からDB設計、自作フレームワークによるバックエンド開発まで全工程を担当。cronによる定期的な記事取得・リンク生成を自動化しています。</p>
+                <div class="tech-tags">
+                    <span class="tag">PHP</span><span class="tag">独自FW</span><span class="tag">VPS</span><span class="tag">インフラ構築</span><span class="tag">MySQL</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>YouTube連携 自動ブログ投稿ツール</h3>
+                <p>YouTube Data APIを活用し、特定キーワードに基づく動画検索結果から自動的に紹介記事を生成・投稿するプログラムを開発しました。</p>
+                <div class="tech-tags">
+                    <span class="tag">PHP</span><span class="tag">YouTube API</span><span class="tag">API連携</span><span class="tag">自動化</span>
+                </div>
+            </div>
+
         </div>
     </section>
 
     <section id="contact">
         <h2>Contact</h2>
-        <p>お問い合わせは以下のメールアドレスまでお願いいたします。</p>
+        <p>制作のご依頼やご相談は、以下のメールアドレスまでお問い合わせください。</p>
         <div class="email-container">
             <span id="email-link">kojin3251あっとまーくgmail.com</span>
         </div>
@@ -80,14 +147,11 @@
 </footer>
 
 <script>
-    // スパム対策: メールアドレスを分解して保持し、実行時に結合
     (function() {
         var user = 'kojin3251';
         var domain = 'gmail.com';
         var emailAddr = user + '@' + domain;
         var emailElement = document.getElementById('email-link');
-        
-        // テキストを実際のアドレスに書き換え、リンク化する
         emailElement.innerHTML = '<a href="mailto:' + emailAddr + '">' + emailAddr + '</a>';
     })();
 </script>
