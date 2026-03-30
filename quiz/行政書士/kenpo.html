@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>二択クイズ（憲法）</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { margin-bottom: 8px; }
+    .desc { color:#666; margin-bottom: 16px; }
+    .kaisetu { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #ccc; font-size: 14px; line-height: 1.6; white-space: pre-wrap;}
+    .question { margin: 20px 0 20px 40px; padding: 12px; border: 1px solid #ddd; background: #f9f9f9; border-radius: 8px; }
+    .meta { font-size: 12px; color:#666; }
+    .choices { margin-top: 10px; }
+    button.choice { font-size: 18px; padding: 8px 16px; margin: 6px 10px 6px 0; border-radius: 8px; border: 1px solid #ccc; cursor: pointer; }
+    .result { margin-top: 8px; font-weight: bold; }
+    .correct { color: #0b63c5; }
+    .incorrect { color: #d11a2a; }
+    .done { opacity: .65; }
+
+    /* 管理UI */
+    .manager { margin-top: 28px; padding: 16px; border: 1px solid #ddd; border-radius: 10px; background: #fafafa; }
+    .manager h2 { margin: 0 0 12px; font-size: 18px; }
+    .row { display: grid; grid-template-columns: 120px 1fr; gap: 8px; margin-bottom: 8px; align-items: center; }
+    .row input[type="text"], .row textarea { width: 100%; padding: 6px 8px; border: 1px solid #ccc; border-radius: 6px; }
+    .row textarea { min-height: 80px; font-family: inherit; }
+    .btns { margin-top: 10px; }
+    .btns button { margin-right: 8px; padding: 8px 12px; border: 1px solid #bbb; border-radius: 8px; background: #fff; cursor: pointer; }
+    .list { margin-top: 14px; }
+    .list table { width: 100%; border-collapse: collapse; }
+    .list th, .list td { border: 1px solid #e5e5e5; padding: 6px 8px; text-align: left; vertical-align: top; }
+    .list th { background: #f1f1f1; }
+    .pill { display: inline-block; padding: 2px 6px; border-radius: 999px; background: #eef4ff; border: 1px solid #cbd9ff; font-size: 12px; }
+    .danger { color: #b00020; }
+    .muted { color:#777; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <h1>二択クイズ（憲法）</h1>
+  <div class="desc">○×から<strong>二択</strong>に改造版。回答後に解説（kaisetu）が表示されます。問題は下の「問題管理」で追加・編集・削除できます。</div>
+  <div id="quiz-container"></div>
+
+  <div class="manager" id="manager">
+    <h2>問題管理</h2>
+    <div class="row"><label for="m-id">id</label><input id="m-id" type="text" placeholder="例: 201" /></div>
+    <div class="row"><label for="m-category">category</label><input id="m-category" type="text" placeholder="例: 憲法_統治" /></div>
+    <div class="row"><label for="m-text">text</label><textarea id="m-text" placeholder="問題文"></textarea></div>
+    <div class="row"><label for="m-answer">answer</label><input id="m-answer" type="text" placeholder="正解（文字列）" /></div>
+    <div class="row"><label for="m-matigai">matigai</label><input id="m-matigai" type="text" placeholder="誤り（文字列）" /></div>
+    <div class="row"><label for="m-kaisetu">kaisetu</label><textarea id="m-kaisetu" placeholder="任意。HTML可（自己利用前提）"></textarea></div>
+    <div class="btns">
+      <button id="m-save">新規追加/更新</button>
+      <button id="m-clear-form">フォームをクリア</button>
+      <button id="m-reset-learning">学習履歴のみリセット</button>
+      <button id="m-export">JSONエクスポート</button>
+      <button id="m-import">JSONインポート</button>
+    </div>
+    <div class="row" style="grid-template-columns:1fr;">
+      <textarea id="m-json" placeholder='エクスポート/インポート用のJSONがここに表示・貼り付けされます' style="min-height:100px;"></textarea>
+    </div>
+    <div class="list" id="m-list"></div>
+    <div class="muted">保存先：localStorage（キー: <code>BBB_questions</code>）。既定データは初回ロード時のみ適用。</div>
+  </div>
+
+  <script>
+    // ===================== 既定の問題データ（初期値） =====================
+    const initialQuestions = [
+      { id: 101, category: "憲法_統治", text: "議員の除名", answer: "2/3", matigai: "3/4" },
+      { id: 102, category: "憲法_統治", text: "臨時会の召集", answer: "1/4", matigai: "1/3", kaisetu: " <b>【臨時会】</b> 衆議院または参議院の総議員の1/4以上の要求があった場合、内閣は、臨時会を召集しなければなりません（憲法53条）。 この「臨時会」は、常会・特別会以外であって、臨時に召集される国会のことを指します。 たとえば、緊急を要する災害対策のための補正予算や法律案の審議を求めるときなどに、臨時会を召集し、臨時会の会期は、そのつど国会が決定し、2回まで延長することができます（国会法第12条）。 <b>【緊急集会】</b> 衆議院が解散されたときは、参議院は、同時に閉会となります。 ただし、内閣は、国に緊急の必要があるときは、参議院の緊急集会を求めることができます（憲法54条2項）。" },
+      { id: 103, category: "憲法_統治", text: "衆議院が解散されたときは、解散の日から◯◯以内に衆議院議員の総選挙を行い、その選挙の日から☓☓以内に、臨時会を召集しなければならない。", answer: "40日、30日", matigai: "30日、20日" }
+    ];
+
+    // ===================== 質問データのロード/保存 =====================
+    const STORAGE_KEY_Q = 'BBB_questions';
+
+    function loadQuestions() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY_Q);
+        if (!raw) return initialQuestions.slice();
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) return initialQuestions.slice();
+        return parsed;
+      } catch (_) {
+        return initialQuestions.slice();
+      }
+    }
+
+    function saveQuestions(qs) {
+      localStorage.setItem(STORAGE_KEY_Q, JSON.stringify(qs));
+    }
+
+    let questions = loadQuestions();
+
+    // ===================== 成績の保存/取得（localStorage） =====================
+    function getCounts(id) {
+      const correctCount = parseInt(localStorage.getItem(`BBBcorrect_${id}`) || '0', 10);
+      const incorrectCount = parseInt(localStorage.getItem(`BBBincorrect_${id}`) || '0', 10);
+      return { correctCount, incorrectCount };
+    }
+
+    function updateCounts(id, isCorrect) {
+      const key = isCorrect ? `BBBcorrect_${id}` : `BBBincorrect_${id}`;
+      const count = parseInt(localStorage.getItem(key) || '0', 10) + 1;
+      localStorage.setItem(key, count);
+    }
+
+    // ===================== ヘルパー =====================
+    function isGraduated(correctCount, incorrectCount) {
+      return (correctCount - incorrectCount) >= 3;
+    }
+
+    function weightFromCounts(correctCount, incorrectCount) {
+      return Math.max(1, (incorrectCount - correctCount) + 3);
+    }
+
+    function shuffle(arr) {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    // ===================== 出題ロジック =====================
+    function getWeightedRandomQuestion() {
+      const weighted = [];
+      for (const q of questions) {
+        const { correctCount, incorrectCount } = getCounts(q.id);
+        if (isGraduated(correctCount, incorrectCount)) continue; // 卒業除外
+        const weight = weightFromCounts(correctCount, incorrectCount);
+        for (let i = 0; i < weight; i++) weighted.push(q);
+      }
+      if (weighted.length === 0) return null; // 全問卒業
+      return weighted[Math.floor(Math.random() * weighted.length)];
+    }
+
+    // ===================== クイズ描画 =====================
+    function showQuestion() {
+      const q = getWeightedRandomQuestion();
+      const container = document.getElementById('quiz-container');
+
+      if (!q) {
+        const box = document.createElement('div');
+        box.className = 'question';
+        box.innerHTML = `
+          <div><strong>おめでとう！全問題を卒業しています。</strong></div>
+          <div class="meta">学習をやり直す場合は「学習履歴のみリセット」を押してね。</div>
+        `;
+        container.appendChild(box);
+        return;
+      }
+
+      const { correctCount, incorrectCount } = getCounts(q.id);
+      const box = document.createElement('div');
+      box.className = 'question';
+      const choices = shuffle([q.answer, q.matigai]);
+
+      box.innerHTML = `
+        <div class="meta"><strong>[${q.category}]</strong> id:${q.id}</div>
+        <div><strong>${q.text}</strong></div>
+        <div class="meta">正解: ${correctCount}回 / 不正解: ${incorrectCount}回</div>
+        <div class="choices"></div>
+        <p class="result"></p>
+        <div class="kaisetu"></div>
+      `;
+
+      const choicesDiv = box.querySelector('.choices');
+      const expDiv = box.querySelector('.kaisetu');
+      expDiv.style.display = 'none';
+      if (q.kaisetu) expDiv.innerHTML = q.kaisetu; // 自己利用前提でHTML許可
+
+      choices.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'choice';
+        btn.textContent = opt;
+        btn.addEventListener('click', () => checkAnswer(q, opt, box));
+        choicesDiv.appendChild(btn);
+      });
+
+      container.appendChild(box);
+    }
+
+    function disableButtons(box) {
+      box.querySelectorAll('button.choice').forEach(b => { b.disabled = true; b.classList.add('done'); });
+    }
+
+    function checkAnswer(question, userAnswer, box) {
+      const isCorrect = userAnswer === question.answer;
+      const result = box.querySelector('.result');
+      result.textContent = `あなたの答え: ${userAnswer} - ${isCorrect ? '正解！' : '不正解'}`;
+      result.className = 'result ' + (isCorrect ? 'correct' : 'incorrect');
+
+      updateCounts(question.id, isCorrect);
+      disableButtons(box);
+
+      const expDiv = box.querySelector('.kaisetu');
+      if (expDiv) expDiv.style.display = '';
+
+      showQuestion();
+    }
+
+    // ===================== 管理UI（CRUD） =====================
+    function fillForm(q = null) {
+      document.getElementById('m-id').value = q ? q.id : '';
+      document.getElementById('m-category').value = q ? q.category : '';
+      document.getElementById('m-text').value = q ? q.text : '';
+      document.getElementById('m-answer').value = q ? q.answer : '';
+      document.getElementById('m-matigai').value = q ? q.matigai : '';
+      document.getElementById('m-kaisetu').value = q && q.kaisetu ? q.kaisetu : '';
+    }
+
+    function readForm() {
+      const idRaw = document.getElementById('m-id').value.trim();
+      const id = idRaw.match(/^\d+$/) ? parseInt(idRaw, 10) : idRaw; // 数値 or 文字列id 両対応
+      return {
+        id,
+        category: document.getElementById('m-category').value.trim(),
+        text: document.getElementById('m-text').value.trim(),
+        answer: document.getElementById('m-answer').value.trim(),
+        matigai: document.getElementById('m-matigai').value.trim(),
+        kaisetu: document.getElementById('m-kaisetu').value
+      };
+    }
+
+    function renderList() {
+      const root = document.getElementById('m-list');
+      if (!questions.length) {
+        root.innerHTML = '<div class="muted">（問題がありません）</div>';
+        return;
+      }
+      const rows = questions.map(q => `
+        <tr>
+          <td class="muted">${q.id}</td>
+          <td>${q.category}</td>
+          <td>${q.text}</td>
+          <td><span class="pill">${q.answer}</span> / ${q.matigai}</td>
+          <td>${q.kaisetu ? 'あり' : '—'}</td>
+          <td>
+            <button data-act="edit" data-id="${q.id}">編集</button>
+            <button data-act="del" data-id="${q.id}" class="danger">削除</button>
+          </td>
+        </tr>`).join('');
+      document.getElementById('m-list').innerHTML = `
+        <table>
+          <thead>
+            <tr><th>id</th><th>category</th><th>text</th><th>answer/matigai</th><th>kaisetu</th><th>操作</th></tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>`;
+
+      document.querySelectorAll('#m-list button[data-act]')
+        .forEach(btn => btn.addEventListener('click', e => {
+          const act = e.currentTarget.getAttribute('data-act');
+          const idStr = e.currentTarget.getAttribute('data-id');
+          const id = idStr.match(/^\d+$/) ? parseInt(idStr, 10) : idStr;
+          const idx = questions.findIndex(x => x.id === id);
+          if (idx < 0) return;
+          if (act === 'edit') {
+            fillForm(questions[idx]);
+            window.scrollTo({ top: document.getElementById('manager').offsetTop - 10, behavior: 'smooth' });
+          } else if (act === 'del') {
+            if (!confirm('この問題を削除します。よろしいですか？')) return;
+            questions.splice(idx, 1);
+            saveQuestions(questions);
+            renderList();
+          }
+        }));
+    }
+
+    function attachManagerEvents() {
+      document.getElementById('m-save').addEventListener('click', () => {
+        const data = readForm();
+        if (!data.id || !data.category || !data.text || !data.answer || !data.matigai) {
+          alert('id / category / text / answer / matigai は必須です');
+          return;
+        }
+        const idx = questions.findIndex(q => q.id === data.id);
+        if (idx >= 0) {
+          // 更新
+          questions[idx] = { ...questions[idx], ...data };
+        } else {
+          // 追加
+          questions.push(data);
+        }
+        saveQuestions(questions);
+        renderList();
+        fillForm(null);
+      });
+
+      document.getElementById('m-clear-form').addEventListener('click', () => fillForm(null));
+
+      document.getElementById('m-reset-learning').addEventListener('click', () => {
+        if (!confirm('全問題の学習履歴（正解/不正解カウント）をリセットします。よろしいですか？')) return;
+        questions.forEach(q2 => {
+          localStorage.removeItem(`BBBcorrect_${q2.id}`);
+          localStorage.removeItem(`BBBincorrect_${q2.id}`);
+        });
+        document.getElementById('quiz-container').innerHTML = '';
+        showQuestion();
+      });
+
+      document.getElementById('m-export').addEventListener('click', () => {
+        document.getElementById('m-json').value = JSON.stringify(questions, null, 2);
+      });
+
+      document.getElementById('m-import').addEventListener('click', () => {
+        try {
+          const txt = document.getElementById('m-json').value.trim();
+          if (!txt) { alert('JSONを貼り付けてください'); return; }
+          const arr = JSON.parse(txt);
+          if (!Array.isArray(arr)) { alert('配列(JSON array)を貼ってください'); return; }
+          // ざっくり検証
+          const ok = arr.every(x => x && x.id != null && x.category && x.text && x.answer && x.matigai);
+          if (!ok) { alert('必要フィールド(id, category, text, answer, matigai)が足りない要素があります'); return; }
+          questions = arr;
+          saveQuestions(questions);
+          renderList();
+          alert('インポートしました');
+        } catch (e) {
+          alert('JSONの解析に失敗しました: ' + e.message);
+        }
+      });
+    }
+
+    // ===================== 起動 =====================
+    function boot() {
+      showQuestion();
+      renderList();
+      attachManagerEvents();
+      // 軽い自己検証（UIには出さない）
+      console.assert(isGraduated(3,0) && isGraduated(10,1), '卒業判定 OK');
+      console.assert(weightFromCounts(0,0)===3 && weightFromCounts(2,0)===1, '重み計算 OK');
+    }
+
+    boot();
+  </script>
+</body>
+</html>

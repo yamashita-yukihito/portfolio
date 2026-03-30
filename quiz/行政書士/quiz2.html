@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>○×クイズ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .question {
+            margin: 20px 0 20px 40px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+        .answer-true {
+            background-color: #add8e6;
+        }
+        .answer-false {
+            background-color: #7d7d7d;
+        }
+        button {
+            font-size: 20px;
+            padding: 10px 20px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>○×クイズ</h1>
+    <div id="quiz-container"></div>
+    <script>
+        // 問題リスト
+        const questions = [
+            { id: 1, category: "処分性_私法上", text: "供託官", answer: "○" },
+            { id: 2, category: "処分性_私法上", text: "労災", answer: "○" },
+            { id: 3, category: "処分性_私法上", text: "普通財産の払下げ", answer: "×" },
+            { id: 4, category: "処分性_私法上", text: "ごみ焼却場", answer: "×" },
+            { id: 5, category: "処分性_私法上", text: "農地法に基づく農地売払", answer: "×" },
+            { id: 6, category: "処分性_私法上", text: "公営福祉施設の民間移管", answer: "×" },
+            { id: 7, category: "処分性_内部的行為", text: "建築許可に関する消防長の同意", answer: "×" },
+            { id: 8, category: "処分性_内部的行為", text: "通達は処分性を（墓地・埋葬の通達）", answer: "×" },
+            { id: 9, category: "処分性_内部的行為", text: "校長の職務命令", answer: "×" },
+            { id: 10, category: "処分性_規範定立行為", text: "2項道路", answer: "○" },
+            { id: 11, category: "処分性_規範定立行為", text: "保育所を廃止する条例の制定①処分性は？②訴えの利益なし", answer: "○" },
+            { id: 12, category: "処分性_規範定立行為", text: "簡易水道事業給水条例の制定", answer: "×" },
+            { id: 13, category: "処分性_中間的行為", text: "土地改良", answer: "○" },
+            { id: 14, category: "処分性_中間的行為", text: "第二種市街地最下位開発事業計画", answer: "○" },
+            { id: 15, category: "処分性_中間的行為", text: "土地区画整理事業の事業計画決定", answer: "○" },
+            { id: 16, category: "処分性_中間的行為", text: "都市計画の用途地域の指定", answer: "×" },
+            { id: 17, category: "処分性_中間的行為", text: "都市計画法による地区計画", answer: "×" },
+            { id: 18, category: "処分性_事実行為", text: "輸入禁制品の通知", answer: "○" },
+            { id: 19, category: "処分性_事実行為", text: "病院開設中止勧告", answer: "○" },
+            { id: 20, category: "処分性_事実行為", text: "税務署長の納税告知", answer: "○" },
+            { id: 21, category: "処分性_事実行為", text: "登記機関のする還付請求の拒否通知", answer: "○" },
+            { id: 22, category: "処分性_事実行為", text: "海難原因解明の裁決", answer: "×" },
+            { id: 23, category: "処分性_事実行為", text: "道交法の反則金の通告", answer: "×" },
+            { id: 24, category: "処分性_事実行為", text: "公共施設管理者の同意を拒否する行為", answer: "×" },
+            { id: 25, category: "処分性_事実行為", text: "住民票に世帯主と続柄を記載する行為", answer: "×" },
+            { id: 26, category: "原告適格", text: "浄化槽清掃業の新規許可を争う既存業者", answer: "○" },
+            { id: 27, category: "原告適格", text: "公衆浴場の許可の取り消しを求める既存業者_無効確認", answer: "○" },
+            { id: 28, category: "原告適格", text: "保安林指定解除の取り消しを求める周辺住人①処分性あり②原告適格あり③訴えの利益はなしになった", answer: "○" },
+            { id: 29, category: "原告適格", text: "航空運送事業免許の取り消しを求める飛行場周辺住民", answer: "○" },
+            { id: 30, category: "原告適格", text: "都市計画事業認可の取り消しを求める周辺住民", answer: "○" },
+            { id: 31, category: "原告適格", text: "原子炉の設置許可を争う周辺住民", answer: "○" },
+            { id: 32, category: "原告適格", text: "場外車券発売施設の設置許可の取り消しを求める、区域内の医療施設開設者", answer: "○" },
+            { id: 33, category: "原告適格", text: "質屋営業の許可の取り消しを求める既存業者", answer: "×" },
+            { id: 34, category: "原告適格", text: "史跡指定解除処分の取り消しを求める学術研究者", answer: "×" },
+            { id: 35, category: "原告適格", text: "鉄道の特急料金認可の取り消しを求める利用者", answer: "×" },
+            { id: 36, category: "原告適格", text: "風俗営業許可の取り消しを求める周辺住民", answer: "×" },
+            { id: 37, category: "原告適格", text: "町名の変更を争う周辺住民", answer: "×" },
+            { id: 38, category: "原告適格", text: "農地転用許可を争う隣地の所有者", answer: "×" },
+            { id: 39, category: "原告適格", text: "景表法に基づく不服申立人適格_主婦連ジュース不当表示事件", answer: "×" },
+            { id: 40, category: "原告適格", text: "場外車券発売施設の設置許可の取り消しを求める、区域内の周辺住民や医療施設の利用者や医療以外の事業者", answer: "×" },
+            { id: 41, category: "原告適格", text: "場外車券発売施設の設置許可の取り消しを求める、事業者（医療以外）", answer: "×" },
+            { id: 42, category: "狭義の訴えの利益", text: "運転免許停止処分", answer: "×" },
+            { id: 43, category: "狭義の訴えの利益", text: "都市計画_市街化区域", answer: "×" },
+            { id: 44, category: "狭義の訴えの利益", text: "生活保護の変更", answer: "×" },
+            { id: 45, category: "狭義の訴えの利益", text: "工事が完了した場合の建築確認（建築確認の取消訴訟で安全認定の違法は主張できる）", answer: "×" },
+            { id: 46, category: "狭義の訴えの利益", text: "土地収用における明け渡し裁決", answer: "×" },
+            { id: 47, category: "狭義の訴えの利益", text: "保安林指定の解除処分①処分性あり②原告適格はあった③訴えの利益なし", answer: "×" },
+            { id: 48, category: "狭義の訴えの利益", text: "保育所排除条例の制定①処分性あり②原告適格は？(保育の実施期間がすべて満了)", answer: "×" },
+            { id: 49, category: "狭義の訴えの利益", text: "衆議院議員選挙", answer: "×" },
+            { id: 50, category: "狭義の訴えの利益", text: "運転免許取り消し", answer: "○" },
+            { id: 51, category: "狭義の訴えの利益", text: "都市計画_市街化調整区域", answer: "○" },
+            { id: 52, category: "狭義の訴えの利益", text: "公務員の免職（給料請求できるから意味ある）", answer: "○" },
+            { id: 53, category: "狭義の訴えの利益", text: "土地改良事業の施工認可処分", answer: "○" },
+            { id: 54, category: "狭義の訴えの利益", text: "公文書の非公開決定", answer: "○" },
+            { id: 55, category: "狭義の訴えの利益", text: "優良運転者の記載がない", answer: "○" },
+            { id: 56, category: "処分性_規範？", text: "公立小学校を廃止する条例（当該条例は一般的規範を定めるにすぎないもの）", answer: "×" },
+            { id: 57, category: "処分性_", text: "土壌汚染対策上の施設廃止通知", answer: "○" },
+            { id: 58, category: "処分性_", text: "新幹線工事実地計画、公共施設管理者、水道料金の条例、教育委員会の教育長から学校長に宛てた通達、道路判定、計画系、公務員内定通知、公共施設、出生届、国歌", answer: "×" },
+            { id: 59, category: "処分性_", text: "供託金取戻請求、関税、登記官、食品衛生法の検疫所長、過誤納金の還付の通知請求、保育所、土壌汚染", answer: "○" },
+            { id: 60, category: "原告適格_", text: "病院開設_周辺の医師、公有水面埋免許_周辺海域の漁民", answer: "×" },
+            { id: 61, category: "原告適格_", text: "急傾斜地の開発許可、総合設計許可_周辺住民、場外車券（医療施設）、産廃、廃棄物", answer: "○" },
+            { id: 62, category: "狭義の訴えの利益_", text: "公文書公開後の非公開処分取消訴訟、不利益継続中の営業停止取消し", answer: "○" },
+            { id: 63, category: "狭義の訴えの利益_", text: "メーデー経過後の皇居外苑(申請にかかる使用期日を経過)、再入国、保育所", answer: "×" }
+        ];
+
+        // localStorageから正解・不正解回数を取得
+        function getCounts(id) {
+            const correctCount = parseInt(localStorage.getItem(`BBBcorrect_${id}`) || '0', 10);
+            const incorrectCount = parseInt(localStorage.getItem(`BBBincorrect_${id}`) || '0', 10);
+            return { correctCount, incorrectCount };
+        }
+
+        // 回数の更新
+        function updateCounts(id, isCorrect) {
+            const key = isCorrect ? `BBBcorrect_${id}` : `BBBincorrect_${id}`;
+            const count = parseInt(localStorage.getItem(key) || '0', 10) + 1;
+            localStorage.setItem(key, count);
+        }
+
+// 加重ランダムで問題を取得
+function getWeightedRandomQuestion() {
+    const weightedQuestions = [];
+    questions.forEach(question => {
+        const { correctCount, incorrectCount } = getCounts(question.id);
+        
+        // 正解数が不正解数より3回以上多い場合は出題リストから除外
+        if (correctCount - incorrectCount >= 3) {
+            return; // この問題をスキップ
+        }
+        
+        const weight = Math.max(1, incorrectCount - correctCount + 3);
+        for (let i = 0; i < weight; i++) {
+            weightedQuestions.push(question);
+        }
+    });
+    return weightedQuestions[Math.floor(Math.random() * weightedQuestions.length)];
+}
+
+        // クイズ表示
+        function showQuestion() {
+            const question = getWeightedRandomQuestion();
+            const { correctCount, incorrectCount } = getCounts(question.id);
+            const container = document.getElementById("quiz-container");
+            const questionDiv = document.createElement("div");
+            questionDiv.classList.add("question");
+            questionDiv.innerHTML = `
+                <strong>[${question.category}] ${question.text}</strong> - 
+                <small>正解: ${correctCount}回 / 不正解: ${incorrectCount}回</small><br>
+                <button onclick="checkAnswer(${question.id}, '${question.answer}', '○', this)">○</button>
+                <button onclick="checkAnswer(${question.id}, '${question.answer}', '×', this)">×</button>
+                <p class="result"></p>
+            `;
+            container.appendChild(questionDiv);
+        }
+
+        // 回答チェック
+        function checkAnswer(id, correctAnswer, userAnswer, button) {
+            const result = button.parentElement.querySelector(".result");
+            const questionDiv = button.parentElement;
+            const isCorrect = userAnswer === correctAnswer;
+            result.textContent = `あなたの答え: ${userAnswer} - ${isCorrect ? "正解！" : "不正解"}`;
+            result.style.color = isCorrect ? "blue" : "red";
+            updateCounts(id, isCorrect);
+
+            if (correctAnswer === "○") {
+                questionDiv.classList.add("answer-true");
+            } else {
+                questionDiv.classList.add("answer-false");
+            }
+
+            // 次の問題を表示
+            showQuestion();
+        }
+
+        // 初回の問題表示
+        showQuestion();
+    </script>
+</body>
+</html>

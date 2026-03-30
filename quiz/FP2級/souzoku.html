@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>二択クイズ（FP2級・相続・事業承継）</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { margin-bottom: 8px; }
+    .desc { color:#666; margin-bottom: 16px; }
+    .kaisetu { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #ccc; font-size: 14px; line-height: 1.6; white-space: pre-wrap;}
+    .question { margin: 20px 0 20px 40px; padding: 12px; border: 1px solid #ddd; background: #f9f9f9; border-radius: 8px; }
+    .meta { font-size: 12px; color:#666; }
+    .choices { margin-top: 10px; }
+    button.choice { font-size: 18px; padding: 8px 16px; margin: 6px 10px 6px 0; border-radius: 8px; border: 1px solid #ccc; cursor: pointer; }
+    .result { margin-top: 8px; font-weight: bold; }
+    .correct { color: #0b63c5; }
+    .incorrect { color: #d11a2a; }
+    .done { opacity: .65; }
+
+    .manager { margin-top: 28px; padding: 16px; border: 1px solid #ddd; border-radius: 10px; background: #fafafa; }
+    .manager h2 { margin: 0 0 12px; font-size: 18px; }
+    .row { display: grid; grid-template-columns: 120px 1fr; gap: 8px; margin-bottom: 8px; align-items: center; }
+    .row input[type="text"], .row textarea { width: 100%; padding: 6px 8px; border: 1px solid #ccc; border-radius: 6px; }
+    .row textarea { min-height: 80px; font-family: inherit; }
+    .btns { margin-top: 10px; }
+    .btns button { margin-right: 8px; padding: 8px 12px; border: 1px solid #bbb; border-radius: 8px; background: #fff; cursor: pointer; }
+    .list { margin-top: 14px; }
+    .list table { width: 100%; border-collapse: collapse; }
+    .list th, .list td { border: 1px solid #e5e5e5; padding: 6px 8px; text-align: left; vertical-align: top; }
+    .list th { background: #f1f1f1; }
+    .pill { display: inline-block; padding: 2px 6px; border-radius: 999px; background: #eef4ff; border: 1px solid #cbd9ff; font-size: 12px; }
+    .danger { color: #b00020; }
+    .muted { color:#777; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <h1>二択クイズ（FP2級・相続・事業承継）</h1>
+  <div class="desc">○×から<strong>二択</strong>に改造版。回答後に解説（kaisetu）が表示されます。問題は下の「問題管理」で追加・編集・削除できます。</div>
+  <div class="desc"><a href="souzoku2.html">2へ（理解問題）</a> / <a href="index.html">indexへ</a></div>
+  <div id="quiz-container"></div>
+
+  <div class="manager" id="manager">
+    <h2>問題管理</h2>
+    <div class="row"><label for="m-id">id</label><input id="m-id" type="text" placeholder="例: 1" /></div>
+    <div class="row"><label for="m-category">category</label><input id="m-category" type="text" placeholder="例: 相続" /></div>
+    <div class="row"><label for="m-text">text</label><textarea id="m-text" placeholder="問題文"></textarea></div>
+    <div class="row"><label for="m-answer">answer</label><input id="m-answer" type="text" placeholder="正解（文字列）" /></div>
+    <div class="row"><label for="m-matigai">matigai</label><input id="m-matigai" type="text" placeholder="誤り（文字列）" /></div>
+    <div class="row"><label for="m-kaisetu">kaisetu</label><textarea id="m-kaisetu" placeholder="任意。HTML可（自己利用前提）"></textarea></div>
+    <div class="btns">
+      <button id="m-save">新規追加/更新</button>
+      <button id="m-clear-form">フォームをクリア</button>
+      <button id="m-reset-learning">学習履歴のみリセット</button>
+      <button id="m-export">JSONエクスポート</button>
+      <button id="m-import">JSONインポート</button>
+    </div>
+    <div class="row" style="grid-template-columns:1fr;">
+      <textarea id="m-json" placeholder='エクスポート/インポート用のJSONがここに表示・貼り付けされます' style="min-height:100px;"></textarea>
+    </div>
+    <div class="list" id="m-list"></div>
+    <div class="muted">保存先：localStorage（キー: <code>FP2_souzoku_questions</code>）。既定データは初回ロード時のみ適用。</div>
+  </div>
+
+  <script>
+    const initialQuestions = [
+      { id: 1, category: "相続税計算", text: "相続税の基礎控除額の式はXX", answer: "3,000万円 + 600万円×法定相続人", matigai: "5,000万円 + 300万円×法定相続人" },
+      { id: 2, category: "法定相続分", text: "配偶者と子が相続人の場合、配偶者の法定相続分はXX", answer: "1/2", matigai: "2/3" },
+      { id: 3, category: "法定相続分", text: "配偶者と直系尊属が相続人の場合、配偶者の法定相続分はXX", answer: "2/3", matigai: "1/2" },
+      { id: 4, category: "法定相続分", text: "配偶者と兄弟姉妹が相続人の場合、配偶者の法定相続分はXX", answer: "3/4", matigai: "2/3" },
+      { id: 5, category: "遺留分", text: "兄弟姉妹の遺留分はXX", answer: "ない", matigai: "ある" },
+      { id: 6, category: "相続手続", text: "相続放棄・限定承認の申述期限は原則XXカ月以内", answer: "3", matigai: "6" },
+      { id: 7, category: "相続税", text: "配偶者の税額軽減の基準額は法定相続分または1億XX万円", answer: "6,000", matigai: "5,000" },
+      { id: 8, category: "生命保険", text: "相続税の死亡保険金非課税枠は500万円×XX", answer: "法定相続人の数", matigai: "実際の相続人の数" },
+      { id: 9, category: "財産評価", text: "小規模宅地等の特例（特定居住用）の限度面積はXXm2", answer: "330", matigai: "200" },
+      { id: 10, category: "財産評価", text: "小規模宅地等の特例（特定居住用）の減額割合はXX%", answer: "80", matigai: "50" },
+      { id: 11, category: "相続税", text: "相続税の申告・納付期限は相続開始を知った日の翌日からXXカ月以内", answer: "10", matigai: "12" },
+      { id: 12, category: "贈与税", text: "贈与税の基礎控除額（暦年課税）は年間XX万円", answer: "110", matigai: "120" },
+      { id: 13, category: "贈与税", text: "相続時精算課税制度の特別控除額は累計XX万円", answer: "2,500", matigai: "1,500" },
+      { id: 14, category: "相続税", text: "配偶者税額軽減の基準額は法定相続分または1億XX万円", answer: "6,000", matigai: "5,000" },
+      { id: 15, category: "相続", text: "代襲相続で甥姪が相続人となるのは兄弟姉妹の代襲でXX代まで", answer: "1", matigai: "2" },
+      { id: 16, category: "遺言", text: "公正証書遺言の作成に必要な証人はXX人", answer: "2", matigai: "1" },
+      { id: 17, category: "遺言", text: "自筆証書遺言は財産目録を除き原則全文XX", answer: "自書", matigai: "ワープロ作成" },
+      { id: 18, category: "贈与税", text: "夫婦間の居住用不動産贈与の配偶者控除額は最高XX万円", answer: "2,000", matigai: "1,000" },
+      { id: 19, category: "財産評価", text: "路線価方式の路線価は通常1m2当たりXX円単位で表示", answer: "1,000", matigai: "10,000" },
+      { id: 20, category: "相続税計算", text: "相続税総額計算は実際取得額ではなく法定相続分ベースで一次計算XX", answer: "する", matigai: "しない" },
+      { id: 21, category: "財産評価", text: "貸家建付地の評価は『自用地評価額×（1−借地権割合×XX）』で行う", answer: "借家権割合×賃貸割合", matigai: "配偶者控除割合" },
+      { id: 22, category: "相続税", text: "相続税基礎控除の計算式は3,000万円+XX", answer: "600万円×法定相続人の数", matigai: "500万円×実相続人の数" },
+      { id: 23, category: "相続税", text: "生命保険金非課税枠の式は500万円×XX", answer: "法定相続人の数", matigai: "受取人の数" },
+      { id: 24, category: "財産評価", text: "特定居住用宅地の小規模宅地特例は限度330m2・減額XX%", answer: "80", matigai: "50" }
+    ];
+
+    const STORAGE_KEY_Q = 'FP2_souzoku_questions';
+    const FREQ_META = {
+      "相続税計算": { count: "4回中3回以上", reason: "基礎控除式と総額計算手順は毎回級の論点" },
+      "法定相続分": { count: "4回中3回以上", reason: "配偶者+各親族の相続分は反復出題される" },
+      "遺留分": { count: "4回中2〜3回", reason: "兄弟姉妹の遺留分なしは典型ひっかけ論点" },
+      "相続手続": { count: "4回中2〜3回", reason: "3カ月/10カ月の期限問題が定番" },
+      "相続税": { count: "4回中3回以上", reason: "配偶者軽減・非課税枠は類似出題が多い" },
+      "生命保険": { count: "4回中2〜3回", reason: "500万円×法定相続人の非課税枠は高頻度" },
+      "財産評価": { count: "4回中3回以上", reason: "小規模宅地・路線価・貸家建付地が繰返し問われる" },
+      "贈与税": { count: "4回中2〜3回", reason: "暦年110万円・精算2,500万円は定番数字" },
+      "相続": { count: "4回中2回前後", reason: "代襲相続の範囲判定が定期的に再出題される" },
+      "遺言": { count: "4回中2回前後", reason: "公正証書遺言・自筆証書遺言の要件比較が頻出" }
+    };
+
+    function withKaisetu(q) {
+      const meta = FREQ_META[q.category] || { count: "4回中2回前後", reason: "類似・関連問題の再出題傾向があるため" };
+      const base = (q.kaisetu && q.kaisetu.trim()) ? q.kaisetu.trim() : `正解は「${q.answer}」。`;
+      if (base.includes("頻出理由:")) return q;
+      return {
+        ...q,
+        kaisetu: `${base}\n頻出理由: ${meta.reason}\n過去出題目安: ${meta.count}`
+      };
+    }
+
+    function loadQuestions() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY_Q);
+        if (!raw) return initialQuestions.slice().map(withKaisetu);
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) return initialQuestions.slice().map(withKaisetu);
+        return parsed.map(withKaisetu);
+      } catch (_) {
+        return initialQuestions.slice().map(withKaisetu);
+      }
+    }
+
+    function saveQuestions(qs) {
+      localStorage.setItem(STORAGE_KEY_Q, JSON.stringify(qs));
+    }
+
+    let questions = loadQuestions();
+
+    function getCounts(id) {
+      const correctCount = parseInt(localStorage.getItem(`FP2soucorrect_${id}`) || '0', 10);
+      const incorrectCount = parseInt(localStorage.getItem(`FP2souincorrect_${id}`) || '0', 10);
+      return { correctCount, incorrectCount };
+    }
+
+    function updateCounts(id, isCorrect) {
+      const key = isCorrect ? `FP2soucorrect_${id}` : `FP2souincorrect_${id}`;
+      const count = parseInt(localStorage.getItem(key) || '0', 10) + 1;
+      localStorage.setItem(key, count);
+    }
+
+    function isGraduated(correctCount, incorrectCount) {
+      return (correctCount - incorrectCount) >= 3;
+    }
+
+    function weightFromCounts(correctCount, incorrectCount) {
+      return Math.max(1, (incorrectCount - correctCount) + 3);
+    }
+
+    function shuffle(arr) {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function getWeightedRandomQuestion() {
+      const weighted = [];
+      for (const q of questions) {
+        const { correctCount, incorrectCount } = getCounts(q.id);
+        if (isGraduated(correctCount, incorrectCount)) continue;
+        const weight = weightFromCounts(correctCount, incorrectCount);
+        for (let i = 0; i < weight; i++) weighted.push(q);
+      }
+      if (weighted.length === 0) return null;
+      return weighted[Math.floor(Math.random() * weighted.length)];
+    }
+
+    function showQuestion() {
+      const q = getWeightedRandomQuestion();
+      const container = document.getElementById('quiz-container');
+
+      if (!q) {
+        const box = document.createElement('div');
+        box.className = 'question';
+        box.innerHTML = `
+          <div><strong>おめでとう！全問題を卒業しています。</strong></div>
+          <div class="meta">学習をやり直す場合は「学習履歴のみリセット」を押してね。</div>
+        `;
+        container.appendChild(box);
+        return;
+      }
+
+      const { correctCount, incorrectCount } = getCounts(q.id);
+      const box = document.createElement('div');
+      box.className = 'question';
+      const choices = shuffle([q.answer, q.matigai]);
+
+      box.innerHTML = `
+        <div class="meta"><strong>[${q.category}]</strong> id:${q.id}</div>
+        <div><strong>${q.text}</strong></div>
+        <div class="meta">正解: ${correctCount}回 / 不正解: ${incorrectCount}回</div>
+        <div class="choices"></div>
+        <p class="result"></p>
+        <div class="kaisetu"></div>
+      `;
+
+      const choicesDiv = box.querySelector('.choices');
+      const expDiv = box.querySelector('.kaisetu');
+      expDiv.style.display = 'none';
+      if (q.kaisetu) expDiv.innerHTML = q.kaisetu;
+
+      choices.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'choice';
+        btn.textContent = opt;
+        btn.addEventListener('click', () => checkAnswer(q, opt, box));
+        choicesDiv.appendChild(btn);
+      });
+
+      container.appendChild(box);
+    }
+
+    function disableButtons(box) {
+      box.querySelectorAll('button.choice').forEach(b => { b.disabled = true; b.classList.add('done'); });
+    }
+
+    function checkAnswer(question, userAnswer, box) {
+      const isCorrect = userAnswer === question.answer;
+      const result = box.querySelector('.result');
+      result.textContent = `あなたの答え: ${userAnswer} - ${isCorrect ? '正解！' : '不正解'}`;
+      result.className = 'result ' + (isCorrect ? 'correct' : 'incorrect');
+
+      updateCounts(question.id, isCorrect);
+      disableButtons(box);
+
+      const expDiv = box.querySelector('.kaisetu');
+      if (expDiv) expDiv.style.display = '';
+
+      showQuestion();
+    }
+
+    function fillForm(q = null) {
+      document.getElementById('m-id').value = q ? q.id : '';
+      document.getElementById('m-category').value = q ? q.category : '';
+      document.getElementById('m-text').value = q ? q.text : '';
+      document.getElementById('m-answer').value = q ? q.answer : '';
+      document.getElementById('m-matigai').value = q ? q.matigai : '';
+      document.getElementById('m-kaisetu').value = q && q.kaisetu ? q.kaisetu : '';
+    }
+
+    function readForm() {
+      const idRaw = document.getElementById('m-id').value.trim();
+      const id = idRaw.match(/^\d+$/) ? parseInt(idRaw, 10) : idRaw;
+      return {
+        id,
+        category: document.getElementById('m-category').value.trim(),
+        text: document.getElementById('m-text').value.trim(),
+        answer: document.getElementById('m-answer').value.trim(),
+        matigai: document.getElementById('m-matigai').value.trim(),
+        kaisetu: document.getElementById('m-kaisetu').value
+      };
+    }
+
+    function renderList() {
+      const root = document.getElementById('m-list');
+      if (!questions.length) {
+        root.innerHTML = '<div class="muted">（問題がありません）</div>';
+        return;
+      }
+      const rows = questions.map(q => `
+        <tr>
+          <td class="muted">${q.id}</td>
+          <td>${q.category}</td>
+          <td>${q.text}</td>
+          <td><span class="pill">${q.answer}</span> / ${q.matigai}</td>
+          <td>${q.kaisetu ? 'あり' : '—'}</td>
+          <td>
+            <button data-act="edit" data-id="${q.id}">編集</button>
+            <button data-act="del" data-id="${q.id}" class="danger">削除</button>
+          </td>
+        </tr>`).join('');
+      document.getElementById('m-list').innerHTML = `
+        <table>
+          <thead>
+            <tr><th>id</th><th>category</th><th>text</th><th>answer/matigai</th><th>kaisetu</th><th>操作</th></tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>`;
+
+      document.querySelectorAll('#m-list button[data-act]')
+        .forEach(btn => btn.addEventListener('click', e => {
+          const act = e.currentTarget.getAttribute('data-act');
+          const idStr = e.currentTarget.getAttribute('data-id');
+          const id = idStr.match(/^\d+$/) ? parseInt(idStr, 10) : idStr;
+          const idx = questions.findIndex(x => x.id === id);
+          if (idx < 0) return;
+          if (act === 'edit') {
+            fillForm(questions[idx]);
+            window.scrollTo({ top: document.getElementById('manager').offsetTop - 10, behavior: 'smooth' });
+          } else if (act === 'del') {
+            if (!confirm('この問題を削除します。よろしいですか？')) return;
+            questions.splice(idx, 1);
+            saveQuestions(questions);
+            renderList();
+          }
+        }));
+    }
+
+    function attachManagerEvents() {
+      document.getElementById('m-save').addEventListener('click', () => {
+        const data = readForm();
+        if (!data.id || !data.category || !data.text || !data.answer || !data.matigai) {
+          alert('id / category / text / answer / matigai は必須です');
+          return;
+        }
+        const idx = questions.findIndex(q => q.id === data.id);
+        if (idx >= 0) {
+          questions[idx] = { ...questions[idx], ...data };
+        } else {
+          questions.push(data);
+        }
+        saveQuestions(questions);
+        renderList();
+        fillForm(null);
+      });
+
+      document.getElementById('m-clear-form').addEventListener('click', () => fillForm(null));
+
+      document.getElementById('m-reset-learning').addEventListener('click', () => {
+        if (!confirm('全問題の学習履歴（正解/不正解カウント）をリセットします。よろしいですか？')) return;
+        questions.forEach(q2 => {
+          localStorage.removeItem(`FP2soucorrect_${q2.id}`);
+          localStorage.removeItem(`FP2souincorrect_${q2.id}`);
+        });
+        document.getElementById('quiz-container').innerHTML = '';
+        showQuestion();
+      });
+
+      document.getElementById('m-export').addEventListener('click', () => {
+        document.getElementById('m-json').value = JSON.stringify(questions, null, 2);
+      });
+
+      document.getElementById('m-import').addEventListener('click', () => {
+        try {
+          const txt = document.getElementById('m-json').value.trim();
+          if (!txt) { alert('JSONを貼り付けてください'); return; }
+          const arr = JSON.parse(txt);
+          if (!Array.isArray(arr)) { alert('配列(JSON array)を貼ってください'); return; }
+          const ok = arr.every(x => x && x.id != null && x.category && x.text && x.answer && x.matigai);
+          if (!ok) { alert('必要フィールド(id, category, text, answer, matigai)が足りない要素があります'); return; }
+          questions = arr;
+          saveQuestions(questions);
+          renderList();
+          alert('インポートしました');
+        } catch (e) {
+          alert('JSONの解析に失敗しました: ' + e.message);
+        }
+      });
+    }
+
+    function boot() {
+      showQuestion();
+      renderList();
+      attachManagerEvents();
+      console.assert(isGraduated(3,0) && isGraduated(10,1), '卒業判定 OK');
+      console.assert(weightFromCounts(0,0)===3 && weightFromCounts(2,0)===1, '重み計算 OK');
+    }
+
+    boot();
+  </script>
+</body>
+</html>

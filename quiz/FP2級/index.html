@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FP2級 二択クイズ</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 40px 20px;
+      background: #f5f5f5;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 32px;
+    }
+    .card {
+      display: block;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-bottom: 14px;
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 0.15s, border-color 0.15s;
+    }
+    .card:hover {
+      border-color: #99b;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .card .num {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      line-height: 28px;
+      text-align: center;
+      border-radius: 50%;
+      background: #eef4ff;
+      border: 1px solid #cbd9ff;
+      font-size: 14px;
+      font-weight: bold;
+      color: #336;
+      margin-right: 12px;
+    }
+    .card .title {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .card .desc {
+      margin-top: 4px;
+      margin-left: 40px;
+      font-size: 13px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>FP2級 二択クイズ</h1>
+    <p class="subtitle">科目を選んで学習を始めましょう</p>
+    <p class="subtitle" style="margin-top:-20px;"><a href="index2.html">理解問題（index2）へ</a></p>
+
+    <a class="card" href="life.html">
+      <span class="num">1</span><span class="title">ライフプランニングと資金計画</span>
+      <div class="desc">社会保険・公的年金・住宅ローン・教育資金 など</div>
+    </a>
+
+    <a class="card" href="risk.html">
+      <span class="num">2</span><span class="title">リスク管理</span>
+      <div class="desc">生命保険・損害保険・第三分野の保険 など</div>
+    </a>
+
+    <a class="card" href="kinyu.html">
+      <span class="num">3</span><span class="title">金融資産運用</span>
+      <div class="desc">債券・株式・投資信託・ポートフォリオ理論 など</div>
+    </a>
+
+    <a class="card" href="tax.html">
+      <span class="num">4</span><span class="title">タックスプランニング</span>
+      <div class="desc">所得税・住民税・法人税・消費税 など</div>
+    </a>
+
+    <a class="card" href="fudosan.html">
+      <span class="num">5</span><span class="title">不動産</span>
+      <div class="desc">不動産取引・借地借家法・都市計画法・建築基準法 など</div>
+    </a>
+
+    <a class="card" href="souzoku.html">
+      <span class="num">6</span><span class="title">相続・事業承継</span>
+      <div class="desc">相続税・贈与税・事業承継・財産評価 など</div>
+    </a>
+  </div>
+</body>
+</html>

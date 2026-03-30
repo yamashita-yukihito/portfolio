@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>○×クイズ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .question {
+            margin: 20px 0 20px 40px; /* 左側にマージンを追加 */
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+        .answer-true {
+            background-color: #add8e6; /* 正解が◯の場合の青背景 */
+        }
+        .answer-false {
+            background-color: #7d7d7d; /* 正解が×の場合の緑背景 */
+        }
+        button {
+            font-size: 20px; /* ボタンサイズを大きく */
+            padding: 10px 20px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>○×クイズ</h1>
+    <div id="quiz-container"></div>
+    <script>
+        // 問題リスト
+        const questions = [
+            { category: "処分性_私法上", text: "供託官", answer: "○" },
+            { category: "処分性_私法上", text: "労災", answer: "○" },
+            { category: "処分性_私法上", text: "普通財産の払下げ", answer: "×" },
+            { category: "処分性_私法上", text: "ごみ焼却場", answer: "×" },
+            { category: "処分性_私法上", text: "農地法に基づく農地売払", answer: "×" },
+            { category: "処分性_私法上", text: "公営福祉施設の民間移管", answer: "×" },
+            { category: "処分性_内部的行為", text: "建築許可に関する消防長の同意", answer: "×" },
+            { category: "処分性_内部的行為", text: "通達は処分性を有しない（墓地・埋葬の通達）", answer: "×" },
+            { category: "処分性_内部的行為", text: "校長の職務命令", answer: "×" },
+            { category: "処分性_規範定立行為", text: "2項道路", answer: "○" },
+            { category: "処分性_規範定立行為", text: "保育所を廃止する条例の制定", answer: "○" },
+            { category: "処分性_規範定立行為", text: "簡易水道事業給水条例の制定", answer: "×" },
+            { category: "処分性_中間的行為", text: "土地改良", answer: "○" },
+            { category: "処分性_中間的行為", text: "第二種市街地最下位開発事業計画", answer: "○" },
+            { category: "処分性_中間的行為", text: "土地区画整理事業の事業計画決定", answer: "○" },
+            { category: "処分性_中間的行為", text: "都市計画の用途地域の指定", answer: "×" },
+            { category: "処分性_中間的行為", text: "都市計画法による地区計画", answer: "×" },
+            { category: "処分性_事実行為", text: "輸入禁制品の通知", answer: "○" },
+            { category: "処分性_事実行為", text: "病院開設中止勧告", answer: "○" },
+            { category: "処分性_事実行為", text: "税務署長の納税告知", answer: "○" },
+            { category: "処分性_事実行為", text: "登記機関のする還付請求の拒否通知", answer: "○" },
+            { category: "処分性_事実行為", text: "海難原因解明の裁決", answer: "×" },
+            { category: "処分性_事実行為", text: "道交法の反則金の通告", answer: "×" },
+            { category: "処分性_事実行為", text: "公共施設管理者の同意を拒否する行為", answer: "×" },
+            { category: "処分性_事実行為", text: "住民票に世帯主と続柄を記載する行為", answer: "×" },
+            { category: "原告適格", text: "浄化槽清掃業の新規許可を争う既存業者", answer: "○" },
+            { category: "原告適格", text: "公衆浴場の許可の取り消しを求める既存業者_無効確認", answer: "○" },
+            { category: "原告適格", text: "保安林指定解除の取り消しを求める周辺住人", answer: "○" },
+            { category: "原告適格", text: "航空運送事業免許の取り消しを求める飛行場周辺住民", answer: "○" },
+            { category: "原告適格", text: "都市計画事業認可の取り消しを求める周辺住民", answer: "○" },
+            { category: "原告適格", text: "原子炉の設置許可を争う周辺住民", answer: "○" },
+            { category: "原告適格", text: "場外車券発売施設の設置許可の取り消しを求める、区域内の医療施設開設者", answer: "○" },
+            { category: "原告適格", text: "質屋営業の許可の取り消しを求める既存業者", answer: "×" },
+            { category: "原告適格", text: "史跡指定解除処分の取り消しを求める学術研究者", answer: "×" },
+            { category: "原告適格", text: "鉄道の特急料金認可の取り消しを求める利用者", answer: "×" },
+            { category: "原告適格", text: "風俗営業許可の取り消しを求める周辺住民", answer: "×" },
+            { category: "原告適格", text: "町名の変更を争う周辺住民", answer: "×" },
+            { category: "原告適格", text: "農地転用許可を争う隣地の所有者", answer: "×" },
+            { category: "原告適格", text: "景表法に基づく不服申立人適格_主婦連ジュース不当表示事件", answer: "×" },
+            { category: "原告適格", text: "場外車券発売施設の設置許可の取り消しを求める、区域内の周辺住民や医療施設の利用者や医療以外の事業者", answer: "×" },
+            { category: "原告適格", text: "場外車券発売施設の設置許可の取り消しを求める、事業者（医療以外）", answer: "×" },
+            { category: "狭義の訴えの利益", text: "運転免許停止処分", answer: "×" },
+            { category: "狭義の訴えの利益", text: "都市計画_市街化区域", answer: "×" },
+            { category: "狭義の訴えの利益", text: "生活保護の変更", answer: "×" },
+            { category: "狭義の訴えの利益", text: "建築確認", answer: "×" },
+            { category: "狭義の訴えの利益", text: "土地収用における明け渡し裁決", answer: "×" },
+            { category: "狭義の訴えの利益", text: "保安林指定の解除処分", answer: "×" },
+            { category: "狭義の訴えの利益", text: "保育所排除条例の制定(処分性あり）", answer: "×" },
+            { category: "狭義の訴えの利益", text: "衆議院議員選挙", answer: "×" },
+            { category: "狭義の訴えの利益", text: "運転免許取り消し", answer: "○" },
+            { category: "狭義の訴えの利益", text: "都市計画_市街化調整区域", answer: "○" },
+            { category: "狭義の訴えの利益", text: "公務員の免職", answer: "○" },
+            { category: "狭義の訴えの利益", text: "土地改良事業の施工認可処分", answer: "○" },
+            { category: "狭義の訴えの利益", text: "公文書の非公開決定", answer: "○" },
+            { category: "狭義の訴えの利益", text: "優良運転者の記載がない", answer: "○" }
+        ];
+
+        // ランダムに問題を取得
+        function getRandomQuestion() {
+            return questions[Math.floor(Math.random() * questions.length)];
+        }
+
+        // クイズ表示
+        function showQuestion() {
+            const question = getRandomQuestion();
+            const container = document.getElementById("quiz-container");
+            const questionDiv = document.createElement("div");
+            questionDiv.classList.add("question");
+            questionDiv.innerHTML = `
+                <strong>[${question.category}] ${question.text}</strong><br>
+                <button onclick="checkAnswer('${question.answer}', '○', this)">○</button>
+                <button onclick="checkAnswer('${question.answer}', '×', this)">×</button>
+                <p class="result"></p>
+            `;
+            container.appendChild(questionDiv);
+        }
+
+        // 回答チェック
+        function checkAnswer(correctAnswer, userAnswer, button) {
+            const result = button.parentElement.querySelector(".result");
+            const questionDiv = button.parentElement;
+            result.textContent = `あなたの答え: ${userAnswer} - `;
+
+            if (userAnswer === correctAnswer) {
+                result.textContent += "正解！";
+                result.style.color = "blue";
+            } else {
+                result.textContent += "不正解";
+                result.style.color = "red";
+            }
+
+            // 問題の正解が「○」か「×」に応じて背景色を変更
+            if (correctAnswer === "○") {
+                questionDiv.classList.add("answer-true");
+            } else {
+                questionDiv.classList.add("answer-false");
+            }
+
+            // 次の問題を表示
+            showQuestion();
+        }
+
+        // 初回の問題表示
+        showQuestion();
+    </script>
+</body>
+</html>
