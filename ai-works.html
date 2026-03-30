@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI協調制作実績 | yamashita-yukihito Portfolio</title>
+  <meta name="description" content="2026年にClaude Code・GitHub Copilot・Gemini CLI・OpenClawの4つのAIと協働し構築した11以上のWebサービス、自動化パイプライン、テスト体制の詳細。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">yamashita-yukihito</a>
+    <button class="hamburger" aria-label="メニュー" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <i class="fas fa-bars"></i>
+    </button>
+    <ul class="nav-links">
+      <li><a href="index.html">トップ</a></li>
+      <li><a href="manual-works.html">手動制作実績</a></li>
+      <li><a href="ai-works.html" class="active">AI協調実績</a></li>
+      <li><a href="skills.html">スキル・資格</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Page Header -->
+<header class="page-header">
+  <h1>AI協調制作実績（2026年）</h1>
+  <p>Claude Code / GitHub Copilot / Gemini CLI / OpenClaw の4つのAIと協働し、2ヶ月弱で構築した自動化インフラ</p>
+</header>
+
+<!-- Content -->
+<section>
+  <div class="container">
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> トップページへ</a>
+
+    <div class="intro-box">
+      <p>
+        AIを「道具」として活用し、設計・実装・テスト・レビューの全工程を人間とAIが分担する協調開発スタイルで構築しました。
+        人間が方針決定・設計・品質判断を担い、AIが実装・テスト生成・コードレビューを担当。
+        この体制により、短期間で高品質なシステム群を効率的に構築しています。
+      </p>
+    </div>
+
+    <!-- A. VPS自動化インフラ -->
+    <div class="detail-card">
+      <h3>
+        <span>A. VPS 自動化インフラ全体</span>
+        <span class="badge ai">インフラ</span>
+      </h3>
+      <p>
+        Ubuntu VPS（3vCPU / 3.8GB RAM）上に11以上のWebサービスを構築・運用するインフラ基盤です。
+        Caddyをリバースプロキシとして使用し、Basic認証によるアクセス制御、
+        systemdによるサービス管理、cronによる定期タスクの自動実行を実現。
+        バックアップはGitによるソースコード管理と、GPG暗号化による日次自動バックアップの2層体制で、
+        データ損失リスクを最小化しています。
+        VPS再作成時の復旧手順書と自動復旧スクリプトも整備済みです。
+      </p>
+      <div class="tech-tags">
+        <span class="tech-tag ai">Ubuntu</span>
+        <span class="tech-tag ai">Caddy</span>
+        <span class="tech-tag ai">systemd</span>
+        <span class="tech-tag ai">Python</span>
+        <span class="tech-tag ai">Node.js</span>
+        <span class="tech-tag ai">SQLite</span>
+        <span class="tech-tag ai">GitHub</span>
+        <span class="tech-tag ai">GPG暗号化</span>
+      </div>
+      <div class="detail-card stats">
+        <div class="stat-item">Webサービス: <strong>11以上</strong></div>
+        <div class="stat-item">バックアップ: <strong>2層体制</strong></div>
+        <div class="stat-item">復旧: <strong>自動化済み</strong></div>
+      </div>
+    </div>
+
+    <!-- B. 運用監視ダッシュボード -->
+    <div class="detail-card">
+      <h3>
+        <span>B. 運用監視ダッシュボード</span>
+        <span class="badge ai">Webアプリ</span>
+      </h3>
+      <p>
+        20以上のページで構成される総合的な運用監視ダッシュボード。
+        Git活動のコミット頻度・コード複雑度分析、セキュリティ監査結果の可視化、
+        システムリソース（CPU/メモリ/ディスク）のリアルタイム監視、
+        cron実行履歴の追跡、バックアップ状態の確認、LLM API使用量の追跡など、
+        運用に必要な情報を一元管理しています。
+        GitHub Copilotとの連携により、70以上のタスクを自動実行する仕組みも構築。
+        Playwright E2Eテストで全ページの表示・リンク整合性を自動検証しています。
+      </p>
+      <div class="tech-tags">
+        <span class="tech-tag ai">Python / Flask</span>
+        <span class="tech-tag ai">SQLite</span>
+        <span class="tech-tag ai">Chart.js</span>
+        <span class="tech-tag ai">Playwright</span>
+        <span class="tech-tag ai">GitHub Copilot</span>
+      </div>
+      <div class="detail-card stats">
+        <div class="stat-item">ページ数: <strong>20以上</strong></div>
+        <div class="stat-item">ユニットテスト: <strong>60件</strong></div>
+        <div class="stat-item">自動タスク: <strong>70以上</strong></div>
+      </div>
+    </div>
+
+    <!-- C. AI自動化パイプライン群 -->
+    <div class="detail-card">
+      <h3>
+        <span>C. AI自動化パイプライン群</span>
+        <span class="badge ai">パイプライン</span>
+      </h3>
+      <p>
+        3つの独立したパイプラインで構成される自動化システム群です。
+      </p>
+      <p>
+        <strong>レビュー比較記事生成パイプライン</strong>は、8つのステージ
+        （judge→intent→outline→draft→smell→check→assemble→route）で
+        LLMを活用したブログ記事を自動生成します。117件のリグレッションテストで品質を担保。
+      </p>
+      <p>
+        <strong>バイラルコンテンツ収集パイプライン</strong>は、SearXNG（ローカルメタ検索エンジン）、
+        はてなブックマーク、X API v2を組み合わせ、話題のコンテンツを自動収集。毎日cronで実行。
+      </p>
+      <p>
+        <strong>CG画像集半自動制作パイプライン</strong>は、ComfyUI（MacBook、Tailscale VPN経由）で
+        AI画像生成→レビュー→テキスト焼き込み（縦書き対応）→ZIP/PDF出力までを半自動化します。
+      </p>
+      <div class="tech-tags">
+        <span class="tech-tag ai">Python</span>
+        <span class="tech-tag ai">LLM連携</span>
+        <span class="tech-tag ai">SearXNG</span>
+        <span class="tech-tag ai">X API v2</span>
+        <span class="tech-tag ai">ComfyUI</span>
+        <span class="tech-tag ai">Tailscale VPN</span>
+      </div>
+      <div class="detail-card stats">
+        <div class="stat-item">リグレッションテスト: <strong>117件</strong></div>
+        <div class="stat-item">パイプライン数: <strong>3本</strong></div>
+        <div class="stat-item">ステージ数: <strong>8（レビュー）</strong></div>
+      </div>
+    </div>
+
+    <!-- D. LM Chat / Image Gen -->
+    <div class="detail-card">
+      <h3>
+        <span>D. LM Chat / Image Gen Webインターフェース</span>
+        <span class="badge ai">Webアプリ</span>
+      </h3>
+      <p>
+        MacBook上で動作するLM Studio（ローカルLLM）とComfyUI（画像生成AI）の
+        Webフロントエンドです。ChatGPT風のUIでローカルLLMとチャットでき、
+        複数セッションの管理、会話のエクスポート/インポートに対応。
+        画像生成ではDynamic Promptsによるプロンプト展開、プロンプト履歴・お気に入り機能を搭載。
+        全てのデータはローカル（localStorage）に保存されるプライバシー重視の設計で、
+        サーバーサイドのログ記録を無効化しています。
+      </p>
+      <div class="tech-tags">
+        <span class="tech-tag ai">Python / Flask</span>
+        <span class="tech-tag ai">JavaScript</span>
+        <span class="tech-tag ai">localStorage</span>
+        <span class="tech-tag ai">LM Studio</span>
+        <span class="tech-tag ai">ComfyUI API</span>
+      </div>
+      <div class="detail-card stats">
+        <div class="stat-item">テスト: <strong>59件</strong></div>
+        <div class="stat-item">セッション: <strong>複数対応</strong></div>
+        <div class="stat-item">プライバシー: <strong>ログ無効</strong></div>
+      </div>
+    </div>
+
+    <!-- E. Discord Bot -->
+    <div class="detail-card">
+      <h3>
+        <span>E. Discord Bot「アンシア」</span>
+        <span class="badge ai">Bot</span>
+      </h3>
+      <p>
+        OpenClawフレームワーク上で動作するAIキャラクターBot。
+        Discordサーバー上で複数のAI（Claude Code / Gemini CLI / GitHub Copilot）の
+        協調作業ハブとして機能し、コマンドの発行やタスクの管理を行います。
+        自律heartbeat機能により、定期的にシステム状態を確認し、
+        必要に応じて自動的にメンテナンス作業を実行します。
+      </p>
+      <div class="tech-tags">
+        <span class="tech-tag ai">Node.js</span>
+        <span class="tech-tag ai">OpenClaw</span>
+        <span class="tech-tag ai">Discord API</span>
+        <span class="tech-tag ai">AI連携</span>
+      </div>
+      <div class="detail-card stats">
+        <div class="stat-item">連携AI: <strong>4種類</strong></div>
+        <div class="stat-item">テスト: <strong>37件</strong></div>
+      </div>
+    </div>
+
+    <!-- F. Discordログ検索WebUI -->
+    <div class="detail-card">
+      <h3>
+        <span>F. Discordログ検索WebUI</span>
+        <span class="badge ai">Webアプリ</span>
+      </h3>
+      <p>
+        Discordの会話ログをSQLite FTS5（全文検索エンジン）で高速に検索できるWebUI。
+        チャンネル・著者・日付によるフィルタリング、タイムライン表示に対応。
+        NDJSONフォーマットでのインポートにより、大量のログデータを効率的に取り込めます。
+        毎日cronで自動同期し、最新の会話ログが常に検索可能な状態を維持しています。
+      </p>
+      <div class="tech-tags">
+        <span class="tech-tag ai">Python / Flask</span>
+        <span class="tech-tag ai">SQLite FTS5</span>
+        <span class="tech-tag ai">JavaScript</span>
+        <span class="tech-tag ai">NDJSON</span>
+      </div>
+      <div class="detail-card stats">
+        <div class="stat-item">テスト: <strong>31件</strong></div>
+        <div class="stat-item">同期: <strong>日次自動</strong></div>
+      </div>
+    </div>
+
+    <!-- G. ブログサルベージツール -->
+    <div class="detail-card">
+      <h3>
+        <span>G. ブログサルベージツール</span>
+        <span class="badge ai">Webアプリ</span>
+      </h3>
+      <p>
+        FC2・Livedoor・WordPress・汎用HTMLに対応した、ブログ記事の収集・保存エンジン。
+        Readability（Node.js）による記事本文の自動抽出、プレビューUI、
+        タグ管理、バルク操作（一括処理）、Markdownエクスポートなど、
+        記事のサルベージに必要な機能を包括的に提供します。
+      </p>
+      <div class="tech-tags">
+        <span class="tech-tag ai">Python / Flask</span>
+        <span class="tech-tag ai">Node.js (Readability)</span>
+        <span class="tech-tag ai">HTML解析</span>
+        <span class="tech-tag ai">Markdown</span>
+      </div>
+      <div class="detail-card stats">
+        <div class="stat-item">対応プラットフォーム: <strong>4種類</strong></div>
+        <div class="stat-item">テスト: <strong>14件</strong></div>
+      </div>
+    </div>
+
+    <!-- H. プロンプト比較ツール -->
+    <div class="detail-card">
+      <h3>
+        <span>H. プロンプト比較ツール（Prompt Compare）</span>
+        <span class="badge ai">Webアプリ</span>
+      </h3>
+      <p>
+        AI画像生成で使用するプロンプトの比較・評価を行うWebインターフェース。
+        異なるプロンプトで生成された画像を並べて比較し、効果的な表現を見つけるための
+        ツールとして活用しています。
+      </p>
+      <div class="tech-tags">
+        <span class="tech-tag ai">Python / Flask</span>
+        <span class="tech-tag ai">JavaScript</span>
+      </div>
+    </div>
+
+    <!-- I. 壊れた画像検出ツール -->
+    <div class="detail-card">
+      <h3>
+        <span>I. 壊れた画像検出ツール（Broken Image Analyzer）</span>
+        <span class="badge ai">ツール</span>
+      </h3>
+      <p>
+        Webサイト内の壊れた画像（404エラー、読み込み失敗）を自動検出するツール。
+        指定したURLをクロールし、全ての画像リンクの有効性を検証。
+        Webアプリ版（BI Web）も提供し、ブラウザから簡単に検査を実行できます。
+      </p>
+      <div class="tech-tags">
+        <span class="tech-tag ai">Python</span>
+        <span class="tech-tag ai">HTTPリクエスト</span>
+        <span class="tech-tag ai">Web解析</span>
+      </div>
+    </div>
+
+    <!-- J. テスト・品質保証体制 -->
+    <div class="detail-card">
+      <h3>
+        <span>J. テスト・品質保証体制</span>
+        <span class="badge ai">品質保証</span>
+      </h3>
+      <p>
+        全プロジェクトを横断する包括的なテスト・品質保証体制を構築。
+        Playwright E2Eテスト868件で全ページのビジュアル確認・パフォーマンス測定・リンク整合性を自動検証。
+        pytest ユニットテスト600件以上で各モジュールの動作を個別に検証。
+        GitHub CopilotによるPR自動レビューを組み込み、コード品質の維持を自動化しています。
+      </p>
+      <div class="tech-tags">
+        <span class="tech-tag ai">Playwright</span>
+        <span class="tech-tag ai">pytest</span>
+        <span class="tech-tag ai">GitHub Copilot</span>
+        <span class="tech-tag ai">E2Eテスト</span>
+        <span class="tech-tag ai">CI/CD</span>
+      </div>
+      <div class="detail-card stats">
+        <div class="stat-item">E2Eテスト: <strong>868件</strong></div>
+        <div class="stat-item">ユニットテスト: <strong>600件以上</strong></div>
+        <div class="stat-item">合計: <strong>1,463件</strong></div>
+      </div>
+    </div>
+
+    <!-- Gained Skills -->
+    <div class="gained-section">
+      <h2><i class="fas fa-seedling" style="margin-right:8px;"></i>この開発で培ったもの</h2>
+      <div class="gained-list">
+        <div class="gained-item">
+          <i class="fas fa-check-circle"></i>
+          <div>
+            <strong>AIとの協調開発スキル</strong>
+            <span>4種類のAIツールを使い分け、人間とAIの最適な役割分担で効率的に開発する手法を確立</span>
+          </div>
+        </div>
+        <div class="gained-item">
+          <i class="fas fa-check-circle"></i>
+          <div>
+            <strong>大規模テスト設計</strong>
+            <span>1,463件のテストを体系的に設計・管理し、継続的に品質を担保する体制を構築</span>
+          </div>
+        </div>
+        <div class="gained-item">
+          <i class="fas fa-check-circle"></i>
+          <div>
+            <strong>自動化・パイプライン設計</strong>
+            <span>複数ステージのパイプラインやcronジョブによる業務の自動化を設計・実装</span>
+          </div>
+        </div>
+        <div class="gained-item">
+          <i class="fas fa-check-circle"></i>
+          <div>
+            <strong>インフラ・セキュリティ</strong>
+            <span>VPS構築からリバースプロキシ設定、暗号化バックアップまでのインフラ運用を一人で完結</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:48px;">
+      <a href="index.html" class="back-link" style="font-size:1rem;"><i class="fas fa-arrow-left"></i> トップページへ戻る</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <p>&copy; 2026 yamashita-yukihito. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
