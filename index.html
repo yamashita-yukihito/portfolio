@@ -1,201 +1,635 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ポートフォリオ</title>
-    <style>
-        body {
-            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f8fafb;
-        }
-        header {
-            text-align: center;
-            padding: 60px 0;
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            margin-bottom: 40px;
-        }
-        h1 { margin: 0; color: #2c3e50; font-size: 2.5em; letter-spacing: 1px; }
-        .container { display: flex; flex-direction: column; gap: 30px; }
-        section {
-            background: #fff;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-        h2 { border-left: 6px solid #3498db; padding-left: 15px; color: #2c3e50; margin-bottom: 25px; font-size: 1.5em; }
-        
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 20px;
-        }
-        .project-card {
-            border: 1px solid #edf2f7;
-            padding: 24px;
-            border-radius: 10px;
-            background: #ffffff;
-            transition: all 0.3s ease;
-        }
-        .project-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px rgba(0,0,0,0.05); border-color: #3498db; }
-        .project-card h3 { margin-top: 0; color: #2d3748; font-size: 1.25em; border-bottom: 1px solid #edf2f7; padding-bottom: 10px; margin-bottom: 15px; }
-        .project-card p { font-size: 0.95em; color: #4a5568; margin-bottom: 15px; }
-        
-        .tech-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-        .tag {
-            background: #ebf8ff;
-            color: #2b6cb0;
-            font-size: 0.8em;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>yamashita-yukihito | Webエンジニア ポートフォリオ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        .cert-list {
-            list-style: none;
-            padding: 0;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 15px;
-        }
-        .cert-item {
-            background: #f1f7ff;
-            padding: 12px 18px;
-            border-radius: 8px;
-            border-left: 4px solid #3498db;
-            font-weight: bold;
-            color: #2c3e50;
-        }
+    html {
+      scroll-behavior: smooth;
+    }
 
-        .email-container { font-size: 1.2em; font-weight: bold; margin-top: 10px; }
-        footer { text-align: center; font-size: 0.85em; color: #a0aec0; margin-top: 60px; padding-bottom: 20px; }
-        a { color: #3498db; text-decoration: none; }
-        a:hover { text-decoration: underline; }
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 400;
+      line-height: 1.9;
+      color: #2d3436;
+      background-color: #fffef7;
+    }
 
-        @media (max-width: 600px) {
-            .project-grid { grid-template-columns: 1fr; }
-            section { padding: 25px; }
-        }
-    </style>
+    a {
+      color: #2d6a4f;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    a:hover {
+      color: #40916c;
+    }
+
+    /* Navigation */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #ffffff;
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    .site-nav .nav-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 14px 40px;
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .site-nav a {
+      font-size: 0.9em;
+      color: #636e72;
+      transition: color 0.2s ease;
+    }
+
+    .site-nav a:hover {
+      color: #2d6a4f;
+    }
+
+    .site-nav a.current {
+      color: #2d6a4f;
+      font-weight: 700;
+    }
+
+    /* Sections */
+    .section {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 80px 40px;
+    }
+
+    .section-divider {
+      max-width: 860px;
+      margin: 0 auto;
+      border: none;
+      border-top: 1px solid #e9ecef;
+    }
+
+    .section-title {
+      font-size: 1.6em;
+      font-weight: 700;
+      color: #2d3436;
+      margin-bottom: 12px;
+    }
+
+    .section-title i {
+      margin-right: 10px;
+      color: #40916c;
+    }
+
+    .section-subtitle {
+      color: #636e72;
+      font-size: 0.95em;
+      margin-bottom: 40px;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 100px 40px 80px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 2em;
+      font-weight: 700;
+      color: #2d3436;
+      margin-bottom: 8px;
+    }
+
+    .hero .subtitle {
+      font-size: 1.1em;
+      color: #40916c;
+      font-weight: 700;
+      margin-bottom: 28px;
+    }
+
+    .hero p {
+      color: #636e72;
+      max-width: 640px;
+      margin: 0 auto;
+      font-size: 0.95em;
+    }
+
+    /* Qualifications */
+    .qual-featured {
+      border: 1px solid #d8f3dc;
+      border-left: 4px solid #2d6a4f;
+      background: #ffffff;
+      border-radius: 6px;
+      padding: 24px 28px;
+      margin-bottom: 24px;
+    }
+
+    .qual-featured .qual-name {
+      font-size: 1.15em;
+      font-weight: 700;
+      color: #2d6a4f;
+    }
+
+    .qual-featured .qual-desc {
+      color: #636e72;
+      font-size: 0.9em;
+      margin-top: 6px;
+    }
+
+    .qual-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .qual-list li {
+      background: #ffffff;
+      border: 1px solid #e9ecef;
+      border-radius: 6px;
+      padding: 12px 20px;
+      font-size: 0.95em;
+      color: #2d3436;
+    }
+
+    .qual-list li i {
+      color: #40916c;
+      margin-right: 6px;
+    }
+
+    /* Project Cards */
+    .project-card {
+      border: 1px solid #e9ecef;
+      border-radius: 6px;
+      padding: 24px 28px;
+      margin-bottom: 16px;
+      background: #ffffff;
+    }
+
+    .project-card .project-number {
+      font-size: 0.8em;
+      color: #40916c;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .project-card h3 {
+      font-size: 1.05em;
+      font-weight: 700;
+      color: #2d3436;
+      margin-bottom: 8px;
+    }
+
+    .project-card p {
+      color: #636e72;
+      font-size: 0.9em;
+      margin-bottom: 12px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      background: #d8f3dc;
+      color: #2d6a4f;
+      font-size: 0.78em;
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-weight: 400;
+    }
+
+    .more-link {
+      display: inline-block;
+      margin-top: 28px;
+      font-weight: 700;
+      font-size: 0.95em;
+      color: #2d6a4f;
+    }
+
+    .more-link:hover {
+      color: #40916c;
+    }
+
+    /* AI Section */
+    .ai-section-bg {
+      background: #f0f4ff;
+    }
+
+    .ai-overview {
+      background: rgba(67, 97, 238, 0.06);
+      border: 1px solid rgba(67, 97, 238, 0.15);
+      border-radius: 6px;
+      padding: 20px 24px;
+      margin-bottom: 32px;
+      color: #2d3436;
+      font-size: 0.93em;
+    }
+
+    .ai-project-list {
+      list-style: none;
+    }
+
+    .ai-project-list li {
+      padding: 12px 0;
+      border-bottom: 1px solid #e9ecef;
+      font-size: 0.95em;
+    }
+
+    .ai-project-list li:last-child {
+      border-bottom: none;
+    }
+
+    .ai-project-list .ai-label {
+      display: inline-block;
+      width: 28px;
+      font-weight: 700;
+      color: #4361ee;
+    }
+
+    /* Tech Stack */
+    .tech-category {
+      margin-bottom: 20px;
+    }
+
+    .tech-category-name {
+      font-size: 0.85em;
+      font-weight: 700;
+      color: #636e72;
+      margin-bottom: 8px;
+    }
+
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tech-tag {
+      background: #d8f3dc;
+      color: #2d6a4f;
+      font-size: 0.82em;
+      padding: 4px 14px;
+      border-radius: 20px;
+    }
+
+    /* Contact */
+    .contact-item {
+      margin-bottom: 16px;
+      font-size: 0.95em;
+    }
+
+    .contact-item i {
+      color: #40916c;
+      margin-right: 8px;
+      width: 20px;
+      text-align: center;
+    }
+
+    /* Footer */
+    .site-footer {
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 0.82em;
+      color: #636e72;
+      border-top: 1px solid #e9ecef;
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .site-nav .nav-inner {
+        padding: 12px 20px;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+
+      .hero {
+        padding: 60px 20px 50px;
+      }
+
+      .hero h1 {
+        font-size: 1.5em;
+      }
+
+      .section {
+        padding: 50px 20px;
+      }
+
+      .section-title {
+        font-size: 1.3em;
+      }
+
+      .qual-featured {
+        padding: 18px 20px;
+      }
+
+      .qual-list {
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .project-card {
+        padding: 18px 20px;
+      }
+
+      .ai-overview {
+        padding: 16px 18px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<header>
-    <h1>ポートフォリオ</h1>
-    <p>Web Developer</p>
-</header>
+  <!-- Navigation -->
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="current">ホーム</a>
+      <a href="manual-works.html">手動制作実績</a>
+      <a href="ai-works.html">AI協調制作</a>
+      <a href="skills.html">スキル</a>
+    </div>
+  </nav>
 
-<div class="container">
-    <section id="works">
-        <h2>過去の制作実績</h2>
-        <div class="project-grid">
-            
-            <div class="project-card">
-                <h3>レンタカー予約・管理システム</h3>
-                <p>ユーザー向けサイトおよび店舗用管理画面の開発。バックエンドのほぼ全てと、フロントエンド（jQuery）の一部を担当。クレジットカード決済機能の実装も含まれます。</p>
-                <div class="tech-tags">
-                    <span class="tag">PHP</span><span class="tag">CakePHP2</span><span class="tag">jQuery</span><span class="tag">決済連携</span>
-                </div>
-            </div>
+  <!-- Hero -->
+  <section class="hero">
+    <h1>yamashita-yukihito</h1>
+    <div class="subtitle">Webエンジニア / AI協調開発者</div>
+    <p>2010年代より独学でWebシステムを開発し、情報処理安全確保支援士（登録セキスペ）を取得。2026年には複数のAIと協力しながら11以上のWebサービスを自力で設計・構築・運用しています。新しい技術への適応と、堅実な実装を両立することが私のスタイルです。</p>
+  </section>
 
-            <div class="project-card">
-                <h3>ローカルLLM実行環境の構築</h3>
-                <p>WSL2、Ubuntu、Docker等を用いてGPU(RTX 4070 Ti)を活用したローカルLLM実行環境を構築。Ollama、Open WebUI等を導入し、セキュアなAI活用環境を整備しました。</p>
-                <div class="tech-tags">
-                    <span class="tag">WSL2</span><span class="tag">Ubuntu</span><span class="tag">Docker</span><span class="tag">GPU最適化</span><span class="tag">Ollama</span>
-                </div>
-            </div>
+  <hr class="section-divider">
 
-            <div class="project-card">
-                <h3>車両リアルタイム位置管理システム</h3>
-                <p>SORACOM SIM搭載のIoT機器から送信される位置情報をNode.jsサーバーで受信。Google Maps APIと連携し、車両の現在地をブラウザ上で可視化するシステムを構築しました。</p>
-                <div class="tech-tags">
-                    <span class="tag">Node.js</span><span class="tag">PHP</span><span class="tag">IoT</span><span class="tag">Google Maps API</span>
-                </div>
-            </div>
+  <!-- Qualifications -->
+  <section class="section">
+    <h2 class="section-title"><i class="fas fa-certificate"></i>資格・認定</h2>
 
-            <div class="project-card">
-                <h3>業務効率化ユーザースクリプトの開発</h3>
-                <p>Tampermonkey等を利用したJavaScript開発。既存のWebサービスにクリップボードからの貼り付けボタンを追加するなど、個別のUI改善ツールを自作・運用しています。</p>
-                <div class="tech-tags">
-                    <span class="tag">JavaScript</span><span class="tag">Tampermonkey</span><span class="tag">UI改善</span>
-                </div>
-            </div>
+    <div class="qual-featured">
+      <div class="qual-name"><i class="fas fa-shield-halved"></i> 情報処理安全確保支援士（登録セキスペ）</div>
+      <div class="qual-desc">IPAが認定する高難度の国家資格。セキュリティのプロフェッショナルとして登録されています。</div>
+    </div>
 
-            <div class="project-card">
-                <h3>RSS自動収集アンテナサイト</h3>
-                <p>VPS構築、インフラ設定全般、DB設計、バックエンド、フロントエンドまで全ての工程を一人で担当。自作フレームワークを用い、cronによる自動更新機能を実装しました。</p>
-                <div class="tech-tags">
-                    <span class="tag">PHP</span><span class="tag">独自FW</span><span class="tag">VPS</span><span class="tag">インフラ構築</span>
-                </div>
-            </div>
+    <ul class="qual-list">
+      <li><i class="fas fa-check"></i>応用情報技術者</li>
+      <li><i class="fas fa-check"></i>簿記2級</li>
+      <li><i class="fas fa-check"></i>ビジネス実務法務検定2級</li>
+      <li><i class="fas fa-check"></i>FP3級</li>
+    </ul>
+  </section>
 
-            <div class="project-card">
-                <h3>YouTube API連携 自動投稿ツール</h3>
-                <p>YouTube Data APIを活用し、特定ワードの検索結果から動画紹介記事を自動生成・投稿するプログラムを開発。ブログ運用の自動化を実現しました。</p>
-                <div class="tech-tags">
-                    <span class="tag">PHP</span><span class="tag">YouTube API</span><span class="tag">自動化</span>
-                </div>
-            </div>
+  <hr class="section-divider">
 
-            <div class="project-card">
-                <h3>会員向けショッピングサイトの改修</h3>
-                <p>既存のショッピングサイトにおいて、ショッピングカートシステムを中心とした新規機能の開発および最適化を担当しました。</p>
-                <div class="tech-tags">
-                    <span class="tag">PHP</span><span class="tag">CakePHP2</span><span class="tag">jQuery</span>
-                </div>
-            </div>
+  <!-- Manual Works -->
+  <section class="section">
+    <h2 class="section-title"><i class="fas fa-code"></i>制作実績（2010〜2026年）</h2>
+    <p class="section-subtitle">自分の手でゼロから作ってきたもの</p>
 
-            <div class="project-card">
-                <h3>社員向け業務管理システムの改修</h3>
-                <p>請求書のPDF出力機能の新規実装や、既存機能のバグ修正・メンテナンスを行い、実務レベルの業務効率化を支援しました。</p>
-                <div class="tech-tags">
-                    <span class="tag">PHP</span><span class="tag">CakePHP2</span><span class="tag">PDF出力</span>
-                </div>
-            </div>
+    <div class="project-card">
+      <div class="project-number">01</div>
+      <h3>レンタカー予約・管理システム</h3>
+      <p>バックエンドほぼ全てとフロントエンド一部を担当。クレジットカード決済機能の実装。</p>
+      <div class="tags">
+        <span class="tag">PHP</span>
+        <span class="tag">CakePHP2</span>
+        <span class="tag">jQuery</span>
+        <span class="tag">決済連携</span>
+      </div>
+    </div>
 
-        </div>
+    <div class="project-card">
+      <div class="project-number">02</div>
+      <h3>会員向けショッピングサイトの改修</h3>
+      <p>ショッピングカートシステムを中心とした新規機能の開発・最適化。</p>
+      <div class="tags">
+        <span class="tag">PHP</span>
+        <span class="tag">CakePHP2</span>
+        <span class="tag">jQuery</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-number">03</div>
+      <h3>社員向け業務管理システムの改修</h3>
+      <p>請求書のPDF出力機能の新規実装、既存機能のバグ修正・メンテナンス。</p>
+      <div class="tags">
+        <span class="tag">PHP</span>
+        <span class="tag">CakePHP2</span>
+        <span class="tag">PDF出力</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-number">04</div>
+      <h3>車両リアルタイム位置管理システム</h3>
+      <p>SORACOM SIM搭載IoT機器からの位置情報をNode.jsで受信。Google Maps APIと連携し車両現在地をリアルタイム可視化。</p>
+      <div class="tags">
+        <span class="tag">Node.js</span>
+        <span class="tag">PHP</span>
+        <span class="tag">IoT</span>
+        <span class="tag">Google Maps API</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-number">05</div>
+      <h3>RSS自動収集アンテナサイト</h3>
+      <p>VPS構築からDB設計、バックエンド、フロントエンドまで一人で担当。</p>
+      <div class="tags">
+        <span class="tag">PHP</span>
+        <span class="tag">独自FW</span>
+        <span class="tag">VPS</span>
+        <span class="tag">インフラ構築</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-number">06</div>
+      <h3>YouTube API連携 自動投稿ツール</h3>
+      <p>YouTube Data APIで特定ワードの動画紹介記事を自動生成・投稿。</p>
+      <div class="tags">
+        <span class="tag">PHP</span>
+        <span class="tag">YouTube API</span>
+        <span class="tag">自動化</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-number">07</div>
+      <h3>業務効率化ユーザースクリプト</h3>
+      <p>Tampermonkeyを利用したJavaScript開発。既存WebサービスへのUI改善ツール。</p>
+      <div class="tags">
+        <span class="tag">JavaScript</span>
+        <span class="tag">Tampermonkey</span>
+        <span class="tag">UI改善</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-number">08</div>
+      <h3>ローカルLLM実行環境の構築</h3>
+      <p>WSL2/Ubuntu/DockerでGPU(RTX 4070 Ti)を活用したローカルLLM環境を整備。</p>
+      <div class="tags">
+        <span class="tag">WSL2</span>
+        <span class="tag">Docker</span>
+        <span class="tag">GPU最適化</span>
+        <span class="tag">Ollama</span>
+      </div>
+    </div>
+
+    <a href="manual-works.html" class="more-link">くわしく見る →</a>
+  </section>
+
+  <!-- AI Collaborative Works -->
+  <div class="ai-section-bg">
+    <section class="section">
+      <h2 class="section-title"><i class="fas fa-robot"></i>AI協調制作（2026年）</h2>
+      <p class="section-subtitle">AIを道具として使い、一人で作り上げたシステム群</p>
+
+      <div class="ai-overview">
+        2026年、Claude・Gemini・GitHub CopilotなどのAIを活用しながら、設計・実装・テスト・運用のすべてを一人で行い、11以上のWebサービス・ツールを構築しました。AIはあくまで道具であり、設計判断と品質管理は自分自身で行っています。
+      </div>
+
+      <ul class="ai-project-list">
+        <li><span class="ai-label">A.</span>VPS自動化インフラ全体</li>
+        <li><span class="ai-label">B.</span>運用監視ダッシュボード（20以上のページ）</li>
+        <li><span class="ai-label">C.</span>AI自動化パイプライン群（レビュー/バイラル/CG制作）</li>
+        <li><span class="ai-label">D.</span>LM Chat / Image Gen Webインターフェース</li>
+        <li><span class="ai-label">E.</span>Discord Bot「アンシア」</li>
+        <li><span class="ai-label">F.</span>Discordログ検索WebUI</li>
+        <li><span class="ai-label">G.</span>ブログサルベージツール</li>
+        <li><span class="ai-label">H.</span>プロンプト比較ツール</li>
+        <li><span class="ai-label">I.</span>壊れた画像検出ツール</li>
+        <li><span class="ai-label">J.</span>テスト・品質保証体制（1,463件の自動テスト）</li>
+      </ul>
+
+      <a href="ai-works.html" class="more-link">くわしく見る →</a>
     </section>
+  </div>
 
-    <section id="certifications">
-        <h2>保有資格</h2>
-        <ul class="cert-list">
-            <li class="cert-item">情報処理安全確保支援士（登録セキスペ）</li>
-            <li class="cert-item">応用情報技術者</li>
-            <li class="cert-item">簿記2級</li>
-            <li class="cert-item">ビジネス実務法務検定2級</li>
-            <li class="cert-item">FP3級</li>
-        </ul>
-    </section>
+  <hr class="section-divider">
 
-    <section id="contact">
-        <h2>Contact</h2>
-        <div class="email-container">
-            <span id="email-link">kojin3251あっとまーくgmail.com</span>
-        </div>
-    </section>
-</div>
+  <!-- Tech Stack -->
+  <section class="section">
+    <h2 class="section-title"><i class="fas fa-layer-group"></i>使用技術</h2>
 
-<footer>
-    <p>&copy; 2026 yamashita-yukihito</p>
-</footer>
+    <div class="tech-category">
+      <div class="tech-category-name">サーバーサイド</div>
+      <div class="tech-tags">
+        <span class="tech-tag">PHP</span>
+        <span class="tech-tag">CakePHP2</span>
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">Flask</span>
+        <span class="tech-tag">FastAPI</span>
+        <span class="tech-tag">Node.js</span>
+      </div>
+    </div>
 
-<script>
+    <div class="tech-category">
+      <div class="tech-category-name">フロントエンド</div>
+      <div class="tech-tags">
+        <span class="tech-tag">HTML/CSS</span>
+        <span class="tech-tag">JavaScript</span>
+        <span class="tech-tag">jQuery</span>
+        <span class="tech-tag">Chart.js</span>
+        <span class="tech-tag">Playwright</span>
+      </div>
+    </div>
+
+    <div class="tech-category">
+      <div class="tech-category-name">インフラ</div>
+      <div class="tech-tags">
+        <span class="tech-tag">VPS</span>
+        <span class="tech-tag">Caddy</span>
+        <span class="tech-tag">systemd</span>
+        <span class="tech-tag">cron</span>
+        <span class="tech-tag">Ubuntu Linux</span>
+      </div>
+    </div>
+
+    <div class="tech-category">
+      <div class="tech-category-name">データベース</div>
+      <div class="tech-tags">
+        <span class="tech-tag">SQLite (FTS5)</span>
+        <span class="tech-tag">MySQL</span>
+      </div>
+    </div>
+
+    <div class="tech-category">
+      <div class="tech-category-name">AI活用</div>
+      <div class="tech-tags">
+        <span class="tech-tag">OpenClaw</span>
+        <span class="tech-tag">Claude</span>
+        <span class="tech-tag">Gemini</span>
+        <span class="tech-tag">GitHub Copilot</span>
+        <span class="tech-tag">LM Studio</span>
+        <span class="tech-tag">ComfyUI</span>
+      </div>
+    </div>
+
+    <div class="tech-category">
+      <div class="tech-category-name">その他</div>
+      <div class="tech-tags">
+        <span class="tech-tag">Git</span>
+        <span class="tech-tag">GitHub</span>
+        <span class="tech-tag">IoT (SORACOM)</span>
+        <span class="tech-tag">Google Maps API</span>
+        <span class="tech-tag">YouTube API</span>
+        <span class="tech-tag">Docker</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- Contact -->
+  <section class="section">
+    <h2 class="section-title"><i class="fas fa-envelope"></i>お問い合わせ</h2>
+
+    <div class="contact-item">
+      <i class="fas fa-envelope"></i>
+      <a href="#" id="email-link">
+        <span id="email-text">メールアドレスを表示</span>
+      </a>
+    </div>
+    <div class="contact-item">
+      <i class="fab fa-github"></i>
+      <a href="https://github.com/yamashita-yukihito" target="_blank" rel="noopener noreferrer">github.com/yamashita-yukihito</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    &copy; 2026 yamashita-yukihito
+  </footer>
+
+  <script>
     (function() {
-        var user = 'kojin3251';
-        var domain = 'gmail.com';
-        var emailAddr = user + '@' + domain;
-        var emailElement = document.getElementById('email-link');
-        emailElement.innerHTML = '<a href="mailto:' + emailAddr + '">' + emailAddr + '</a>';
+      var u = 'kojin3251';
+      var d = 'gmail.com';
+      var addr = u + '@' + d;
+      var el = document.getElementById('email-text');
+      var link = document.getElementById('email-link');
+      el.textContent = addr;
+      link.href = 'mailto:' + addr;
     })();
-</script>
-
+  </script>
 </body>
 </html>

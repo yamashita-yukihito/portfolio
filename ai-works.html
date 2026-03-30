@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI協調制作 - yamashita-yukihito ポートフォリオ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 400;
+  line-height: 1.9;
+  color: #2d3436;
+  background-color: #fffef7;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ===== Header ===== */
+.site-header {
+  background: #ffffff;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.header-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 16px 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  align-items: center;
+}
+
+.header-inner a {
+  font-size: 14px;
+  color: #636e72;
+  transition: color 0.2s;
+}
+
+.header-inner a:hover {
+  color: #2d6a4f;
+}
+
+.header-inner a.current {
+  color: #2d6a4f;
+  font-weight: 700;
+}
+
+/* ===== Main ===== */
+.main-section {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 80px 40px;
+}
+
+/* ===== Page Title ===== */
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #2d6a4f;
+  margin-bottom: 40px;
+}
+
+/* ===== Opening Box ===== */
+.opening-box {
+  background: #f0f4ff;
+  border-radius: 8px;
+  padding: 32px;
+  margin-bottom: 48px;
+  font-size: 15px;
+  line-height: 2;
+  color: #2d3436;
+}
+
+/* ===== Metrics Bar ===== */
+.metrics-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 56px;
+}
+
+.metric-item {
+  flex: 1 1 180px;
+  background: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 20px 16px;
+  text-align: center;
+}
+
+.metric-value {
+  display: block;
+  font-size: 26px;
+  font-weight: 700;
+  color: #4361ee;
+  line-height: 1.3;
+}
+
+.metric-label {
+  display: block;
+  font-size: 13px;
+  color: #636e72;
+  margin-top: 4px;
+}
+
+/* ===== Project Cards ===== */
+.project-card {
+  background: #ffffff;
+  border: 1px solid #e9ecef;
+  border-left: 4px solid #4361ee;
+  border-radius: 8px;
+  padding: 32px;
+  margin-bottom: 28px;
+}
+
+.project-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #2d3436;
+  margin-bottom: 12px;
+}
+
+.project-card p {
+  font-size: 14.5px;
+  color: #2d3436;
+  margin-bottom: 16px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  display: inline-block;
+  background: #d8f3dc;
+  color: #2d6a4f;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 100px;
+}
+
+/* ===== Sub-projects ===== */
+.sub-projects {
+  margin-top: 20px;
+  padding-left: 20px;
+  border-left: 2px solid #e9ecef;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.sub-project h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #2d3436;
+  margin-bottom: 8px;
+}
+
+.sub-project p {
+  font-size: 14px;
+  color: #2d3436;
+  margin-bottom: 12px;
+}
+
+/* ===== Back Link ===== */
+.back-link {
+  display: inline-block;
+  margin-top: 32px;
+  font-size: 15px;
+  color: #40916c;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: #2d6a4f;
+}
+
+/* ===== Footer ===== */
+.site-footer {
+  text-align: center;
+  padding: 32px 40px;
+  font-size: 12px;
+  color: #636e72;
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 768px) {
+  .header-inner {
+    padding: 14px 20px;
+    gap: 6px 16px;
+  }
+
+  .main-section {
+    padding: 48px 20px;
+  }
+
+  .page-title {
+    font-size: 22px;
+    margin-bottom: 28px;
+  }
+
+  .opening-box {
+    padding: 24px 20px;
+    font-size: 14px;
+    margin-bottom: 36px;
+  }
+
+  .metrics-bar {
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+
+  .metric-item {
+    flex: 1 1 140px;
+    padding: 16px 12px;
+  }
+
+  .metric-value {
+    font-size: 22px;
+  }
+
+  .metric-label {
+    font-size: 12px;
+  }
+
+  .project-card {
+    padding: 24px 20px;
+    margin-bottom: 20px;
+  }
+
+  .project-card h3 {
+    font-size: 16px;
+  }
+
+  .project-card p {
+    font-size: 13.5px;
+  }
+
+  .sub-projects {
+    padding-left: 16px;
+  }
+
+  .sub-project h4 {
+    font-size: 14px;
+  }
+
+  .sub-project p {
+    font-size: 13px;
+  }
+
+  .tag {
+    font-size: 11px;
+    padding: 3px 10px;
+  }
+
+  .site-footer {
+    padding: 24px 20px;
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="header-inner">
+    <a href="index.html">ホーム</a>
+    <a href="manual-works.html">手動制作実績</a>
+    <a href="ai-works.html" class="current">AI協調制作</a>
+    <a href="skills.html">スキル</a>
+  </nav>
+</header>
+
+<main class="main-section">
+
+  <h1 class="page-title">AI協調制作（2026年）</h1>
+
+  <div class="opening-box">
+    一人の人間が4つのAIと分業しながら開発するというスタイルを採用しました。私が全体の設計・方針決定・品質確認を行い、AIが実装・テスト・コードレビューを担当。2ヶ月弱で11以上のサービスを構築し、1,463件の自動テストを整備しました。これは現代のソフトウェア開発における新しい生産性モデルの実践例です。
+  </div>
+
+  <div class="metrics-bar">
+    <div class="metric-item">
+      <span class="metric-value">11<small style="font-size:14px;font-weight:400">以上</small></span>
+      <span class="metric-label">構築サービス数</span>
+    </div>
+    <div class="metric-item">
+      <span class="metric-value">1,463<small style="font-size:14px;font-weight:400">件</small></span>
+      <span class="metric-label">自動テスト</span>
+    </div>
+    <div class="metric-item">
+      <span class="metric-value">70<small style="font-size:14px;font-weight:400">以上</small></span>
+      <span class="metric-label">自動実行タスク</span>
+    </div>
+    <div class="metric-item">
+      <span class="metric-value">20<small style="font-size:14px;font-weight:400">以上</small></span>
+      <span class="metric-label">ダッシュボードページ</span>
+    </div>
+  </div>
+
+  <!-- A -->
+  <div class="project-card">
+    <h3>A. VPS自動化インフラ全体</h3>
+    <p>Ubuntu VPS (3vCPU/3.8GB RAM) 上に11以上のWebサービスを構築・運用する本番インフラです。Caddyをリバースプロキシとして配置し、Basic認証とHTTPS対応を実現。各サービスはsystemdで管理され、自動再起動やログ管理が設定されています。バックアップはGit管理と暗号化自動バックアップの2層体制で、データの安全性を確保しています。</p>
+    <div class="tags">
+      <span class="tag">Ubuntu</span>
+      <span class="tag">Caddy</span>
+      <span class="tag">systemd</span>
+      <span class="tag">Python</span>
+      <span class="tag">Node.js</span>
+      <span class="tag">SQLite</span>
+      <span class="tag">GitHub</span>
+    </div>
+  </div>
+
+  <!-- B -->
+  <div class="project-card">
+    <h3>B. 運用監視ダッシュボード（20以上のページ）</h3>
+    <p>Git活動の統計、コード複雑度分析、セキュリティ監査、システムリソース監視など、20以上のページで構成される包括的な運用ダッシュボードです。クロン実行履歴、バックアップ状態、LLM API使用量の追跡、稼働率グラフ、ディスク使用量可視化、APIベンチマークなど、VPS運用に必要な情報を一元管理しています。GitHub CopilotによるPR自動作成と連携し、70以上のタスクを自動実行しました。</p>
+    <div class="tags">
+      <span class="tag">Python/Flask</span>
+      <span class="tag">SQLite</span>
+      <span class="tag">Chart.js</span>
+      <span class="tag">Playwright (E2E)</span>
+      <span class="tag">GitHub Copilot</span>
+    </div>
+  </div>
+
+  <!-- C -->
+  <div class="project-card">
+    <h3>C. AI自動化パイプライン群</h3>
+    <p>3つの自動化パイプラインを構築しました。</p>
+    <div class="sub-projects">
+      <div class="sub-project">
+        <h4>レビュー比較ブログ記事生成パイプライン</h4>
+        <p>8ステージ（judge→intent→outline→draft→smell→check→assemble→route）で構成される記事生成パイプラインです。LLMを活用して製品レビューの比較記事を自動生成し、品質チェックと投稿先ルーティングまでを一貫して処理します。117件のリグレッションテストで品質を担保しています。</p>
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">LLM連携</span>
+          <span class="tag">テスト自動化</span>
+        </div>
+      </div>
+      <div class="sub-project">
+        <h4>バイラルコンテンツ収集パイプライン</h4>
+        <p>SearXNG（ローカルメタ検索エンジン）、はてなブックマーク、X API v2の3つのソースからバイラル候補コンテンツを自動収集します。毎日cronで実行され、収集結果はスコアリングされて投稿候補として管理されます。</p>
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">SearXNG</span>
+          <span class="tag">API連携</span>
+        </div>
+      </div>
+      <div class="sub-project">
+        <h4>CG画像集 半自動制作パイプライン</h4>
+        <p>AI画像生成からレビュー、テキスト焼き込み（日本語縦書き対応）、ZIP/PDF出力までを半自動化したパイプラインです。MacBook上のComfyUIとTailscale VPN経由で連携し、E2Eでの制作フローを実証しています。</p>
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">ComfyUI API</span>
+          <span class="tag">画像処理</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- D -->
+  <div class="project-card">
+    <h3>D. LM Chat / Image Gen Webインターフェース</h3>
+    <p>MacBook上のLM Studio（ローカルLLM）とComfyUI（画像生成）にアクセスするためのWebフロントエンドです。ChatGPTに似たUIでチャットができ、複数セッションの管理、会話のエクスポート/インポートに対応しています。画像生成ではDynamic Prompts構文をサポートし、プロンプトの履歴管理やお気に入り機能を備えています。プライバシーを重視し、サーバー側でのログ保存を無効化する設計です。</p>
+    <div class="tags">
+      <span class="tag">Python/Flask</span>
+      <span class="tag">JavaScript</span>
+      <span class="tag">localStorage</span>
+    </div>
+  </div>
+
+  <!-- E -->
+  <div class="project-card">
+    <h3>E. Discord Bot「アンシア」</h3>
+    <p>OpenClawフレームワーク上で動作するAIキャラクターbotです。Discordサーバー上で複数のAI（Claude/Gemini/Copilot）の協調作業ハブとして機能し、タスクの受け渡しや進捗報告を仲介します。自律heartbeat機能により、定期的なシステムチェックや作業の自動実行も行います。</p>
+    <div class="tags">
+      <span class="tag">Node.js</span>
+      <span class="tag">OpenClaw</span>
+      <span class="tag">Discord API</span>
+      <span class="tag">AI連携</span>
+    </div>
+  </div>
+
+  <!-- F -->
+  <div class="project-card">
+    <h3>F. Discordログ検索WebUI</h3>
+    <p>Discordの会話ログをSQLite FTS5で全文検索できるWebUIです。チャンネル・著者・日付によるフィルタリング、タイムライン表示、NDJSONフォーマットでのインポートに対応しています。大量のログデータから必要な情報を素早く見つけるために設計しました。</p>
+    <div class="tags">
+      <span class="tag">Python/Flask</span>
+      <span class="tag">SQLite FTS5</span>
+      <span class="tag">JavaScript</span>
+    </div>
+  </div>
+
+  <!-- G -->
+  <div class="project-card">
+    <h3>G. ブログサルベージツール</h3>
+    <p>FC2、Livedoor、WordPress、汎用HTMLに対応した記事収集エンジンです。既存ブログの記事をスクレイピングして保存し、プレビューUI上でタグ管理やバルク操作を行えます。Markdownへのエクスポート機能も備え、コンテンツの移行や再利用を容易にしています。</p>
+    <div class="tags">
+      <span class="tag">Python/Flask</span>
+      <span class="tag">Node.js (Readability)</span>
+      <span class="tag">HTML解析</span>
+    </div>
+  </div>
+
+  <!-- H -->
+  <div class="project-card">
+    <h3>H. プロンプト比較ツール（Prompt Compare）</h3>
+    <p>AI画像生成のプロンプトを並べて比較・評価できるUIツールです。異なるプロンプトによる生成結果の違いを視覚的に確認でき、より良いプロンプトの研究に活用しています。</p>
+    <div class="tags">
+      <span class="tag">Python/Flask</span>
+      <span class="tag">JavaScript</span>
+    </div>
+  </div>
+
+  <!-- I -->
+  <div class="project-card">
+    <h3>I. 壊れた画像検出ツール（Broken Image Analyzer）</h3>
+    <p>Webサイト内の壊れた画像リンクを自動検出するツールです。指定したURLをクロールし、404エラーや読み込み不能な画像を一覧表示します。サイトの品質維持に活用しています。</p>
+    <div class="tags">
+      <span class="tag">Python</span>
+    </div>
+  </div>
+
+  <!-- J -->
+  <div class="project-card">
+    <h3>J. テスト・品質保証体制</h3>
+    <p>全システムの品質を支える自動テスト基盤です。Playwrightによる868件のE2Eテストでは、全ページのビジュアル確認、パフォーマンス計測、リンク整合性チェックを実施。ユニットテスト600件以上と合わせて1,463件の自動テストを維持しています。GitHub CopilotによるPR自動レビューも導入し、コード品質の維持を自動化しています。</p>
+    <div class="tags">
+      <span class="tag">Playwright</span>
+      <span class="tag">pytest</span>
+      <span class="tag">GitHub Copilot</span>
+    </div>
+  </div>
+
+  <a href="index.html" class="back-link">← トップページに戻る</a>
+
+</main>
+
+<footer class="site-footer">
+  &copy; 2026 yamashita-yukihito
+</footer>
+
+</body>
+</html>

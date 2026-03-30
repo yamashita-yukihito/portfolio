@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手動制作実績 - ポートフォリオ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-weight: 400;
+            line-height: 1.9;
+            color: #2d3436;
+            background-color: #fffef7;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 700;
+        }
+
+        a {
+            color: #2d6a4f;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Navigation */
+        .nav {
+            background: #ffffff;
+            border-bottom: 1px solid #e9ecef;
+            padding: 16px 40px;
+        }
+
+        .nav-inner {
+            max-width: 860px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .nav a {
+            color: #636e72;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav a:hover {
+            color: #2d6a4f;
+            text-decoration: none;
+        }
+
+        .nav a.current {
+            color: #2d6a4f;
+            font-weight: 700;
+        }
+
+        /* Main */
+        .main {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 80px 40px;
+        }
+
+        .page-title {
+            font-size: 1.9rem;
+            color: #2d3436;
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            font-size: 1.05rem;
+            color: #636e72;
+            margin-bottom: 56px;
+        }
+
+        /* Project Cards */
+        .project-list {
+            display: flex;
+            flex-direction: column;
+            gap: 36px;
+        }
+
+        .project-card {
+            background: #ffffff;
+            border: 1px solid #e9ecef;
+            border-left: 4px solid #2d6a4f;
+            border-radius: 6px;
+            padding: 36px 40px;
+        }
+
+        .project-number {
+            font-size: 0.85rem;
+            color: #40916c;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            margin-bottom: 4px;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            color: #2d3436;
+            margin-bottom: 16px;
+        }
+
+        .project-desc {
+            color: #636e72;
+            font-size: 0.95rem;
+            line-height: 1.9;
+            margin-bottom: 20px;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background: #d8f3dc;
+            color: #2d6a4f;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 4px 14px;
+            border-radius: 20px;
+        }
+
+        /* Back link */
+        .back-link {
+            margin-top: 64px;
+            display: inline-block;
+            color: #2d6a4f;
+            font-size: 0.95rem;
+        }
+
+        .back-link i {
+            margin-right: 6px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 40px 32px;
+            font-size: 0.8rem;
+            color: #636e72;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .nav {
+                padding: 14px 20px;
+            }
+
+            .nav-inner {
+                gap: 16px;
+            }
+
+            .nav a {
+                font-size: 0.85rem;
+            }
+
+            .main {
+                padding: 48px 20px;
+            }
+
+            .page-title {
+                font-size: 1.4rem;
+            }
+
+            .page-subtitle {
+                font-size: 0.95rem;
+                margin-bottom: 36px;
+            }
+
+            .project-card {
+                padding: 24px 20px;
+            }
+
+            .project-title {
+                font-size: 1.1rem;
+            }
+
+            .project-desc {
+                font-size: 0.9rem;
+            }
+
+            .project-list {
+                gap: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="index.html">ホーム</a>
+        <a href="manual-works.html" class="current">手動制作実績</a>
+        <a href="ai-works.html">AI協調制作</a>
+        <a href="skills.html">スキル</a>
+    </div>
+</nav>
+
+<main class="main">
+    <h1 class="page-title">手動制作実績（2010〜2026年）</h1>
+    <p class="page-subtitle">「自分の手でゼロから作ってきたもの」</p>
+
+    <div class="project-list">
+
+        <article class="project-card">
+            <div class="project-number">Project 01</div>
+            <h2 class="project-title">レンタカー予約・管理システム</h2>
+            <p class="project-desc">レンタカー事業者向けの予約・車両管理システムです。バックエンドのほぼ全てとフロントエンドの一部を担当しました。特に力を入れたのはクレジットカード決済機能の実装で、外部決済サービスとのAPI連携を安全に行うための設計に注力しました。顧客情報の取り扱いにはセキュリティを最優先にし、入力バリデーションやCSRF対策を徹底しています。</p>
+            <div class="tech-tags">
+                <span class="tag">PHP</span>
+                <span class="tag">CakePHP2</span>
+                <span class="tag">jQuery</span>
+                <span class="tag">決済連携</span>
+            </div>
+        </article>
+
+        <article class="project-card">
+            <div class="project-number">Project 02</div>
+            <h2 class="project-title">会員向けショッピングサイトの改修</h2>
+            <p class="project-desc">既存の会員制ショッピングサイトの機能改修プロジェクトです。ショッピングカートシステムを中心に、新規機能の開発と既存機能の最適化を行いました。カートに商品を追加してから決済完了までのユーザー体験を改善し、離脱率の低減を目指した設計を心がけました。既存コードの理解から始め、影響範囲を慎重に見極めながら改修を進めました。</p>
+            <div class="tech-tags">
+                <span class="tag">PHP</span>
+                <span class="tag">CakePHP2</span>
+                <span class="tag">jQuery</span>
+            </div>
+        </article>
+
+        <article class="project-card">
+            <div class="project-number">Project 03</div>
+            <h2 class="project-title">社員向け業務管理システムの改修</h2>
+            <p class="project-desc">社内の業務管理システムにおいて、請求書のPDF出力機能を新規に実装しました。帳票レイアウトの精密な制御が求められる作業で、日本語フォントの埋め込みやページ分割の処理に工夫が必要でした。また、既存機能のバグ修正やメンテナンスも継続的に担当し、安定したシステム運用に貢献しました。</p>
+            <div class="tech-tags">
+                <span class="tag">PHP</span>
+                <span class="tag">CakePHP2</span>
+                <span class="tag">PDF出力</span>
+            </div>
+        </article>
+
+        <article class="project-card">
+            <div class="project-number">Project 04</div>
+            <h2 class="project-title">車両リアルタイム位置管理システム</h2>
+            <p class="project-desc">SORACOM SIMを搭載したIoT機器から送信される位置情報をNode.jsサーバーで受信し、Google Maps API上に車両の現在地をリアルタイムで表示するシステムです。IoTデバイスとの通信プロトコルの実装からフロントエンドの地図表示まで、フルスタックで対応しました。データの欠損や遅延に対するエラーハンドリングにも配慮した設計です。</p>
+            <div class="tech-tags">
+                <span class="tag">Node.js</span>
+                <span class="tag">PHP</span>
+                <span class="tag">IoT (SORACOM)</span>
+                <span class="tag">Google Maps API</span>
+            </div>
+        </article>
+
+        <article class="project-card">
+            <div class="project-number">Project 05</div>
+            <h2 class="project-title">RSS自動収集アンテナサイト</h2>
+            <p class="project-desc">VPSの構築からインフラ設定、データベース設計、バックエンド・フロントエンドの実装まで、すべてを一人で担当したプロジェクトです。複数のRSSフィードを自動収集し、カテゴリ分けして表示するアンテナサイトを、自作のPHPフレームワーク上に構築しました。cronによる定期的な自動更新機能も実装し、運用負荷を最小限に抑えています。</p>
+            <div class="tech-tags">
+                <span class="tag">PHP</span>
+                <span class="tag">独自FW</span>
+                <span class="tag">VPS</span>
+                <span class="tag">インフラ構築</span>
+            </div>
+        </article>
+
+        <article class="project-card">
+            <div class="project-number">Project 06</div>
+            <h2 class="project-title">YouTube API連携 自動投稿ツール</h2>
+            <p class="project-desc">YouTube Data APIを利用して、特定のキーワードに関連する動画を自動検索し、紹介記事を生成・投稿するツールです。APIのレート制限を考慮した効率的なリクエスト設計と、取得データの整形・テンプレート化による記事の自動生成を実現しました。</p>
+            <div class="tech-tags">
+                <span class="tag">PHP</span>
+                <span class="tag">YouTube API</span>
+                <span class="tag">自動化</span>
+            </div>
+        </article>
+
+        <article class="project-card">
+            <div class="project-number">Project 07</div>
+            <h2 class="project-title">業務効率化ユーザースクリプト</h2>
+            <p class="project-desc">Tampermonkeyを活用し、既存のWebサービスに対するUI改善スクリプトを自作・運用してきました。日常的に使うサービスの操作性を向上させるための小さなツールですが、DOM操作やイベントハンドリングの実践的な経験を積むことができました。自分の業務を効率化するために技術を使うという、エンジニアとしての基本姿勢が反映されたプロジェクトです。</p>
+            <div class="tech-tags">
+                <span class="tag">JavaScript</span>
+                <span class="tag">Tampermonkey</span>
+                <span class="tag">UI改善</span>
+            </div>
+        </article>
+
+        <article class="project-card">
+            <div class="project-number">Project 08</div>
+            <h2 class="project-title">ローカルLLM実行環境の構築</h2>
+            <p class="project-desc">WSL2上のUbuntu環境にDockerを導入し、RTX 4070 Ti GPUを活用したローカルLLM実行環境を構築しました。OllamaやOpen WebUIなどのツールを組み合わせ、クラウドに依存せずにLLMを利用できる環境を整備しています。GPU割り当ての最適化やモデルの選定など、ハードウェアリソースを効率的に活用するための調整も行っています。</p>
+            <div class="tech-tags">
+                <span class="tag">WSL2</span>
+                <span class="tag">Ubuntu</span>
+                <span class="tag">Docker</span>
+                <span class="tag">GPU最適化</span>
+                <span class="tag">Ollama</span>
+            </div>
+        </article>
+
+    </div>
+
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i>トップページに戻る</a>
+</main>
+
+<footer class="footer">
+    <p>&copy; 2026 yamashita-yukihito</p>
+</footer>
+
+</body>
+</html>
