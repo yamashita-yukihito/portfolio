@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ポートフォリオ強化 作業レポート — Copilot</title>
+  <style>
+    :root {
+      --bg: #f8fafb; --bg-card: #ffffff; --text: #1e293b; --text-secondary: #64748b;
+      --primary: #2563eb; --success: #059669; --warning: #f59e0b; --danger: #ef4444;
+      --border: #e2e8f0; --bg-code: #f1f5f9;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f172a; --bg-card: #1e293b; --text: #e2e8f0; --text-secondary: #94a3b8;
+        --primary: #60a5fa; --success: #34d399; --warning: #fbbf24; --danger: #f87171;
+        --border: #334155; --bg-code: #1e293b;
+      }
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 24px 20px; }
+
+    /* Hero */
+    .hero { background: var(--bg-card); border: 1px solid var(--border); padding: 28px 32px; border-radius: 14px; margin-bottom: 24px; }
+    .hero h1 { font-size: 1.5rem; margin-bottom: 6px; }
+    .hero-sub { color: var(--text-secondary); font-size: 0.88rem; line-height: 1.6; }
+    .hero-meta { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 12px; font-size: 0.82rem; color: var(--text-secondary); }
+    .hero-meta span { display: inline-flex; align-items: center; gap: 4px; }
+
+    /* Summary Cards */
+    .summary-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 24px; }
+    .s-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; text-align: center; }
+    .s-card .big { font-size: 2rem; font-weight: 700; line-height: 1.2; }
+    .s-card .label { font-size: 0.78rem; color: var(--text-secondary); margin-top: 4px; }
+    .s-card.blue .big { color: var(--primary); }
+    .s-card.green .big { color: var(--success); }
+    .s-card.orange .big { color: var(--warning); }
+    .s-card.purple .big { color: #8b5cf6; }
+
+    /* Phase Section */
+    .phase { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 24px 28px; margin-bottom: 20px; }
+    .phase h2 { font-size: 1.15rem; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+    .phase-badge { font-size: 0.7rem; padding: 3px 10px; border-radius: 999px; font-weight: 600; background: var(--success); color: #fff; }
+    .phase p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 10px; }
+    .phase ul { margin: 8px 0 12px 20px; color: var(--text-secondary); font-size: 0.88rem; }
+    .phase li { margin-bottom: 4px; }
+
+    /* Tables */
+    .data-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin: 12px 0; }
+    .data-table th { text-align: left; padding: 10px 12px; border-bottom: 2px solid var(--border); color: var(--text-secondary); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    .data-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+    .data-table tr:last-child td { border-bottom: none; }
+    .mono { font-family: ui-monospace, 'Cascadia Code', monospace; font-size: 0.82rem; }
+
+    /* Code block */
+    .code-block { background: var(--bg-code); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; font-family: ui-monospace, monospace; font-size: 0.82rem; overflow-x: auto; margin: 10px 0; white-space: pre-wrap; color: var(--text); }
+
+    /* Screenshot preview */
+    .ss-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 14px 0; }
+    .ss-grid img { width: 100%; border-radius: 6px; border: 1px solid var(--border); }
+    .ss-grid figcaption { font-size: 0.75rem; color: var(--text-secondary); text-align: center; margin-top: 4px; }
+
+    /* Status dots */
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 6px; vertical-align: middle; }
+    .dot.ok { background: var(--success); }
+    .dot.new { background: var(--primary); }
+
+    /* Back link */
+    .back { display: inline-flex; align-items: center; gap: 6px; color: var(--primary); text-decoration: none; font-size: 0.88rem; font-weight: 600; margin-bottom: 20px; }
+    .back:hover { text-decoration: underline; }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .summary-row { grid-template-columns: repeat(2, 1fr); }
+      .hero-meta { flex-direction: column; gap: 8px; }
+      .phase { padding: 18px 16px; }
+      .data-table { font-size: 0.78rem; }
+      .data-table th, .data-table td { padding: 8px 6px; }
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="wrap">
+
+  <a href="ai-works.html" class="back">← AI協調実績ページへ戻る</a>
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>📋 ポートフォリオ AI協調実績セクション強化 — 作業レポート</h1>
+    <p class="hero-sub">
+      AI協調制作実績ページにスクリーンショットギャラリーを追加し、プロジェクト説明を強化。
+      資格試験クイズアプリを統合し、実際に動作するデモとして公開。
+    </p>
+    <div class="hero-meta">
+      <span>📅 作業日: 2026-03-31</span>
+      <span>🤖 実行: GitHub Copilot (Claude Opus 4.6)</span>
+      <span>📝 指令書: copilot_task_portfolio_ai_works.md</span>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="summary-row">
+    <div class="s-card blue">
+      <div class="big">6</div>
+      <div class="label">作業フェーズ</div>
+    </div>
+    <div class="s-card green">
+      <div class="big">19</div>
+      <div class="label">スクリーンショット</div>
+    </div>
+    <div class="s-card orange">
+      <div class="big">11</div>
+      <div class="label">プロジェクト掲載</div>
+    </div>
+    <div class="s-card purple">
+      <div class="big">7</div>
+      <div class="label">変更ファイル</div>
+    </div>
+  </div>
+
+  <!-- Phase 1 -->
+  <div class="phase">
+    <h2>Phase 1: 現状把握と素材準備 <span class="phase-badge">完了</span></h2>
+    <p>ポートフォリオの全ファイル（5ファイル）を読み込み、構造を把握。/tmp/screenshots/ から56枚以上のスクリーンショットを確認し、各プロジェクトに最適な画像を選定しました。</p>
+
+    <h3 style="font-size:0.95rem; margin:14px 0 8px;">スクリーンショット処理</h3>
+    <ul>
+      <li><strong>既存画像の最適化</strong>: 56枚から19枚を厳選。Python PIL で横幅900pxにリサイズ、JPEG品質82で圧縮</li>
+      <li><strong>新規撮影</strong>: Playwright で Prompt Compare (8810)、BI Web (8813)、CG Preview (8788) を撮影</li>
+      <li><strong>ファイルサイズ問題の修正</strong>: dashboard-copilot.jpg が1.1MB → viewport-onlyキャプチャに変更し37KBに削減（97%減）</li>
+    </ul>
+
+    <table class="data-table">
+      <thead><tr><th>画像</th><th>サイズ</th><th>ソース</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">dashboard-main.jpg</td><td>45KB</td><td>Playwright新規撮影</td></tr>
+        <tr><td class="mono">dashboard-status.jpg</td><td>76KB</td><td>既存 → リサイズ</td></tr>
+        <tr><td class="mono">dashboard-system.jpg</td><td>57KB</td><td>既存 → リサイズ</td></tr>
+        <tr><td class="mono">dashboard-copilot.jpg</td><td>37KB</td><td>Playwright再撮影（1.1MB→37KB）</td></tr>
+        <tr><td class="mono">dashboard-security.jpg</td><td>340KB</td><td>既存 → リサイズ</td></tr>
+        <tr><td class="mono">dashboard-commits.jpg</td><td>84KB</td><td>既存 → リサイズ</td></tr>
+        <tr><td class="mono">dashboard-cron.jpg</td><td>135KB</td><td>既存 → リサイズ</td></tr>
+        <tr><td class="mono">pipeline.jpg</td><td>67KB</td><td>既存 → リサイズ</td></tr>
+        <tr><td class="mono">viral.jpg</td><td>289KB</td><td>既存 → リサイズ</td></tr>
+        <tr><td class="mono">cg-preview.jpg</td><td>20KB</td><td>Playwright新規撮影</td></tr>
+        <tr><td class="mono">lmchat-chat.jpg</td><td>12KB</td><td>既存 → リサイズ</td></tr>
+        <tr><td class="mono">lmchat-image.jpg</td><td>15KB</td><td>既存 → リサイズ</td></tr>
+        <tr><td class="mono">discord-search.jpg</td><td>288KB</td><td>既存 → リサイズ</td></tr>
+        <tr><td class="mono">discord-stats.jpg</td><td>110KB</td><td>既存 → リサイズ</td></tr>
+        <tr><td class="mono">blog-salvage.jpg</td><td>39KB</td><td>既存 → リサイズ</td></tr>
+        <tr><td class="mono">prompt-compare.jpg</td><td>25KB</td><td>Playwright新規撮影</td></tr>
+        <tr><td class="mono">bi-web.jpg</td><td>14KB</td><td>Playwright新規撮影</td></tr>
+        <tr><td class="mono">dashboard-llm.jpg</td><td>65KB</td><td>既存 → リサイズ</td></tr>
+        <tr><td class="mono">dashboard-backup.jpg</td><td>56KB</td><td>既存 → リサイズ</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:0.95rem; margin:14px 0 8px;">クイズアプリ準備</h3>
+    <ul>
+      <li>https://github.com/yamashita-yukihito/quiz をクローン</li>
+      <li>.bak ファイル削除（kenpo.html.bak）、test.txt 除外</li>
+      <li>strategy.html / frequency_A_memo.md の内容を確認 → 公開可能な学習メモのため残す判断</li>
+      <li>ポータルページ quiz/index.html を新規作成（FP2級・行政書士の選択画面）</li>
+    </ul>
+  </div>
+
+  <!-- Phase 2 -->
+  <div class="phase">
+    <h2>Phase 2: ai-works.html 大幅強化 <span class="phase-badge">完了</span></h2>
+    <p>359行 → 523行に拡充。全プロジェクトにスクリーンショットギャラリーを追加し、説明を強化しました。</p>
+
+    <h3 style="font-size:0.95rem; margin:14px 0 8px;">主な変更</h3>
+    <ul>
+      <li><strong>スクリーンショット追加</strong>: A〜J の全プロジェクトに実アプリ画像を配置（合計16枚使用）</li>
+      <li><strong>K. 資格試験クイズアプリ</strong>: 新規プロジェクトとして追加。デモリンク + GitHubソースリンク付き</li>
+      <li><strong>C. パイプライン群を3分割</strong>: レビュー/バイラル/CG各パイプラインを個別の pipeline-sub ブロックで詳細説明</li>
+      <li><strong>H. プロンプト比較</strong>: ComfyUIとの連携、プロンプトパターン分析の具体的な用途を追記</li>
+      <li><strong>I. 壊れた画像検出</strong>: サーバー版（FastAPI）とWeb版（Canvas API）の2バージョン体制を明記</li>
+      <li><strong>統計情報の充実</strong>: 処理速度（83秒/記事）、抽出成功率（98.6%）、cron実行時刻など具体的数値を追加</li>
+    </ul>
+
+    <div class="ss-grid">
+      <figure>
+        <img src="screenshots/dashboard-main.jpg" alt="ダッシュボード">
+        <figcaption>B. ダッシュボード</figcaption>
+      </figure>
+      <figure>
+        <img src="screenshots/discord-search.jpg" alt="Discord検索">
+        <figcaption>F. Discord検索</figcaption>
+      </figure>
+      <figure>
+        <img src="screenshots/lmchat-chat.jpg" alt="LM Chat">
+        <figcaption>D. LM Chat</figcaption>
+      </figure>
+      <figure>
+        <img src="screenshots/blog-salvage.jpg" alt="ブログサルベージ">
+        <figcaption>G. ブログサルベージ</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- Phase 3 -->
+  <div class="phase">
+    <h2>Phase 3: index.html AI協調セクション更新 <span class="phase-badge">完了</span></h2>
+    <p>トップページのAI協調セクションにクイズアプリのカードを追加。6枚 → 7枚のグリッドに。</p>
+    <ul>
+      <li>「資格試験クイズアプリ」カード（graduation-cap アイコン、sky カラー）を追加</li>
+      <li>カード内に「デモを試す →」のインラインリンクを設置</li>
+      <li>既存6カードとの整合性を確認（ai-works.html のA〜K と対応）</li>
+    </ul>
+  </div>
+
+  <!-- Phase 4 -->
+  <div class="phase">
+    <h2>Phase 4: クイズアプリ配置・動作確認 <span class="phase-badge">完了</span></h2>
+    <p>GitHub公開リポジトリからクローンし、ポートフォリオ内に統合。</p>
+
+    <h3 style="font-size:0.95rem; margin:14px 0 8px;">配置構造</h3>
+    <div class="code-block">portfolio-a/quiz/
+├── index.html          ← 新規作成（ポータルページ）
+├── README.md
+├── FP2級/
+│   ├── index.html      ← 科目選択
+│   ├── life.html〜souzoku.html（6科目）
+│   ├── life2.html〜souzoku2.html（A頻出版6科目）
+│   ├── index2.html     ← A頻出版 科目選択
+│   ├── strategy.html   ← 学習戦略メモ
+│   └── frequency_A_memo.md
+└── 行政書士/
+    ├── gyosei.html     ← 行政法（二択）
+    ├── kenpo.html      ← 憲法（二択）
+    ├── minpo.html      ← 民法（二択）
+    ├── quiz.html〜quiz3.html（○×形式）
+    └── mondai.json</div>
+
+    <h3 style="font-size:0.95rem; margin:14px 0 8px;">動作確認結果</h3>
+    <table class="data-table">
+      <thead><tr><th>URL</th><th>ステータス</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">/portfolio-a/quiz/index.html</td><td><span class="dot ok"></span>200 OK</td></tr>
+        <tr><td class="mono">/portfolio-a/quiz/FP2級/index.html</td><td><span class="dot ok"></span>200 OK</td></tr>
+        <tr><td class="mono">/portfolio-a/quiz/行政書士/gyosei.html</td><td><span class="dot ok"></span>200 OK</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:0.95rem; margin:14px 0 8px;">技術判断</h3>
+    <ul>
+      <li><strong>.bak 除外</strong>: kenpo.html.bak を削除してからコピー（ルール遵守）</li>
+      <li><strong>strategy.html 残す判断</strong>: 内容は公開可能な学習戦略メモ。FP試験の時間配分・科目別攻略法で、個人情報を含まない</li>
+      <li><strong>パス問題なし</strong>: 全リンクが相対パス。サブディレクトリ配置で正常動作を確認</li>
+      <li><strong>localStorage衝突なし</strong>: FP2級系は「FP2_*」プレフィックス、行政書士系は別プレフィックスで分離済み</li>
+    </ul>
+  </div>
+
+  <!-- Phase 5 -->
+  <div class="phase">
+    <h2>Phase 5: 作業報告ページ作成 <span class="phase-badge">完了</span></h2>
+    <p>このページ（report.html）を作成。ダッシュボードの copilot-reports ページのスタイルを参考に、自己完結型の静的HTMLとして実装しました。</p>
+    <ul>
+      <li>prefers-color-scheme でダーク/ライト自動切替</li>
+      <li>サマリーカード（4枚グリッド）で作業概要を一覧表示</li>
+      <li>Phase別のタイムライン型レイアウト</li>
+      <li>テーブル・コードブロック・スクリーンショットプレビューを含むリッチな構成</li>
+      <li>外部CSS/JS依存なし（Google Fonts のみ）</li>
+    </ul>
+  </div>
+
+  <!-- Phase 6 -->
+  <div class="phase">
+    <h2>Phase 6: 最終確認・コミット <span class="phase-badge">完了</span></h2>
+    <p>全ページの表示確認、既存機能の非破壊確認を実施。3回に分けてコミット。</p>
+
+    <h3 style="font-size:0.95rem; margin:14px 0 8px;">変更ファイル総括</h3>
+    <table class="data-table">
+      <thead><tr><th>#</th><th>ファイル</th><th>操作</th><th>変更内容</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td class="mono">ai-works.html</td><td><span class="dot new"></span>大幅修正</td><td>359行→523行。スクショギャラリー、クイズ追加、C/H/I説明強化</td></tr>
+        <tr><td>2</td><td class="mono">index.html</td><td><span class="dot new"></span>修正</td><td>AI協調セクションにクイズカード追加（6→7枚）</td></tr>
+        <tr><td>3</td><td class="mono">style.css</td><td><span class="dot new"></span>追記</td><td>screenshot-gallery / quiz-demo-links / pipeline-sub CSS追加</td></tr>
+        <tr><td>4</td><td class="mono">screenshots/（19枚）</td><td><span class="dot new"></span>新規</td><td>最適化済みスクリーンショット19枚（合計1.8MB）</td></tr>
+        <tr><td>5</td><td class="mono">quiz/（22ファイル）</td><td><span class="dot new"></span>新規</td><td>クイズアプリ一式 + ポータルページ</td></tr>
+        <tr><td>6</td><td class="mono">report.html</td><td><span class="dot new"></span>新規</td><td>作業報告ページ（このページ）</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:0.95rem; margin:14px 0 8px;">非破壊確認</h3>
+    <table class="data-table">
+      <thead><tr><th>ページ</th><th>ステータス</th><th>確認事項</th></tr></thead>
+      <tbody>
+        <tr><td>index.html</td><td><span class="dot ok"></span>OK</td><td>手動実績セクション・スキルセクション・連絡先 変更なし</td></tr>
+        <tr><td>manual-works.html</td><td><span class="dot ok"></span>OK</td><td>未変更（タッチなし）</td></tr>
+        <tr><td>skills.html</td><td><span class="dot ok"></span>OK</td><td>未変更（タッチなし）</td></tr>
+        <tr><td>ai-works.html</td><td><span class="dot ok"></span>OK</td><td>全プロジェクト表示確認、スクショ読み込み確認</td></tr>
+        <tr><td>quiz/*</td><td><span class="dot ok"></span>OK</td><td>ポータル・各科目クイズの動作確認</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Footer -->
+  <div style="text-align:center; padding:32px 0; color:var(--text-secondary); font-size:0.82rem; border-top:1px solid var(--border); margin-top:24px;">
+    Generated by GitHub Copilot (Claude Opus 4.6) — 2026-03-31
+  </div>
+
+</div>
+</body>
+</html>
