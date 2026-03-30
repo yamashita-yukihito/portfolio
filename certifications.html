@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>保有資格 | yamashita-yukihito</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;height:100%">
+      <a href="index.html" class="logo">Y.YUKIHITO</a>
+      <nav>
+        <a href="manual-works.html">Past Works</a>
+        <a href="ai-works.html">AI Works</a>
+        <a href="certifications.html" class="active">Certifications</a>
+        <a href="skills.html">Skills</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <button class="mobile-menu-btn" aria-label="メニュー" onclick="document.querySelector('nav').classList.toggle('open')">☰</button>
+    </div>
+  </header>
+
+  <section class="page-header">
+    <div class="container">
+      <p class="section-title">// CERTIFICATIONS</p>
+      <h1 class="section-heading">保有資格</h1>
+      <p style="color:var(--text-muted)">IT・ビジネス分野の資格を取得し、専門知識の裏付けとしています。</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container" style="padding:60px 0 80px">
+
+      <div class="detail-card" style="border-left-color:#a78bfa;box-shadow:0 0 20px rgba(167,139,250,0.1);">
+        <span style="display:inline-block;background:rgba(167,139,250,0.12);color:#a78bfa;border:1px solid rgba(167,139,250,0.3);padding:3px 12px;border-radius:12px;font-size:0.75rem;font-weight:700;margin-bottom:12px;">高難度国家資格</span>
+        <h3>情報処理安全確保支援士（登録セキスペ）</h3>
+        <p>サイバーセキュリティに関する高度な知識・技能を認定する国家資格です。情報処理技術者試験の中でも最高難度のレベル4に位置し、合格率は約15〜20%程度の難関資格です。</p>
+        <p>セキュリティの専門知識を持つことで、安全なシステム設計・開発、脆弱性対策、インシデント対応などに活かすことができます。</p>
+        <div class="info-box">
+          <h4 style="color:var(--accent);margin-bottom:8px;">この資格の意義</h4>
+          <ul style="color:var(--text-muted)">
+            <li>情報セキュリティに関する国内最高峰の資格</li>
+            <li>セキュリティを考慮したシステム設計・開発能力の証明</li>
+            <li>Webアプリケーションの脆弱性対策に関する知識</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="detail-card fade-in">
+        <h3>応用情報技術者</h3>
+        <p>IT全般にわたる応用的な知識・技能を認定するレベル3の国家資格です。アルゴリズム、データベース、ネットワーク、セキュリティなど幅広い分野をカバーしています。</p>
+        <p>基本的なIT知識に加え、実務で必要となる応用力を持つことを証明します。</p>
+      </div>
+
+      <div class="detail-card fade-in">
+        <h3>日商簿記2級</h3>
+        <p>企業の財務諸表を理解し、経営内容を把握できるレベルの簿記能力を認定する資格です。</p>
+        <p>エンジニアとしてビジネス側の視点も持ち、業務システムの要件定義や会計システムの開発に活かすことができます。</p>
+      </div>
+
+      <div class="detail-card fade-in">
+        <h3>ビジネス実務法務検定2級</h3>
+        <p>ビジネスに関わる法律知識を体系的に習得していることを認定する資格です。</p>
+        <p>契約書の確認、利用規約の作成、個人情報保護法への対応など、エンジニアにも求められる法務知識を持っていることを証明します。</p>
+      </div>
+
+      <div class="detail-card fade-in">
+        <h3>FP3級</h3>
+        <p>税金・保険・年金・資産運用に関する基本知識を認定する国家資格です。</p>
+        <p>幅広い知識基盤として、金融系システムの開発や要件理解に役立てることができます。</p>
+      </div>
+
+      <div class="fade-in" style="text-align:center;margin-top:40px;">
+        <p style="color:var(--text-muted)">技術資格とビジネス資格の両方を持つことで、エンジニアとビジネスの橋渡しができる人材を目指しています。</p>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2026 yamashita-yukihito</p>
+      <div class="footer-links">
+        <a href="https://github.com/yamashita-yukihito" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:kojin3251@gmail.com">Email</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

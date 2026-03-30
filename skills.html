@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>技術スタック | yamashita-yukihito</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;height:100%">
+      <a href="index.html" class="logo">Y.YUKIHITO</a>
+      <nav>
+        <a href="manual-works.html">Past Works</a>
+        <a href="ai-works.html">AI Works</a>
+        <a href="certifications.html">Certifications</a>
+        <a href="skills.html" class="active">Skills</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <button class="mobile-menu-btn" aria-label="メニュー" onclick="document.querySelector('nav').classList.toggle('open')">☰</button>
+    </div>
+  </header>
+
+  <section class="page-header">
+    <div class="container">
+      <p class="section-title">// TECH STACK</p>
+      <h1 class="section-heading">技術スタック</h1>
+      <p style="color:var(--text-muted)">実務および個人開発で使用している主要な技術です。</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container" style="padding:60px 0 80px">
+
+      <div class="detail-card fade-in">
+        <h3 style="font-family:'Courier New',monospace;color:var(--primary)">server-side</h3>
+        <div class="tech-tags">
+          <span class="tech-tag">PHP</span>
+          <span class="tech-tag">CakePHP2</span>
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Flask</span>
+          <span class="tech-tag">FastAPI</span>
+          <span class="tech-tag">Node.js</span>
+        </div>
+        <ul style="color:var(--text-muted)">
+          <li>PHP / CakePHP2: Webシステム開発の実務経験（予約システム、ECサイト、業務システム等）</li>
+          <li>Python / Flask: 複数のWebアプリケーション・APIの設計・開発（ダッシュボード、パイプライン等）</li>
+          <li>Python / FastAPI: 非同期APIの開発経験</li>
+          <li>Node.js: IoTデータ受信サーバー、Discord bot開発</li>
+        </ul>
+      </div>
+
+      <div class="detail-card fade-in">
+        <h3 style="font-family:'Courier New',monospace;color:var(--primary)">frontend</h3>
+        <div class="tech-tags">
+          <span class="tech-tag">HTML</span>
+          <span class="tech-tag">CSS</span>
+          <span class="tech-tag">JavaScript</span>
+          <span class="tech-tag">jQuery</span>
+          <span class="tech-tag">Chart.js</span>
+          <span class="tech-tag">Playwright</span>
+        </div>
+        <ul style="color:var(--text-muted)">
+          <li>HTML / CSS / JavaScript: レスポンシブWebサイト・WebアプリケーションのUI開発</li>
+          <li>jQuery: 動的UI・Ajax通信の実装（レガシーシステム対応含む）</li>
+          <li>Chart.js: データ可視化ダッシュボードのグラフ・チャート実装</li>
+          <li>Playwright: E2Eテスト868件の設計・実装・保守</li>
+        </ul>
+      </div>
+
+      <div class="detail-card fade-in">
+        <h3 style="font-family:'Courier New',monospace;color:var(--primary)">infrastructure</h3>
+        <div class="tech-tags">
+          <span class="tech-tag">Ubuntu Linux</span>
+          <span class="tech-tag">VPS</span>
+          <span class="tech-tag">Caddy</span>
+          <span class="tech-tag">systemd</span>
+          <span class="tech-tag">cron</span>
+          <span class="tech-tag">Docker</span>
+          <span class="tech-tag">Git</span>
+          <span class="tech-tag">GitHub</span>
+        </div>
+        <ul style="color:var(--text-muted)">
+          <li>Ubuntu Linux / VPS: サーバー構築・運用（11以上のサービスを単一VPSで運用）</li>
+          <li>Caddy: リバースプロキシ設定、Basic認証、TLS自動化</li>
+          <li>systemd: サービスのデーモン化・自動再起動設定</li>
+          <li>cron: 定期タスク自動実行（バックアップ、データ収集、インデックス更新等）</li>
+          <li>Docker: コンテナ環境の構築・GPU対応設定</li>
+          <li>Git / GitHub: バージョン管理、PR運用、Copilot連携</li>
+        </ul>
+      </div>
+
+      <div class="detail-card fade-in">
+        <h3 style="font-family:'Courier New',monospace;color:var(--primary)">database</h3>
+        <div class="tech-tags">
+          <span class="tech-tag">SQLite</span>
+          <span class="tech-tag">SQLite FTS5</span>
+          <span class="tech-tag">MySQL</span>
+        </div>
+        <ul style="color:var(--text-muted)">
+          <li>SQLite: 軽量データベースとして複数プロジェクトで活用</li>
+          <li>SQLite FTS5: 全文検索エンジンの実装（Discordログ検索、インデクサ）</li>
+          <li>MySQL: 業務システムのデータベース設計・運用経験</li>
+        </ul>
+      </div>
+
+      <div class="detail-card fade-in">
+        <h3 style="font-family:'Courier New',monospace;color:var(--primary)">ai-tools</h3>
+        <div class="tech-tags">
+          <span class="tech-tag">Claude Code</span>
+          <span class="tech-tag">GitHub Copilot</span>
+          <span class="tech-tag">Gemini CLI</span>
+          <span class="tech-tag">OpenClaw</span>
+          <span class="tech-tag">LM Studio</span>
+          <span class="tech-tag">ComfyUI</span>
+          <span class="tech-tag">Ollama</span>
+        </div>
+        <ul style="color:var(--text-muted)">
+          <li>Claude Code / GitHub Copilot / Gemini CLI: AIとの協調開発（設計→実装→テストの全工程で活用）</li>
+          <li>OpenClaw: AI botフレームワーク（Discord bot「アンシア」の基盤）</li>
+          <li>LM Studio: ローカルLLM実行環境の構築・運用</li>
+          <li>ComfyUI: AI画像生成パイプラインの構築（API連携）</li>
+          <li>Ollama: ローカルLLM環境のセットアップ・運用</li>
+        </ul>
+      </div>
+
+      <div class="detail-card fade-in">
+        <h3 style="font-family:'Courier New',monospace;color:var(--primary)">api-integration</h3>
+        <div class="tech-tags">
+          <span class="tech-tag">YouTube API</span>
+          <span class="tech-tag">Google Maps API</span>
+          <span class="tech-tag">Discord API</span>
+          <span class="tech-tag">SORACOM</span>
+          <span class="tech-tag">SearXNG</span>
+          <span class="tech-tag">X API v2</span>
+        </div>
+        <ul style="color:var(--text-muted)">
+          <li>YouTube Data API: 動画情報の自動取得・記事生成</li>
+          <li>Google Maps API: 車両位置のリアルタイム可視化</li>
+          <li>Discord API: bot開発・ログ管理</li>
+          <li>SORACOM: IoT機器との通信</li>
+          <li>SearXNG: ローカルメタ検索エンジンの運用</li>
+          <li>X API v2: ソーシャルメディアデータの自動収集</li>
+        </ul>
+      </div>
+
+      <div class="fade-in" style="margin-top:40px;text-align:center">
+        <div class="info-box">
+          <h3>学習姿勢</h3>
+          <p>新しい技術やツールに積極的に取り組み、実際のプロジェクトで検証・活用することを重視しています。AIとの協調開発は、最新の開発手法への適応力を示す一例です。</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2026 yamashita-yukihito</p>
+      <div class="footer-links">
+        <a href="https://github.com/yamashita-yukihito" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:kojin3251@gmail.com">Email</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

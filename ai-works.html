@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI協調制作実績 | yamashita-yukihito</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;height:100%">
+      <a href="index.html" class="logo">Y.YUKIHITO</a>
+      <nav>
+        <a href="manual-works.html">Past Works</a>
+        <a href="ai-works.html" class="active">AI Works</a>
+        <a href="certifications.html">Certifications</a>
+        <a href="skills.html">Skills</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <button class="mobile-menu-btn" aria-label="メニュー" onclick="document.querySelector('nav').classList.toggle('open')">☰</button>
+    </div>
+  </header>
+
+  <section class="page-header">
+    <div class="container">
+      <p class="section-title">// AI COLLABORATION WORKS (2026)</p>
+      <h1 class="section-heading">AI協調制作実績</h1>
+      <p style="color:var(--text-muted)">4つのAI（Claude / GitHub Copilot / Gemini / OpenClaw）との協調開発で実現したプロジェクト群</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+
+      <div class="info-box fade-in">
+        <h3>AI協調開発とは</h3>
+        <p>AIを活用して生産性を飛躍的に高める開発スタイルです。人間が設計・判断・品質管理を行い、AIが実装・テスト生成・コードレビューを担当することで、従来の10倍以上の速度で開発を進めることができます。</p>
+        <ul>
+          <li>約2ヶ月で1,463件のテストを含む11以上のサービスを単独構築</li>
+          <li>Claude Code / GitHub Copilot / Gemini CLI / OpenClaw の4種類のAIを適材適所で活用</li>
+          <li>人間がアーキテクチャ設計と品質管理を主導し、AIが実装を加速</li>
+        </ul>
+      </div>
+
+      <div class="detail-card fade-in">
+        <span class="ai-badge">AI Collaboration</span>
+        <h3>VPS自動化インフラ全体</h3>
+        <div class="tech-tags">
+          <span class="tech-tag">Ubuntu</span>
+          <span class="tech-tag">Caddy</span>
+          <span class="tech-tag">systemd</span>
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Node.js</span>
+          <span class="tech-tag">SQLite</span>
+          <span class="tech-tag">GitHub</span>
+        </div>
+        <ul>
+          <li>Ubuntu VPS（3vCPU / 3.8GB RAM）に11以上のWebサービスを構築・運用</li>
+          <li>Caddyリバースプロキシ + Basic認証 + systemd による安定運用</li>
+          <li>Git + 暗号化自動バックアップの2層バックアップ体制</li>
+          <li>cronによる定期タスク自動実行（リンク監査、バイラル収集、インデックス更新等）</li>
+        </ul>
+      </div>
+
+      <div class="detail-card fade-in">
+        <span class="ai-badge">AI Collaboration</span>
+        <h3>運用監視ダッシュボード（20+ページ）</h3>
+        <div class="tech-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Flask</span>
+          <span class="tech-tag">SQLite</span>
+          <span class="tech-tag">Chart.js</span>
+          <span class="tech-tag">Playwright</span>
+          <span class="tech-tag">GitHub Copilot</span>
+        </div>
+        <ul>
+          <li>20以上のページでシステム全体を可視化</li>
+          <li>Git活動・コード複雑度・セキュリティ監査・システムリソース監視</li>
+          <li>クロン履歴・バックアップ状態・LLM使用量追跡・稼働率グラフ</li>
+          <li>ディスク使用量可視化・APIベンチマーク・アクセスログ分析</li>
+          <li>GitHub Copilotによる70以上のタスク自動実行との連携</li>
+        </ul>
+      </div>
+
+      <div class="detail-card fade-in">
+        <span class="ai-badge">AI Collaboration</span>
+        <h3>AI自動化パイプライン群</h3>
+        <div class="tech-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">LLM連携</span>
+          <span class="tech-tag">SearXNG</span>
+          <span class="tech-tag">ComfyUI</span>
+          <span class="tech-tag">テスト自動化</span>
+        </div>
+        <h4>レビュー比較ブログ記事生成パイプライン</h4>
+        <ul>
+          <li>8ステージ（judge→intent→outline→draft→smell→check→assemble→route）</li>
+          <li>117件のリグレッションテスト付き</li>
+        </ul>
+        <h4>バイラルコンテンツ収集パイプライン</h4>
+        <ul>
+          <li>SearXNG + はてブ + X API v2で候補を自動収集</li>
+          <li>毎日cronで自動実行</li>
+        </ul>
+        <h4>CG画像集 半自動制作パイプライン</h4>
+        <ul>
+          <li>AI画像生成→レビュー→テキスト焼き込み→ZIP/PDF出力</li>
+          <li>ComfyUI連携</li>
+        </ul>
+      </div>
+
+      <div class="detail-card fade-in">
+        <span class="ai-badge">AI Collaboration</span>
+        <h3>LM Chat &amp; Image Gen Webインターフェース</h3>
+        <div class="tech-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Flask</span>
+          <span class="tech-tag">JavaScript</span>
+          <span class="tech-tag">localStorage</span>
+        </div>
+        <ul>
+          <li>MacBookのLM Studio（ローカルLLM）とComfyUI（画像生成）のWebフロントエンド</li>
+          <li>ChatGPT風UIのチャット機能（複数セッション、エクスポート/インポート対応）</li>
+          <li>Dynamic Promptsによる画像生成、プロンプト履歴・お気に入り機能</li>
+          <li>プライバシー重視設計（ログ無効化）</li>
+        </ul>
+      </div>
+
+      <div class="detail-card fade-in">
+        <span class="ai-badge">AI Collaboration</span>
+        <h3>Discord Bot「アンシア」</h3>
+        <div class="tech-tags">
+          <span class="tech-tag">Node.js</span>
+          <span class="tech-tag">OpenClaw</span>
+          <span class="tech-tag">Discord API</span>
+        </div>
+        <ul>
+          <li>OpenClawフレームワーク上で動作するAIキャラクターbot</li>
+          <li>複数AIの協調作業ハブとして機能（Claude / Gemini / Copilot 連携）</li>
+          <li>自律heartbeatによる定期作業の自動実行</li>
+        </ul>
+      </div>
+
+      <div class="detail-card fade-in">
+        <span class="ai-badge">AI Collaboration</span>
+        <h3>Discordログ検索WebUI</h3>
+        <div class="tech-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Flask</span>
+          <span class="tech-tag">SQLite FTS5</span>
+          <span class="tech-tag">JavaScript</span>
+        </div>
+        <ul>
+          <li>SQLite FTS5ベースの高速全文検索</li>
+          <li>チャンネル・著者・日付フィルタ、タイムライン表示</li>
+          <li>NDJSONインポートに対応</li>
+        </ul>
+      </div>
+
+      <div class="detail-card fade-in">
+        <span class="ai-badge">AI Collaboration</span>
+        <h3>ブログサルベージツール</h3>
+        <div class="tech-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Flask</span>
+          <span class="tech-tag">Node.js</span>
+          <span class="tech-tag">HTML解析</span>
+        </div>
+        <ul>
+          <li>FC2 / Livedoor / WordPress / 汎用HTML対応の記事収集エンジン</li>
+          <li>プレビューUI、タグ管理、バルク操作機能</li>
+          <li>Markdownエクスポート対応</li>
+        </ul>
+      </div>
+
+      <div class="detail-card fade-in">
+        <span class="ai-badge">AI Collaboration</span>
+        <h3>プロンプト比較ツール（Prompt Compare）</h3>
+        <div class="tech-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Flask</span>
+          <span class="tech-tag">JavaScript</span>
+        </div>
+        <ul>
+          <li>AI画像生成プロンプトの比較・評価UI</li>
+          <li>複数プロンプトの結果を並べて視覚的に比較</li>
+        </ul>
+      </div>
+
+      <div class="detail-card fade-in">
+        <span class="ai-badge">AI Collaboration</span>
+        <h3>壊れた画像検出ツール（Broken Image Analyzer）</h3>
+        <div class="tech-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Flask</span>
+        </div>
+        <ul>
+          <li>Webサイト上の壊れた画像を自動検出・レポート</li>
+          <li>Web UI版とCLI版の2種類を提供</li>
+        </ul>
+      </div>
+
+      <div class="detail-card fade-in">
+        <span class="ai-badge">AI Collaboration</span>
+        <h3>テスト・品質保証体制</h3>
+        <div class="tech-tags">
+          <span class="tech-tag">Playwright</span>
+          <span class="tech-tag">pytest</span>
+          <span class="tech-tag">GitHub Copilot</span>
+        </div>
+        <ul>
+          <li>Playwright E2Eテスト 868件（全ページのビジュアル・パフォーマンス・リンク整合性）</li>
+          <li>ユニットテスト 600件以上（pytest）</li>
+          <li>GitHub Copilot PRの自動レビュー連携</li>
+          <li>テスト駆動開発による品質維持</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="fade-in">
+    <div class="container">
+      <h2 class="section-heading" style="text-align:center;margin-bottom:2rem">AI協働で培ったスキル</h2>
+      <hr class="gradient-line">
+      <div class="card-grid">
+        <div class="card">
+          <h3>設計力</h3>
+          <p>AIに適切な指示を出すためのシステム設計・要件定義力</p>
+        </div>
+        <div class="card">
+          <h3>品質管理</h3>
+          <p>AI生成コードのレビューとテスト設計による品質保証</p>
+        </div>
+        <div class="card">
+          <h3>統合力</h3>
+          <p>複数のAIツールを目的に応じて使い分ける判断力</p>
+        </div>
+        <div class="card">
+          <h3>生産性</h3>
+          <p>AI活用により2ヶ月で11サービス+1,463テストを実現</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2026 yamashita-yukihito</p>
+      <div class="footer-links">
+        <a href="https://github.com/yamashita-yukihito" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:kojin3251@gmail.com">Email</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
