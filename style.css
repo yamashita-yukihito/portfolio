@@ -333,6 +333,92 @@ section { padding: 80px 0; }
 }
 .self-pr p { color: #475569; font-size: 0.95rem; }
 
+/* Screenshot Gallery */
+.screenshot-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin: 16px 0;
+}
+.screenshot-item {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f8fafb;
+  transition: box-shadow 0.2s;
+}
+.screenshot-item:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.screenshot-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.screenshot-caption {
+  display: block;
+  padding: 8px 12px;
+  font-size: 0.8rem;
+  color: #64748b;
+  text-align: center;
+}
+
+/* Quiz Demo Links */
+.quiz-demo-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 16px 0;
+}
+.demo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.demo-link:not(.github) {
+  background: #eff6ff;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+}
+.demo-link:not(.github):hover {
+  background: #2563eb;
+  color: #fff;
+}
+.demo-link.github {
+  background: #f6f8fa;
+  color: #24292f;
+  border: 1px solid #d0d7de;
+}
+.demo-link.github:hover {
+  background: #24292f;
+  color: #fff;
+}
+
+/* Pipeline Sub-section */
+.pipeline-sub {
+  background: #f8fafb;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+}
+.pipeline-sub h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 6px;
+}
+.pipeline-sub p {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin-bottom: 0;
+}
+
 /* Footer */
 .site-footer {
   text-align: center; padding: 32px 0;
@@ -363,6 +449,8 @@ section { padding: 80px 0; }
   .page-header { padding: 48px 0 32px; }
   .page-header h1 { font-size: 1.5rem; }
   .contact-links { flex-direction: column; align-items: center; }
+  .screenshot-gallery { grid-template-columns: 1fr; }
+  .quiz-demo-links { flex-direction: column; }
 }
 
 @media (max-width: 480px) {

@@ -29,38 +29,6 @@
   </div>
 </nav>
 
-<!-- Hero -->
-<header class="hero">
-  <div class="container">
-    <h1>yamashita-yukihito</h1>
-    <p class="subtitle">Web Developer / バックエンドエンジニア / インフラエンジニア</p>
-    <p class="tagline">情報処理安全確保支援士資格保有。2026年、AIと協働し11以上のWebサービスを独力で構築・運用中。<br>PHP・Python・Node.jsによるバックエンド開発からVPSインフラ構築まで対応します。</p>
-  </div>
-</header>
-
-<!-- Summary Cards -->
-<section style="padding-top:0; padding-bottom:60px;">
-  <div class="container">
-    <div class="summary-cards">
-      <div class="summary-card">
-        <span class="card-icon">🏆</span>
-        <span class="card-number">5</span>
-        <span class="card-label">保有資格<br><strong style="color:#d97706;font-size:0.8rem;">情報処理安全確保支援士</strong></span>
-      </div>
-      <div class="summary-card">
-        <span class="card-icon">⚙️</span>
-        <span class="card-number">11+</span>
-        <span class="card-label">構築・運用中の<br>Webサービス</span>
-      </div>
-      <div class="summary-card">
-        <span class="card-icon">🤖</span>
-        <span class="card-number">1,463</span>
-        <span class="card-label">自動テスト数<br><span style="font-size:0.8rem;">E2E + ユニットテスト</span></span>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- Manual Works -->
 <section id="manual-works">
   <div class="container">
@@ -68,9 +36,12 @@
       <h2>過去の制作実績（手動）</h2>
       <p>2010〜2026年 — 業務・個人開発で積み上げた技術実績</p>
     </div>
-    <div class="timeline">
-      <div class="timeline-item">
-        <h3>レンタカー予約・管理システム</h3>
+    <div class="project-grid">
+      <div class="project-card">
+        <div class="card-header">
+          <div class="card-icon blue"><i class="fas fa-car"></i></div>
+          <h3>レンタカー予約・管理システム</h3>
+        </div>
         <p>バックエンドほぼ全てとフロントエンド一部を担当。クレジットカード決済機能を実装。</p>
         <div class="tech-tags">
           <span class="tech-tag">PHP</span>
@@ -79,8 +50,11 @@
           <span class="tech-tag">決済連携</span>
         </div>
       </div>
-      <div class="timeline-item">
-        <h3>会員向けショッピングサイトの改修</h3>
+      <div class="project-card">
+        <div class="card-header">
+          <div class="card-icon green"><i class="fas fa-shopping-cart"></i></div>
+          <h3>会員向けショッピングサイトの改修</h3>
+        </div>
         <p>ショッピングカートシステムを中心に新規機能の開発・最適化を担当。</p>
         <div class="tech-tags">
           <span class="tech-tag">PHP</span>
@@ -88,8 +62,11 @@
           <span class="tech-tag">jQuery</span>
         </div>
       </div>
-      <div class="timeline-item">
-        <h3>社員向け業務管理システムの改修</h3>
+      <div class="project-card">
+        <div class="card-header">
+          <div class="card-icon sky"><i class="fas fa-file-invoice"></i></div>
+          <h3>社員向け業務管理システムの改修</h3>
+        </div>
         <p>請求書のPDF出力機能の新規実装、既存機能のバグ修正・メンテナンス。</p>
         <div class="tech-tags">
           <span class="tech-tag">PHP</span>
@@ -97,8 +74,11 @@
           <span class="tech-tag">PDF出力</span>
         </div>
       </div>
-      <div class="timeline-item">
-        <h3>車両リアルタイム位置管理システム</h3>
+      <div class="project-card">
+        <div class="card-header">
+          <div class="card-icon orange"><i class="fas fa-map-marker-alt"></i></div>
+          <h3>車両リアルタイム位置管理システム</h3>
+        </div>
         <p>SORACOM SIM搭載IoT機器からの位置情報をNode.jsで受信し、Google Mapsでリアルタイム可視化。</p>
         <div class="tech-tags">
           <span class="tech-tag">Node.js</span>
@@ -107,8 +87,11 @@
           <span class="tech-tag">Google Maps API</span>
         </div>
       </div>
-      <div class="timeline-item">
-        <h3>RSS自動収集アンテナサイト</h3>
+      <div class="project-card">
+        <div class="card-header">
+          <div class="card-icon purple"><i class="fas fa-rss"></i></div>
+          <h3>RSS自動収集アンテナサイト</h3>
+        </div>
         <p>VPS構築からDB設計・バックエンド・フロントエンドまで一人で担当。自作フレームワークで開発。</p>
         <div class="tech-tags">
           <span class="tech-tag">PHP</span>
@@ -117,8 +100,11 @@
           <span class="tech-tag">インフラ構築</span>
         </div>
       </div>
-      <div class="timeline-item">
-        <h3>YouTube API連携 自動投稿ツール</h3>
+      <div class="project-card">
+        <div class="card-header">
+          <div class="card-icon rose"><i class="fab fa-youtube"></i></div>
+          <h3>YouTube API連携 自動投稿ツール</h3>
+        </div>
         <p>YouTube Data APIで特定ワードの動画紹介記事を自動生成・投稿するツール。</p>
         <div class="tech-tags">
           <span class="tech-tag">PHP</span>
@@ -126,8 +112,11 @@
           <span class="tech-tag">自動化</span>
         </div>
       </div>
-      <div class="timeline-item">
-        <h3>業務効率化ユーザースクリプト</h3>
+      <div class="project-card">
+        <div class="card-header">
+          <div class="card-icon blue"><i class="fas fa-wrench"></i></div>
+          <h3>業務効率化ユーザースクリプト</h3>
+        </div>
         <p>Tampermonkeyを利用して既存WebサービスへのUI改善ツールを自作・運用。</p>
         <div class="tech-tags">
           <span class="tech-tag">JavaScript</span>
@@ -135,8 +124,11 @@
           <span class="tech-tag">UI改善</span>
         </div>
       </div>
-      <div class="timeline-item">
-        <h3>ローカルLLM実行環境の構築</h3>
+      <div class="project-card">
+        <div class="card-header">
+          <div class="card-icon green"><i class="fas fa-microchip"></i></div>
+          <h3>ローカルLLM実行環境の構築</h3>
+        </div>
         <p>WSL2/Ubuntu/DockerでGPU (RTX 4070 Ti) を活用したローカルLLM環境を整備。</p>
         <div class="tech-tags">
           <span class="tech-tag">WSL2</span>
@@ -237,6 +229,18 @@
           <span class="tech-tag ai">GitHub Copilot</span>
         </div>
       </div>
+      <div class="project-card">
+        <div class="card-header">
+          <div class="card-icon sky"><i class="fas fa-graduation-cap"></i></div>
+          <h3>資格試験クイズアプリ</h3>
+        </div>
+        <p>FP2級・行政書士対策。加重ランダム出題 + 卒業判定。サーバー不要、ブラウザだけで動作。<a href="quiz/index.html" style="font-weight:700;">デモを試す →</a></p>
+        <div class="tech-tags">
+          <span class="tech-tag ai">HTML5</span>
+          <span class="tech-tag ai">Vanilla JS</span>
+          <span class="tech-tag ai">localStorage</span>
+        </div>
+      </div>
     </div>
     <div style="text-align:center; margin-top:32px;">
       <a href="ai-works.html" class="contact-link email" style="display:inline-flex;">
@@ -280,7 +284,9 @@
       </div>
     </div>
 
-    <!-- Tech Stack -->
+    <!-- Tech Stack: 自分で書いた技術 -->
+    <h3 style="margin-bottom:20px;font-size:1.1rem;color:#1e293b;">自分で書いた技術スタック</h3>
+
     <div class="skill-category">
       <h3><i class="fas fa-code" style="color:#2563eb;margin-right:8px;"></i>サーバーサイド</h3>
       <div class="skill-list">
@@ -294,42 +300,39 @@
       <div class="skill-list">
         <span class="skill-badge"><i class="fab fa-html5"></i> HTML / CSS / JavaScript</span>
         <span class="skill-badge"><i class="fab fa-js"></i> jQuery</span>
-        <span class="skill-badge"><i class="fas fa-chart-bar"></i> Chart.js</span>
-        <span class="skill-badge"><i class="fas fa-theater-masks"></i> Playwright</span>
+        <span class="skill-badge"><i class="fas fa-code"></i> Tampermonkey / ユーザースクリプト</span>
       </div>
     </div>
     <div class="skill-category">
       <h3><i class="fas fa-server" style="color:#059669;margin-right:8px;"></i>インフラ</h3>
       <div class="skill-list">
-        <span class="skill-badge"><i class="fab fa-ubuntu"></i> Ubuntu Linux / VPS構築</span>
+        <span class="skill-badge"><i class="fab fa-ubuntu"></i> Ubuntu Linux / VPS構築・運用</span>
         <span class="skill-badge"><i class="fas fa-network-wired"></i> Caddy</span>
         <span class="skill-badge"><i class="fas fa-cogs"></i> systemd / cron</span>
-        <span class="skill-badge"><i class="fab fa-docker"></i> Docker</span>
+        <span class="skill-badge"><i class="fab fa-docker"></i> Docker (環境構築)</span>
       </div>
     </div>
     <div class="skill-category">
-      <h3><i class="fas fa-database" style="color:#7c3aed;margin-right:8px;"></i>データベース</h3>
+      <h3><i class="fas fa-database" style="color:#7c3aed;margin-right:8px;"></i>データベース / API</h3>
       <div class="skill-list">
-        <span class="skill-badge"><i class="fas fa-database"></i> SQLite (FTS5)</span>
-        <span class="skill-badge"><i class="fas fa-database"></i> MySQL</span>
-      </div>
-    </div>
-    <div class="skill-category">
-      <h3><i class="fas fa-brain" style="color:#e11d48;margin-right:8px;"></i>AI活用</h3>
-      <div class="skill-list">
-        <span class="skill-badge"><i class="fas fa-robot"></i> Claude Code</span>
-        <span class="skill-badge"><i class="fab fa-github"></i> GitHub Copilot</span>
-        <span class="skill-badge"><i class="fas fa-robot"></i> Gemini CLI</span>
-        <span class="skill-badge"><i class="fas fa-image"></i> ComfyUI / LM Studio</span>
-      </div>
-    </div>
-    <div class="skill-category">
-      <h3><i class="fas fa-tools" style="color:#ea580c;margin-right:8px;"></i>その他</h3>
-      <div class="skill-list">
-        <span class="skill-badge"><i class="fab fa-git-alt"></i> Git / GitHub</span>
+        <span class="skill-badge"><i class="fas fa-database"></i> SQLite / MySQL</span>
         <span class="skill-badge"><i class="fas fa-satellite-dish"></i> IoT (SORACOM)</span>
         <span class="skill-badge"><i class="fas fa-map-marker-alt"></i> Google Maps API</span>
         <span class="skill-badge"><i class="fab fa-youtube"></i> YouTube API</span>
+        <span class="skill-badge"><i class="fab fa-git-alt"></i> Git / GitHub</span>
+      </div>
+    </div>
+
+    <!-- AI活用 -->
+    <h3 style="margin-top:40px;margin-bottom:16px;font-size:1.1rem;color:#1e293b;">AI協調開発スキル</h3>
+    <p style="color:#64748b;margin-bottom:20px;line-height:1.7;">実装はAIが行いますが、設計・方針決定・品質確認・レビューを私が担当しています。AIを「道具として使いこなす」判断力がスキルです。</p>
+    <div class="skill-category">
+      <h3><i class="fas fa-brain" style="color:#e11d48;margin-right:8px;"></i>使用したAIツール</h3>
+      <div class="skill-list">
+        <span class="skill-badge"><i class="fas fa-robot"></i> Claude Code（設計・コードレビュー）</span>
+        <span class="skill-badge"><i class="fab fa-github"></i> GitHub Copilot（実装・PR自動作成）</span>
+        <span class="skill-badge"><i class="fas fa-robot"></i> Gemini CLI（調査・検証）</span>
+        <span class="skill-badge"><i class="fas fa-image"></i> ComfyUI / LM Studio（画像生成・ローカルLLM）</span>
       </div>
     </div>
 

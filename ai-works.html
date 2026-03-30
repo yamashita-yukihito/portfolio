@@ -60,8 +60,14 @@
         systemdによるサービス管理、cronによる定期タスクの自動実行を実現。
         バックアップはGitによるソースコード管理と、GPG暗号化による日次自動バックアップの2層体制で、
         データ損失リスクを最小化しています。
-        VPS再作成時の復旧手順書と自動復旧スクリプトも整備済みです。
+        VPS再作成時の復旧手順書と自動復旧スクリプト（bootstrap-openclaw-vps.sh）も整備済みです。
       </p>
+      <div class="screenshot-gallery">
+        <div class="screenshot-item">
+          <img src="screenshots/dashboard-status.jpg" alt="サービスステータス一覧画面" loading="lazy">
+          <span class="screenshot-caption">サービスステータス — 全11サービスの稼働状況を一覧表示</span>
+        </div>
+      </div>
       <div class="tech-tags">
         <span class="tech-tag ai">Ubuntu</span>
         <span class="tech-tag ai">Caddy</span>
@@ -74,8 +80,9 @@
       </div>
       <div class="detail-card stats">
         <div class="stat-item">Webサービス: <strong>11以上</strong></div>
-        <div class="stat-item">バックアップ: <strong>2層体制</strong></div>
+        <div class="stat-item">バックアップ: <strong>2層体制（Git + GPG日次暗号化）</strong></div>
         <div class="stat-item">復旧: <strong>自動化済み</strong></div>
+        <div class="stat-item">cronジョブ: <strong>7件定期実行</strong></div>
       </div>
     </div>
 
@@ -94,6 +101,24 @@
         GitHub Copilotとの連携により、70以上のタスクを自動実行する仕組みも構築。
         Playwright E2Eテストで全ページの表示・リンク整合性を自動検証しています。
       </p>
+      <div class="screenshot-gallery">
+        <div class="screenshot-item">
+          <img src="screenshots/dashboard-main.jpg" alt="ダッシュボードのメイン画面" loading="lazy">
+          <span class="screenshot-caption">メイン画面 — Git活動・リソース監視の概要</span>
+        </div>
+        <div class="screenshot-item">
+          <img src="screenshots/dashboard-system.jpg" alt="システム監視画面" loading="lazy">
+          <span class="screenshot-caption">システム監視 — CPU/メモリ/ディスク使用率</span>
+        </div>
+        <div class="screenshot-item">
+          <img src="screenshots/dashboard-copilot.jpg" alt="Copilot作業レポート画面" loading="lazy">
+          <span class="screenshot-caption">Copilot作業レポート — タスク別進捗・成果</span>
+        </div>
+        <div class="screenshot-item">
+          <img src="screenshots/dashboard-security.jpg" alt="セキュリティ監査画面" loading="lazy">
+          <span class="screenshot-caption">セキュリティ監査 — 脆弱性チェック結果</span>
+        </div>
+      </div>
       <div class="tech-tags">
         <span class="tech-tag ai">Python / Flask</span>
         <span class="tech-tag ai">SQLite</span>
@@ -116,20 +141,49 @@
       </h3>
       <p>
         3つの独立したパイプラインで構成される自動化システム群です。
+        それぞれが異なる領域の業務を自動化し、手作業を最小限に抑えています。
       </p>
-      <p>
-        <strong>レビュー比較記事生成パイプライン</strong>は、8つのステージ
-        （judge→intent→outline→draft→smell→check→assemble→route）で
-        LLMを活用したブログ記事を自動生成します。117件のリグレッションテストで品質を担保。
-      </p>
-      <p>
-        <strong>バイラルコンテンツ収集パイプライン</strong>は、SearXNG（ローカルメタ検索エンジン）、
-        はてなブックマーク、X API v2を組み合わせ、話題のコンテンツを自動収集。毎日cronで実行。
-      </p>
-      <p>
-        <strong>CG画像集半自動制作パイプライン</strong>は、ComfyUI（MacBook、Tailscale VPN経由）で
-        AI画像生成→レビュー→テキスト焼き込み（縦書き対応）→ZIP/PDF出力までを半自動化します。
-      </p>
+
+      <div class="pipeline-sub">
+        <h4><i class="fas fa-pen-nib" style="color:#2563eb;margin-right:6px;"></i>レビュー比較記事生成パイプライン</h4>
+        <p>
+          8つのステージ（judge → intent → outline → draft → smell → check → assemble → route）で
+          LLMを活用したブログ記事を自動生成。MacBook上のLM Studio（ローカルLLM）にTailscale VPN経由で接続し、
+          4Bモデルで83秒/記事、35Bモデルで196秒/記事の処理速度を実現。
+          FC2・Livedoor・VPSの3媒体への自動ルーティングに対応。117件のリグレッションテストで品質を担保しています。
+        </p>
+      </div>
+      <div class="pipeline-sub">
+        <h4><i class="fas fa-fire" style="color:#ea580c;margin-right:6px;"></i>バイラルコンテンツ収集パイプライン</h4>
+        <p>
+          SearXNG（プライバシー重視のローカルメタ検索エンジン）、はてなブックマーク、X API v2の3つのソースから
+          話題のコンテンツを自動収集。スコアリングv2アルゴリズムで品質ドメインにボーナスを付与し、
+          ダッシュボードで候補を一覧表示。毎日06:30 JSTにcronで自動実行されます。
+        </p>
+      </div>
+      <div class="pipeline-sub">
+        <h4><i class="fas fa-image" style="color:#7c3aed;margin-right:6px;"></i>CG画像集半自動制作パイプライン</h4>
+        <p>
+          ComfyUI（MacBook M1 Max、Tailscale VPN経由）でAI画像生成 → FlaskレビューUI → テキスト焼き込み
+          （縦書き・横書き・マンガレイアウト対応、フォント: Noto Sans CJK JP）→ ZIP/PDFエクスポートまでを半自動化。
+          webp/jpg/png形式に対応し、QAバリデーションで品質を自動検証しています。
+        </p>
+      </div>
+
+      <div class="screenshot-gallery">
+        <div class="screenshot-item">
+          <img src="screenshots/pipeline.jpg" alt="パイプライン管理画面" loading="lazy">
+          <span class="screenshot-caption">パイプライン管理 — ステージ別進捗表示</span>
+        </div>
+        <div class="screenshot-item">
+          <img src="screenshots/viral.jpg" alt="バイラル候補一覧画面" loading="lazy">
+          <span class="screenshot-caption">バイラル候補 — スコア順に自動収集された記事一覧</span>
+        </div>
+        <div class="screenshot-item">
+          <img src="screenshots/cg-preview.jpg" alt="CG画像集プレビュー画面" loading="lazy">
+          <span class="screenshot-caption">CGプレビュー — AI生成画像のレビューUI</span>
+        </div>
+      </div>
       <div class="tech-tags">
         <span class="tech-tag ai">Python</span>
         <span class="tech-tag ai">LLM連携</span>
@@ -137,11 +191,13 @@
         <span class="tech-tag ai">X API v2</span>
         <span class="tech-tag ai">ComfyUI</span>
         <span class="tech-tag ai">Tailscale VPN</span>
+        <span class="tech-tag ai">Pillow</span>
       </div>
       <div class="detail-card stats">
         <div class="stat-item">リグレッションテスト: <strong>117件</strong></div>
         <div class="stat-item">パイプライン数: <strong>3本</strong></div>
         <div class="stat-item">ステージ数: <strong>8（レビュー）</strong></div>
+        <div class="stat-item">処理速度: <strong>83秒/記事（4B）</strong></div>
       </div>
     </div>
 
@@ -154,11 +210,21 @@
       <p>
         MacBook上で動作するLM Studio（ローカルLLM）とComfyUI（画像生成AI）の
         Webフロントエンドです。ChatGPT風のUIでローカルLLMとチャットでき、
-        複数セッションの管理、会話のエクスポート/インポートに対応。
+        複数セッションの管理（ChatGPTのようなサイドバー方式）、会話のエクスポート/インポートに対応。
         画像生成ではDynamic Promptsによるプロンプト展開、プロンプト履歴・お気に入り機能を搭載。
         全てのデータはローカル（localStorage）に保存されるプライバシー重視の設計で、
-        サーバーサイドのログ記録を無効化しています。
+        サーバーサイドのログ記録を完全に無効化しています。
       </p>
+      <div class="screenshot-gallery">
+        <div class="screenshot-item">
+          <img src="screenshots/lmchat-chat.jpg" alt="LM Chat チャット画面" loading="lazy">
+          <span class="screenshot-caption">チャットUI — ChatGPT風のサイドバー + マークダウン表示</span>
+        </div>
+        <div class="screenshot-item">
+          <img src="screenshots/lmchat-image.jpg" alt="LM Chat 画像生成画面" loading="lazy">
+          <span class="screenshot-caption">画像生成UI — Dynamic Prompts対応</span>
+        </div>
+      </div>
       <div class="tech-tags">
         <span class="tech-tag ai">Python / Flask</span>
         <span class="tech-tag ai">JavaScript</span>
@@ -168,8 +234,8 @@
       </div>
       <div class="detail-card stats">
         <div class="stat-item">テスト: <strong>59件</strong></div>
-        <div class="stat-item">セッション: <strong>複数対応</strong></div>
-        <div class="stat-item">プライバシー: <strong>ログ無効</strong></div>
+        <div class="stat-item">セッション: <strong>複数対応（サイドバー管理）</strong></div>
+        <div class="stat-item">プライバシー: <strong>サーバーログ完全無効</strong></div>
       </div>
     </div>
 
@@ -181,6 +247,8 @@
       </h3>
       <p>
         OpenClawフレームワーク上で動作するAIキャラクターBot。
+        5層のペルソナ定義（IDENTITY / SOUL / 日本語音声ガイド / QCチェックリスト）に基づき、
+        一貫したキャラクター性を持って対話します。
         Discordサーバー上で複数のAI（Claude Code / Gemini CLI / GitHub Copilot）の
         協調作業ハブとして機能し、コマンドの発行やタスクの管理を行います。
         自律heartbeat機能により、定期的にシステム状態を確認し、
@@ -195,6 +263,7 @@
       <div class="detail-card stats">
         <div class="stat-item">連携AI: <strong>4種類</strong></div>
         <div class="stat-item">テスト: <strong>37件</strong></div>
+        <div class="stat-item">ペルソナ: <strong>5層定義</strong></div>
       </div>
     </div>
 
@@ -208,8 +277,18 @@
         Discordの会話ログをSQLite FTS5（全文検索エンジン）で高速に検索できるWebUI。
         チャンネル・著者・日付によるフィルタリング、タイムライン表示に対応。
         NDJSONフォーマットでのインポートにより、大量のログデータを効率的に取り込めます。
-        毎日cronで自動同期し、最新の会話ログが常に検索可能な状態を維持しています。
+        毎日04:00 JSTにcronで自動同期し、最新の会話ログが常に検索可能な状態を維持しています。
       </p>
+      <div class="screenshot-gallery">
+        <div class="screenshot-item">
+          <img src="screenshots/discord-search.jpg" alt="Discord検索画面" loading="lazy">
+          <span class="screenshot-caption">ログ検索UI — FTS5による高速全文検索</span>
+        </div>
+        <div class="screenshot-item">
+          <img src="screenshots/discord-stats.jpg" alt="Discord統計画面" loading="lazy">
+          <span class="screenshot-caption">統計表示 — チャンネル別・著者別の活動分析</span>
+        </div>
+      </div>
       <div class="tech-tags">
         <span class="tech-tag ai">Python / Flask</span>
         <span class="tech-tag ai">SQLite FTS5</span>
@@ -218,7 +297,8 @@
       </div>
       <div class="detail-card stats">
         <div class="stat-item">テスト: <strong>31件</strong></div>
-        <div class="stat-item">同期: <strong>日次自動</strong></div>
+        <div class="stat-item">同期: <strong>日次自動（04:00 JST）</strong></div>
+        <div class="stat-item">検索: <strong>FTS5全文検索</strong></div>
       </div>
     </div>
 
@@ -230,19 +310,29 @@
       </h3>
       <p>
         FC2・Livedoor・WordPress・汎用HTMLに対応した、ブログ記事の収集・保存エンジン。
-        Readability（Node.js）による記事本文の自動抽出、プレビューUI、
-        タグ管理、バルク操作（一括処理）、Markdownエクスポートなど、
-        記事のサルベージに必要な機能を包括的に提供します。
+        Readability.js（Node.js）による記事本文の自動抽出で、広告やナビゲーション要素を除去し
+        本文だけを正確に取得します。プレビューUI、タグ管理、バルク操作（一括処理）、
+        Markdownエクスポートなど、記事のサルベージに必要な機能を包括的に提供。
+        記事のステータス管理（new → reviewed → ready_to_repost → done/skipped）で
+        作業フローを効率化しています。
       </p>
+      <div class="screenshot-gallery">
+        <div class="screenshot-item">
+          <img src="screenshots/blog-salvage.jpg" alt="ブログサルベージツールの記事一覧画面" loading="lazy">
+          <span class="screenshot-caption">記事一覧 — ステータス管理 + プレビュー機能</span>
+        </div>
+      </div>
       <div class="tech-tags">
         <span class="tech-tag ai">Python / Flask</span>
         <span class="tech-tag ai">Node.js (Readability)</span>
         <span class="tech-tag ai">HTML解析</span>
+        <span class="tech-tag ai">BeautifulSoup4</span>
         <span class="tech-tag ai">Markdown</span>
       </div>
       <div class="detail-card stats">
         <div class="stat-item">対応プラットフォーム: <strong>4種類</strong></div>
         <div class="stat-item">テスト: <strong>14件</strong></div>
+        <div class="stat-item">抽出成功率: <strong>70/71件（98.6%）</strong></div>
       </div>
     </div>
 
@@ -253,13 +343,22 @@
         <span class="badge ai">Webアプリ</span>
       </h3>
       <p>
-        AI画像生成で使用するプロンプトの比較・評価を行うWebインターフェース。
-        異なるプロンプトで生成された画像を並べて比較し、効果的な表現を見つけるための
-        ツールとして活用しています。
+        AI画像生成（ComfyUI / Stable Diffusion）で使用するプロンプトの比較・評価を行うWebインターフェース。
+        異なるプロンプトで生成された画像をサムネイル一覧で並べて比較し、
+        効果的な表現パターンを見つけるためのツールです。
+        プロンプトのテキストと生成結果を対にして管理し、
+        どのキーワードや構文が画質・構図・スタイルに影響するかを視覚的に分析できます。
       </p>
+      <div class="screenshot-gallery">
+        <div class="screenshot-item">
+          <img src="screenshots/prompt-compare.jpg" alt="プロンプト比較ツール画面" loading="lazy">
+          <span class="screenshot-caption">プロンプト比較 — 生成画像の並列比較</span>
+        </div>
+      </div>
       <div class="tech-tags">
         <span class="tech-tag ai">Python / Flask</span>
         <span class="tech-tag ai">JavaScript</span>
+        <span class="tech-tag ai">画像比較UI</span>
       </div>
     </div>
 
@@ -271,13 +370,29 @@
       </h3>
       <p>
         Webサイト内の壊れた画像（404エラー、読み込み失敗）を自動検出するツール。
-        指定したURLをクロールし、全ての画像リンクの有効性を検証。
-        Webアプリ版（BI Web）も提供し、ブラウザから簡単に検査を実行できます。
+        指定したURLをクロールし、全ての画像リンクの有効性を検証します。
+        <strong>2つのバージョン</strong>を提供しています:
       </p>
+      <p>
+        <strong>サーバー版（Python / FastAPI）</strong>はサーバーサイドでHTTPリクエストを送信して検証。
+        <strong>Web版（BI Web）</strong>は完全にクライアントサイドで動作し、
+        HTML5 Canvas APIを使って画像の読み込み可否を判定するため、サーバー不要で動作します。
+      </p>
+      <div class="screenshot-gallery">
+        <div class="screenshot-item">
+          <img src="screenshots/bi-web.jpg" alt="Broken Image Analyzer Web版" loading="lazy">
+          <span class="screenshot-caption">BI Web — ブラウザだけで動作するクライアントサイド版</span>
+        </div>
+      </div>
       <div class="tech-tags">
-        <span class="tech-tag ai">Python</span>
-        <span class="tech-tag ai">HTTPリクエスト</span>
-        <span class="tech-tag ai">Web解析</span>
+        <span class="tech-tag ai">Python / FastAPI</span>
+        <span class="tech-tag ai">HTML5 Canvas API</span>
+        <span class="tech-tag ai">JavaScript</span>
+        <span class="tech-tag ai">HTTPクローリング</span>
+      </div>
+      <div class="detail-card stats">
+        <div class="stat-item">バージョン: <strong>サーバー版 + Web版</strong></div>
+        <div class="stat-item">Web版: <strong>サーバー不要（完全クライアントサイド）</strong></div>
       </div>
     </div>
 
@@ -290,20 +405,69 @@
       <p>
         全プロジェクトを横断する包括的なテスト・品質保証体制を構築。
         Playwright E2Eテスト868件で全ページのビジュアル確認・パフォーマンス測定・リンク整合性を自動検証。
-        pytest ユニットテスト600件以上で各モジュールの動作を個別に検証。
+        pytest ユニットテスト600件以上（17スイート）で各モジュールの動作を個別に検証。
         GitHub CopilotによるPR自動レビューを組み込み、コード品質の維持を自動化しています。
+        公開URLのリンク監査（web_qa）も毎日05:00 JSTに自動実行し、外部リンク切れを検出します。
       </p>
+      <div class="screenshot-gallery">
+        <div class="screenshot-item">
+          <img src="screenshots/dashboard-commits.jpg" alt="Gitコミット履歴画面" loading="lazy">
+          <span class="screenshot-caption">コミット履歴 — 日々の開発活動を可視化</span>
+        </div>
+        <div class="screenshot-item">
+          <img src="screenshots/dashboard-cron.jpg" alt="cron実行履歴画面" loading="lazy">
+          <span class="screenshot-caption">cron実行履歴 — 自動テスト・監査の実行記録</span>
+        </div>
+      </div>
       <div class="tech-tags">
         <span class="tech-tag ai">Playwright</span>
         <span class="tech-tag ai">pytest</span>
         <span class="tech-tag ai">GitHub Copilot</span>
         <span class="tech-tag ai">E2Eテスト</span>
-        <span class="tech-tag ai">CI/CD</span>
+        <span class="tech-tag ai">リンク監査</span>
       </div>
       <div class="detail-card stats">
         <div class="stat-item">E2Eテスト: <strong>868件</strong></div>
-        <div class="stat-item">ユニットテスト: <strong>600件以上</strong></div>
-        <div class="stat-item">合計: <strong>1,463件</strong></div>
+        <div class="stat-item">ユニットテスト: <strong>600件以上（17スイート）</strong></div>
+        <div class="stat-item">合計: <strong>1,463件以上</strong></div>
+        <div class="stat-item">リンク監査: <strong>日次自動（05:00 JST）</strong></div>
+      </div>
+    </div>
+
+    <!-- K. 資格試験クイズアプリ -->
+    <div class="detail-card">
+      <h3>
+        <span>K. 資格試験クイズアプリ</span>
+        <span class="badge ai">学習ツール</span>
+      </h3>
+      <p>
+        FP2級（ファイナンシャル・プランナー）と行政書士の資格試験対策用ブラウザベースクイズアプリ。
+        サーバー不要で、HTMLファイルをブラウザで開くだけで動作します。
+        学習履歴をlocalStorageに保存し、間違えた問題を優先的に出題する
+        <strong>加重ランダム出題アルゴリズム</strong>を実装。
+        正解数 − 不正解数 ≥ 3 で「卒業」判定し、習得済みの問題は自動的に出題から除外されます。
+        問題管理UI（追加・編集・削除）とJSONインポート/エクスポート機能も搭載しており、
+        自分で問題を追加しながら学習を進められます。
+      </p>
+      <div class="quiz-demo-links">
+        <a href="quiz/index.html" target="_blank" class="demo-link">
+          <i class="fas fa-play-circle"></i> クイズを試す
+        </a>
+        <a href="https://github.com/yamashita-yukihito/quiz" target="_blank" rel="noopener" class="demo-link github">
+          <i class="fab fa-github"></i> ソースコード
+        </a>
+      </div>
+      <div class="tech-tags">
+        <span class="tech-tag ai">HTML5</span>
+        <span class="tech-tag ai">Vanilla JavaScript</span>
+        <span class="tech-tag ai">localStorage</span>
+        <span class="tech-tag ai">レスポンシブ</span>
+      </div>
+      <div class="detail-card stats">
+        <div class="stat-item">対応資格: <strong>FP2級（6科目）・行政書士（3法）</strong></div>
+        <div class="stat-item">クイズファイル: <strong>18ファイル</strong></div>
+        <div class="stat-item">出題方式: <strong>加重ランダム + 卒業判定</strong></div>
+        <div class="stat-item">外部依存: <strong>ゼロ（完全スタンドアロン）</strong></div>
       </div>
     </div>
 
@@ -315,28 +479,28 @@
           <i class="fas fa-check-circle"></i>
           <div>
             <strong>AIとの協調開発スキル</strong>
-            <span>4種類のAIツールを使い分け、人間とAIの最適な役割分担で効率的に開発する手法を確立</span>
+            <span>4種類のAIツール（Claude Code / GitHub Copilot / Gemini CLI / OpenClaw）を使い分け、人間とAIの最適な役割分担で効率的に開発する手法を確立</span>
           </div>
         </div>
         <div class="gained-item">
           <i class="fas fa-check-circle"></i>
           <div>
             <strong>大規模テスト設計</strong>
-            <span>1,463件のテストを体系的に設計・管理し、継続的に品質を担保する体制を構築</span>
+            <span>E2E 868件 + ユニット600件以上 = 1,463件のテストを体系的に設計・管理し、継続的に品質を担保する体制を構築</span>
           </div>
         </div>
         <div class="gained-item">
           <i class="fas fa-check-circle"></i>
           <div>
             <strong>自動化・パイプライン設計</strong>
-            <span>複数ステージのパイプラインやcronジョブによる業務の自動化を設計・実装</span>
+            <span>8ステージのLLMパイプライン、3ソースからのコンテンツ収集、CG画像制作ワークフローなど、複雑な自動化を設計・実装</span>
           </div>
         </div>
         <div class="gained-item">
           <i class="fas fa-check-circle"></i>
           <div>
             <strong>インフラ・セキュリティ</strong>
-            <span>VPS構築からリバースプロキシ設定、暗号化バックアップまでのインフラ運用を一人で完結</span>
+            <span>VPS構築からCaddyリバースプロキシ設定、GPG暗号化バックアップ、自動復旧スクリプトまでのインフラ運用を一人で完結</span>
           </div>
         </div>
       </div>
