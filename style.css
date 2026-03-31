@@ -458,3 +458,144 @@ section { padding: 80px 0; }
   .hero h1 { font-size: 1.4rem; }
   .section-header h2 { font-size: 1.4rem; }
 }
+
+/* ========== Enhanced Responsive (added 2026-03-31) ========== */
+
+/* Prevent horizontal overflow globally */
+html { overflow-x: hidden; }
+body { overflow-x: hidden; }
+
+/* Responsive tables */
+.detail-card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Code elements should wrap */
+code {
+  word-break: break-word;
+}
+
+/* Better nav transitions */
+.site-nav .nav-links {
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  /* Better detail card padding on mobile */
+  .detail-card {
+    padding: 20px 16px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  /* Tables scroll horizontally on mobile */
+  .detail-card div[style*="overflow-x"] {
+    margin: 0 -16px;
+    padding: 0 16px;
+  }
+  
+  /* Better tech tags on mobile */
+  .tech-tags {
+    gap: 4px;
+  }
+  .tech-tag {
+    font-size: 0.72rem;
+    padding: 2px 8px;
+  }
+  
+  /* Screenshot gallery items should have proper aspect ratio */
+  .screenshot-item img {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    object-fit: contain;
+    background: #f1f5f9;
+  }
+  
+  /* Ensure text doesn't overflow */
+  .detail-card h3 {
+    flex-wrap: wrap;
+    font-size: 1.05rem;
+  }
+  
+  /* Better intro box on mobile */
+  .intro-box {
+    padding: 16px 20px;
+    margin-bottom: 32px;
+  }
+  
+  /* Hamburger menu z-index */
+  .site-nav .nav-links {
+    z-index: 200;
+  }
+  
+  /* Pipeline sub-section on mobile */
+  .pipeline-sub {
+    padding: 12px 14px;
+  }
+  
+  /* Gained list single column */
+  .gained-list {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  /* Summary cards better spacing */
+  .summary-cards {
+    gap: 12px;
+  }
+  
+  /* Section spacing */
+  section {
+    padding: 40px 0;
+  }
+  
+  /* Fix hero section */
+  .hero .tagline {
+    font-size: 0.9rem;
+    padding: 0 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Extra small screens */
+  .detail-card {
+    padding: 16px 12px;
+    border-radius: 8px;
+  }
+  
+  .qual-card {
+    padding: 16px;
+  }
+  
+  .hero h1 { font-size: 1.3rem; }
+  .hero .subtitle { font-size: 0.95rem; }
+  
+  .section-header h2 { font-size: 1.3rem; }
+  .section-header p { font-size: 0.9rem; }
+  
+  /* Better back link */
+  .back-link { font-size: 0.85rem; margin-bottom: 24px; }
+  
+  /* Contact */
+  .contact-link { padding: 10px 20px; font-size: 0.9rem; }
+  
+  /* Skill badges stack better */
+  .skill-badge {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+  
+  .skill-category h3 {
+    font-size: 1rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  .site-nav, .hamburger { display: none; }
+  body { font-size: 12pt; color: #000; }
+  a { color: #000; text-decoration: underline; }
+  .hero { background: #333; }
+}
