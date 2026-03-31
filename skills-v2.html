@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>スキル・資格 v2 | yamashita-yukihito Portfolio</title>
+  <meta name="description" content="情報処理安全確保支援士（登録セキスペ）、応用情報技術者をはじめとする保有資格と、PHP・Python・Node.js・インフラ構築の技術スタック詳細。スキルバー付き。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .skill-bar-container { background: #e2e8f0; border-radius: 8px; height: 10px; margin-top: 6px; overflow: hidden; }
+    .skill-bar { height: 100%; border-radius: 8px; transition: width 0.5s; }
+    .skill-item { margin-bottom: 16px; }
+    .skill-item .skill-name { display: flex; justify-content: space-between; font-size: 0.9rem; color: #475569; margin-bottom: 2px; }
+    .skill-item .skill-name span:last-child { font-weight: 700; color: #1e293b; }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">yamashita-yukihito</a>
+    <button class="hamburger" aria-label="メニュー" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <i class="fas fa-bars"></i>
+    </button>
+    <ul class="nav-links">
+      <li><a href="index.html">トップ</a></li>
+      <li><a href="manual-works.html">手動制作実績</a></li>
+      <li><a href="ai-works.html">AI協調実績</a></li>
+      <li><a href="skills.html" class="active">スキル・資格</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Page Header -->
+<header class="page-header">
+  <h1>スキル・資格</h1>
+  <p>情報処理安全確保支援士を筆頭に、開発・インフラ・セキュリティの幅広いスキルセット</p>
+</header>
+
+<!-- Content -->
+<section>
+  <div class="container">
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> トップページへ</a>
+
+    <!-- Qualifications -->
+    <div class="section-header" style="text-align:left; margin-bottom:32px;">
+      <h2><i class="fas fa-award" style="color:#d97706; margin-right:8px;"></i>保有資格</h2>
+    </div>
+
+    <div class="qual-card" style="border-left:4px solid #d97706; background:linear-gradient(135deg, #fffbeb 0%, #ffffff 100%);">
+      <div class="qual-icon gold"><i class="fas fa-shield-halved"></i></div>
+      <div>
+        <h3>情報処理安全確保支援士（登録セキスペ）</h3>
+        <p>
+          経済産業省所管の高度情報処理技術者試験の一つで、情報セキュリティの専門国家資格。
+          サイバーセキュリティに関する専門的な知識・技能を有することを証明します。
+          <strong style="color:#b45309;">合格率は約15%</strong>の難関資格であり、情報処理技術者試験の中でも最高レベルに位置づけられています。
+        </p>
+        <span class="highlight"><i class="fas fa-star"></i> 高難度国家資格 — 合格率約15%</span>
+        <span class="highlight" style="margin-left:8px; background:#fef3c7; color:#92400e;"><i class="fas fa-gem"></i> 高度区分</span>
+      </div>
+    </div>
+
+    <div class="qual-card" style="border-left:4px solid #2563eb;">
+      <div class="qual-icon blue"><i class="fas fa-laptop-code"></i></div>
+      <div>
+        <h3>応用情報技術者</h3>
+        <p>
+          ITエンジニアとしての応用的知識・技能を証明する国家資格。
+          システム開発、ネットワーク、データベース、セキュリティなど、
+          IT全般にわたる幅広い知識と応用力を持つことを示します。
+        </p>
+      </div>
+    </div>
+
+    <div class="qual-card" style="border-left:4px solid #059669;">
+      <div class="qual-icon green"><i class="fas fa-calculator"></i></div>
+      <div>
+        <h3>簿記2級</h3>
+        <p>
+          企業の経理・財務に関する知識を持ち、財務諸表の読解や仕訳処理ができることを証明。
+          IT業務においても予算管理やコスト意識に役立つビジネススキルです。
+        </p>
+      </div>
+    </div>
+
+    <div class="qual-card" style="border-left:4px solid #2563eb;">
+      <div class="qual-icon blue"><i class="fas fa-scale-balanced"></i></div>
+      <div>
+        <h3>ビジネス実務法務検定2級</h3>
+        <p>
+          企業活動に必要な法務知識を体系的に習得していることを証明する資格。
+          契約書の確認やコンプライアンス意識など、実務に直結する法的素養を持っています。
+        </p>
+      </div>
+    </div>
+
+    <div class="qual-card" style="border-left:4px solid #059669;">
+      <div class="qual-icon green"><i class="fas fa-coins"></i></div>
+      <div>
+        <h3>FP3級（ファイナンシャル・プランニング技能士）</h3>
+        <p>
+          ライフプランニング、保険、税金、資産運用などの基礎知識を持つことを証明する国家資格。
+        </p>
+      </div>
+    </div>
+
+    <!-- Tech Stack Detail -->
+    <div class="section-header" style="text-align:left; margin-top:64px; margin-bottom:32px;">
+      <h2><i class="fas fa-code" style="color:#2563eb; margin-right:8px;"></i>技術スタック</h2>
+    </div>
+
+    <!-- サーバーサイド -->
+    <div class="detail-card">
+      <h3><i class="fas fa-server" style="color:#2563eb; margin-right:8px;"></i>サーバーサイド</h3>
+      <div class="skill-list" style="margin-top:16px;">
+        <span class="skill-badge"><i class="fab fa-php"></i> PHP (CakePHP2)</span>
+        <span class="skill-badge"><i class="fab fa-python"></i> Python (Flask, FastAPI)</span>
+        <span class="skill-badge"><i class="fab fa-node-js"></i> Node.js</span>
+      </div>
+      <div style="margin-top:20px;">
+        <div class="skill-item">
+          <div class="skill-name"><span>PHP (CakePHP2) — 業務で複数システム開発。予約・EC・業務管理で使用</span><span>90%</span></div>
+          <div class="skill-bar-container"><div class="skill-bar" style="width:90%; background:#2563eb;"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>Python (Flask, FastAPI) — AI協調開発で11+プロジェクト構築。テスト1490件</span><span>85%</span></div>
+          <div class="skill-bar-container"><div class="skill-bar" style="width:85%; background:#2563eb;"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>Node.js — IoT連携、リアルタイム通信で使用</span><span>70%</span></div>
+          <div class="skill-bar-container"><div class="skill-bar" style="width:70%; background:#2563eb;"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- フロントエンド -->
+    <div class="detail-card">
+      <h3><i class="fas fa-palette" style="color:#0ea5e9; margin-right:8px;"></i>フロントエンド</h3>
+      <div class="skill-list" style="margin-top:16px;">
+        <span class="skill-badge"><i class="fab fa-html5"></i> HTML / CSS / JavaScript</span>
+        <span class="skill-badge"><i class="fab fa-js"></i> jQuery</span>
+        <span class="skill-badge"><i class="fas fa-chart-bar"></i> Chart.js</span>
+        <span class="skill-badge"><i class="fas fa-theater-masks"></i> Playwright</span>
+      </div>
+      <div style="margin-top:20px;">
+        <div class="skill-item">
+          <div class="skill-name"><span>HTML/CSS/JavaScript — 全プロジェクトで使用。レスポンシブ対応</span><span>90%</span></div>
+          <div class="skill-bar-container"><div class="skill-bar" style="width:90%; background:#0ea5e9;"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>jQuery — 業務でのUI開発</span><span>80%</span></div>
+          <div class="skill-bar-container"><div class="skill-bar" style="width:80%; background:#0ea5e9;"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>Chart.js — ダッシュボードデータ可視化</span><span>75%</span></div>
+          <div class="skill-bar-container"><div class="skill-bar" style="width:75%; background:#0ea5e9;"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>Playwright — E2Eテスト自動化868件</span><span>80%</span></div>
+          <div class="skill-bar-container"><div class="skill-bar" style="width:80%; background:#0ea5e9;"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- インフラ -->
+    <div class="detail-card">
+      <h3><i class="fas fa-cloud" style="color:#059669; margin-right:8px;"></i>インフラ</h3>
+      <div class="skill-list" style="margin-top:16px;">
+        <span class="skill-badge"><i class="fab fa-ubuntu"></i> Ubuntu Linux</span>
+        <span class="skill-badge"><i class="fas fa-network-wired"></i> VPS構築・運用</span>
+        <span class="skill-badge"><i class="fas fa-shield-halved"></i> Caddy</span>
+        <span class="skill-badge"><i class="fas fa-cogs"></i> systemd / cron</span>
+        <span class="skill-badge"><i class="fab fa-docker"></i> Docker</span>
+      </div>
+      <div style="margin-top:20px;">
+        <div class="skill-item">
+          <div class="skill-name"><span>Ubuntu Linux / VPS — OS設定からサービス運用まで</span><span>85%</span></div>
+          <div class="skill-bar-container"><div class="skill-bar" style="width:85%; background:#059669;"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>Caddy — リバースプロキシ、SSL管理</span><span>80%</span></div>
+          <div class="skill-bar-container"><div class="skill-bar" style="width:80%; background:#059669;"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>systemd / cron — サービス管理、定期タスク自動化</span><span>85%</span></div>
+          <div class="skill-bar-container"><div class="skill-bar" style="width:85%; background:#059669;"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>Docker — コンテナ環境構築</span><span>65%</span></div>
+          <div class="skill-bar-container"><div class="skill-bar" style="width:65%; background:#059669;"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- データベース -->
+    <div class="detail-card">
+      <h3><i class="fas fa-database" style="color:#7c3aed; margin-right:8px;"></i>データベース</h3>
+      <div class="skill-list" style="margin-top:16px;">
+        <span class="skill-badge"><i class="fas fa-database"></i> SQLite (FTS5)</span>
+        <span class="skill-badge"><i class="fas fa-database"></i> MySQL</span>
+      </div>
+      <div style="margin-top:20px;">
+        <div class="skill-item">
+          <div class="skill-name"><span>SQLite (FTS5) — 全文検索、複数プロジェクトで活用</span><span>85%</span></div>
+          <div class="skill-bar-container"><div class="skill-bar" style="width:85%; background:#7c3aed;"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>MySQL — 業務Web開発で使用</span><span>75%</span></div>
+          <div class="skill-bar-container"><div class="skill-bar" style="width:75%; background:#7c3aed;"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI活用 -->
+    <div class="detail-card">
+      <h3><i class="fas fa-brain" style="color:#e11d48; margin-right:8px;"></i>AI活用</h3>
+      <div class="skill-list" style="margin-top:16px;">
+        <span class="skill-badge"><i class="fas fa-robot"></i> Claude Code</span>
+        <span class="skill-badge"><i class="fab fa-github"></i> GitHub Copilot</span>
+        <span class="skill-badge"><i class="fas fa-robot"></i> Gemini CLI</span>
+        <span class="skill-badge"><i class="fas fa-robot"></i> OpenClaw (ChatGPT)</span>
+        <span class="skill-badge"><i class="fas fa-image"></i> ComfyUI</span>
+        <span class="skill-badge"><i class="fas fa-comments"></i> LM Studio</span>
+      </div>
+      <div style="margin-top:20px;">
+        <div class="skill-item">
+          <div class="skill-name"><span>Claude Code — 主力AI。設計・レビュー・実装</span><span>90%</span></div>
+          <div class="skill-bar-container"><div class="skill-bar" style="width:90%; background:#e11d48;"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>GitHub Copilot — 実装・タスク実行・PR作成</span><span>85%</span></div>
+          <div class="skill-bar-container"><div class="skill-bar" style="width:85%; background:#e11d48;"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>Gemini CLI — 長時間自律作業・調査</span><span>80%</span></div>
+          <div class="skill-bar-container"><div class="skill-bar" style="width:80%; background:#e11d48;"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>OpenClaw (ChatGPT) — 自律heartbeat・Discord bot</span><span>75%</span></div>
+          <div class="skill-bar-container"><div class="skill-bar" style="width:75%; background:#e11d48;"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>ComfyUI — 画像生成</span><span>70%</span></div>
+          <div class="skill-bar-container"><div class="skill-bar" style="width:70%; background:#e11d48;"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>LM Studio — ローカルLLM運用</span><span>70%</span></div>
+          <div class="skill-bar-container"><div class="skill-bar" style="width:70%; background:#e11d48;"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- その他 -->
+    <div class="detail-card">
+      <h3><i class="fas fa-tools" style="color:#ea580c; margin-right:8px;"></i>その他</h3>
+      <div class="skill-list" style="margin-top:16px;">
+        <span class="skill-badge"><i class="fab fa-git-alt"></i> Git / GitHub</span>
+        <span class="skill-badge"><i class="fas fa-satellite-dish"></i> IoT (SORACOM)</span>
+        <span class="skill-badge"><i class="fas fa-map-marker-alt"></i> Google Maps API</span>
+        <span class="skill-badge"><i class="fab fa-youtube"></i> YouTube API</span>
+      </div>
+      <div style="margin-top:20px;">
+        <div class="skill-item">
+          <div class="skill-name"><span>Git / GitHub</span><span>85%</span></div>
+          <div class="skill-bar-container"><div class="skill-bar" style="width:85%; background:#ea580c;"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>IoT (SORACOM)</span><span>70%</span></div>
+          <div class="skill-bar-container"><div class="skill-bar" style="width:70%; background:#ea580c;"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>Google Maps API</span><span>70%</span></div>
+          <div class="skill-bar-container"><div class="skill-bar" style="width:70%; background:#ea580c;"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>YouTube API</span><span>65%</span></div>
+          <div class="skill-bar-container"><div class="skill-bar" style="width:65%; background:#ea580c;"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Self PR -->
+    <div class="self-pr" style="margin-top:64px;">
+      <h2><i class="fas fa-user" style="color:#2563eb; margin-right:8px;"></i>自己PR</h2>
+      <ul style="margin-top:16px; line-height:2; padding-left:20px;">
+        <li><strong>情報処理安全確保支援士</strong>（合格率約15%）の資格が示す通り、セキュリティを意識した堅牢なシステム設計を得意としています。</li>
+        <li><strong>PHP・Python・Node.js</strong>の3言語でバックエンド開発に対応可能。</li>
+        <li>VPS構築からサービス運用まで、<strong>Webサービスの全レイヤー</strong>に対応できます。</li>
+        <li>2026年にAI協調開発を実践し、<strong>2ヶ月弱で11以上のWebサービス</strong>を構築。</li>
+        <li>品質重視の開発姿勢 — <strong>1,490件の自動テスト</strong>体制を整備。</li>
+        <li><strong>4つのAIツール</strong>（Claude Code / GitHub Copilot / Gemini CLI / OpenClaw）を使い分ける協調開発スタイルを確立。</li>
+      </ul>
+      <p style="margin-top:20px;">
+        <i class="fas fa-chart-line" style="color:#2563eb; margin-right:6px;"></i>
+        AIツールの使い分けと成果の詳細は <a href="ai-tools-report.html">AIツール活用分析レポート</a> をご覧ください。
+      </p>
+    </div>
+
+    <div style="text-align:center; margin-top:48px;">
+      <a href="index.html" class="back-link" style="font-size:1rem;"><i class="fas fa-arrow-left"></i> トップページへ戻る</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <p>&copy; 2026 yamashita-yukihito. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

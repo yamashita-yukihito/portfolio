@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>手動制作実績（タイムライン版） | yamashita-yukihito Portfolio</title>
+  <meta name="description" content="yamashita-yukihitoの手動制作実績をタイムライン形式で紹介。レンタカー予約システム、ショッピングサイト、業務管理システム、IoT車両管理など、2010年から積み上げた開発実績一覧。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .timeline { position: relative; padding-left: 40px; }
+    .timeline::before { content: ''; position: absolute; left: 16px; top: 0; bottom: 0; width: 3px; background: linear-gradient(to bottom, #2563eb, #059669, #7c3aed); border-radius: 2px; }
+    .timeline-item { position: relative; margin-bottom: 48px; }
+    .timeline-item::before { content: ''; position: absolute; left: -32px; top: 8px; width: 14px; height: 14px; border-radius: 50%; border: 3px solid #2563eb; background: #fff; z-index: 1; }
+    .timeline-item.personal::before { border-color: #059669; }
+    .timeline-period { display: inline-block; font-size: 0.8rem; font-weight: 700; color: #2563eb; background: #eff6ff; padding: 2px 12px; border-radius: 12px; margin-bottom: 8px; }
+    .timeline-item.personal .timeline-period { color: #059669; background: #ecfdf5; }
+    .impact-box { background: #f0fdf4; border-left: 3px solid #059669; padding: 12px 16px; margin-top: 16px; border-radius: 0 8px 8px 0; }
+    .impact-box h4 { font-size: 0.85rem; color: #059669; margin-bottom: 4px; }
+    .impact-box p { font-size: 0.85rem; color: #475569; line-height: 1.6; }
+    .impact-box.work-impact { background: #eff6ff; border-left-color: #2563eb; }
+    .impact-box.work-impact h4 { color: #2563eb; }
+    .tech-matrix { width: 100%; border-collapse: collapse; margin-top: 24px; }
+    .tech-matrix th, .tech-matrix td { padding: 12px 16px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+    .tech-matrix th { background: #f8fafc; font-weight: 700; color: #1e293b; font-size: 0.85rem; }
+    .tech-matrix td { font-size: 0.9rem; color: #475569; }
+    .tech-matrix tr:hover { background: #f8fafc; }
+    .tech-matrix .count { font-weight: 700; color: #2563eb; }
+    @media (max-width: 768px) {
+      .timeline { padding-left: 30px; }
+      .timeline::before { left: 10px; }
+      .timeline-item::before { left: -26px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">yamashita-yukihito</a>
+    <button class="hamburger" aria-label="メニュー" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <i class="fas fa-bars"></i>
+    </button>
+    <ul class="nav-links">
+      <li><a href="index.html">トップ</a></li>
+      <li><a href="manual-works.html" class="active">手動制作実績</a></li>
+      <li><a href="ai-works.html">AI協調実績</a></li>
+      <li><a href="skills.html">スキル・資格</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Page Header -->
+<header class="page-header">
+  <h1>過去の制作実績（手動）— タイムライン</h1>
+  <p>2010〜2026年 — 業務経験・個人開発を通じて積み上げた技術実績</p>
+</header>
+
+<!-- Content -->
+<section>
+  <div class="container">
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> トップページへ</a>
+
+    <div class="timeline">
+
+      <!-- 1. レンタカー予約・管理システム -->
+      <div class="timeline-item">
+        <span class="timeline-period">業務経験</span>
+        <div class="detail-card">
+          <h3>
+            <span>レンタカー予約・管理システム</span>
+            <span class="badge work">業務</span>
+          </h3>
+          <p>
+            レンタカー店舗の予約受付から車両管理までを一括で行うWebシステム。
+            バックエンドのほぼ全て（予約ロジック、在庫管理、ユーザー認証、管理画面）と
+            フロントエンド（jQuery）の一部を担当しました。
+            クレジットカード決済機能の実装では、外部決済サービスとのAPI連携を行い、
+            セキュアなトランザクション処理を実現しました。
+          </p>
+          <div class="role"><strong>担当範囲:</strong> バックエンド全般 / フロントエンド一部 / 決済連携</div>
+          <div class="impact-box work-impact">
+            <h4><i class="fas fa-chart-line"></i> インパクト</h4>
+            <p>予約から決済まで一貫したフローを実現。外部決済サービスとのAPI連携でセキュアなトランザクション処理を構築。</p>
+          </div>
+          <div class="tech-tags">
+            <span class="tech-tag">PHP</span>
+            <span class="tech-tag">CakePHP2</span>
+            <span class="tech-tag">jQuery</span>
+            <span class="tech-tag">クレジットカード決済</span>
+            <span class="tech-tag">API連携</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. 会員向けショッピングサイトの改修 -->
+      <div class="timeline-item">
+        <span class="timeline-period">業務経験</span>
+        <div class="detail-card">
+          <h3>
+            <span>会員向けショッピングサイトの改修</span>
+            <span class="badge work">業務</span>
+          </h3>
+          <p>
+            会員制ECサイトのショッピングカートシステムを中心に、新規機能の開発と既存機能の最適化を実施。
+            カート内の商品管理、数量変更、合計金額のリアルタイム計算などのフロントエンド処理と、
+            注文処理・在庫連動のバックエンドロジックを実装しました。
+            ユーザビリティの向上を意識した改修により、購入フローの改善に貢献しました。
+          </p>
+          <div class="role"><strong>担当範囲:</strong> バックエンド / フロントエンド / カートシステム</div>
+          <div class="impact-box work-impact">
+            <h4><i class="fas fa-chart-line"></i> インパクト</h4>
+            <p>カート内のリアルタイム計算と在庫連動を実現。購入フロー改善によりユーザビリティを向上。</p>
+          </div>
+          <div class="tech-tags">
+            <span class="tech-tag">PHP</span>
+            <span class="tech-tag">CakePHP2</span>
+            <span class="tech-tag">jQuery</span>
+            <span class="tech-tag">ECサイト</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. 社員向け業務管理システムの改修 -->
+      <div class="timeline-item">
+        <span class="timeline-period">業務経験</span>
+        <div class="detail-card">
+          <h3>
+            <span>社員向け業務管理システムの改修</span>
+            <span class="badge work">業務</span>
+          </h3>
+          <p>
+            社内業務管理システムにおいて、請求書のPDF出力機能を新規に実装。
+            帳票レイアウトの設計からPDFライブラリの選定・実装までを担当しました。
+            また、既存機能のバグ修正やパフォーマンス改善、コードの保守性向上にも取り組み、
+            安定したシステム運用に貢献しました。
+          </p>
+          <div class="role"><strong>担当範囲:</strong> バックエンド / PDF出力機能 / バグ修正・メンテナンス</div>
+          <div class="impact-box work-impact">
+            <h4><i class="fas fa-chart-line"></i> インパクト</h4>
+            <p>PDF帳票出力の自動化により手作業を削減。コード保守性の向上に貢献。</p>
+          </div>
+          <div class="tech-tags">
+            <span class="tech-tag">PHP</span>
+            <span class="tech-tag">CakePHP2</span>
+            <span class="tech-tag">PDF出力</span>
+            <span class="tech-tag">帳票設計</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. 車両リアルタイム位置管理システム -->
+      <div class="timeline-item">
+        <span class="timeline-period">業務経験</span>
+        <div class="detail-card">
+          <h3>
+            <span>車両リアルタイム位置管理システム</span>
+            <span class="badge work">業務</span>
+          </h3>
+          <p>
+            SORACOM SIMを搭載したIoT機器から送信される車両の位置情報を、
+            Node.jsサーバーでリアルタイムに受信・処理するシステム。
+            受信した位置データをGoogle Maps APIと連携し、
+            ブラウザ上で車両の現在地をリアルタイムに地図表示する機能を構築しました。
+            IoTデバイスとWebアプリケーションの連携による、実用的なリアルタイム可視化を実現しました。
+          </p>
+          <div class="role"><strong>担当範囲:</strong> バックエンド（Node.js/PHP） / フロントエンド / IoT連携</div>
+          <div class="impact-box work-impact">
+            <h4><i class="fas fa-chart-line"></i> インパクト</h4>
+            <p>IoTデバイスとWebのリアルタイム連携を実現。Google Maps上で車両位置の即時可視化を構築。</p>
+          </div>
+          <div class="tech-tags">
+            <span class="tech-tag">Node.js</span>
+            <span class="tech-tag">PHP</span>
+            <span class="tech-tag">IoT (SORACOM)</span>
+            <span class="tech-tag">Google Maps API</span>
+            <span class="tech-tag">リアルタイム通信</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. RSS自動収集アンテナサイト -->
+      <div class="timeline-item personal">
+        <span class="timeline-period">個人開発</span>
+        <div class="detail-card">
+          <h3>
+            <span>RSS自動収集アンテナサイト</span>
+            <span class="badge personal">個人開発</span>
+          </h3>
+          <p>
+            RSSフィードを自動収集し、カテゴリ別に記事を整理・配信するアンテナサイト。
+            VPSの構築・セキュリティ設定からDB設計、バックエンド、フロントエンドまで
+            全てを一人で担当しました。
+            PHPで独自のWebフレームワークを開発し、cronによる定期的なRSS取得・更新を自動化。
+            インフラからアプリケーションまでの全レイヤーを経験したプロジェクトです。
+          </p>
+          <div class="role"><strong>担当範囲:</strong> インフラ構築 / DB設計 / バックエンド / フロントエンド（全工程）</div>
+          <div class="impact-box">
+            <h4><i class="fas fa-seedling"></i> インパクト</h4>
+            <p>VPS構築からアプリケーション開発まで全工程を一人で担当。PHPで独自Webフレームワークを開発し、インフラからアプリまでの全レイヤーの理解を深めた。</p>
+          </div>
+          <div class="tech-tags">
+            <span class="tech-tag">PHP</span>
+            <span class="tech-tag">独自フレームワーク</span>
+            <span class="tech-tag">VPS構築</span>
+            <span class="tech-tag">インフラ設定</span>
+            <span class="tech-tag">cron自動化</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. YouTube API連携 自動投稿ツール -->
+      <div class="timeline-item personal">
+        <span class="timeline-period">個人開発</span>
+        <div class="detail-card">
+          <h3>
+            <span>YouTube API連携 自動投稿ツール</span>
+            <span class="badge personal">個人開発</span>
+          </h3>
+          <p>
+            YouTube Data APIを活用し、指定したキーワードに関連する動画情報を自動取得。
+            取得したデータを元に動画紹介記事を自動生成し、ブログへ投稿するツールです。
+            API認証の実装、レートリミット対策、記事テンプレートの設計など、
+            外部API連携における実践的なノウハウを蓄積しました。
+          </p>
+          <div class="role"><strong>担当範囲:</strong> 設計 / バックエンド / API連携 / 自動化</div>
+          <div class="impact-box">
+            <h4><i class="fas fa-seedling"></i> インパクト</h4>
+            <p>外部API認証の実装、レートリミット対策など、実践的なAPI連携ノウハウを蓄積。</p>
+          </div>
+          <div class="tech-tags">
+            <span class="tech-tag">PHP</span>
+            <span class="tech-tag">YouTube Data API</span>
+            <span class="tech-tag">自動化</span>
+            <span class="tech-tag">API認証</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. 業務効率化ユーザースクリプト -->
+      <div class="timeline-item personal">
+        <span class="timeline-period">個人開発</span>
+        <div class="detail-card">
+          <h3>
+            <span>業務効率化ユーザースクリプト</span>
+            <span class="badge personal">個人開発</span>
+          </h3>
+          <p>
+            Tampermonkey（ブラウザ拡張）を利用し、既存のWebサービスにUI改善機能を追加するユーザースクリプトを複数開発。
+            日常的に利用するWebサービスの操作性を向上させるツールを自作し、実際に運用。
+            DOM操作、イベントハンドリング、非同期処理などのJavaScript技術を実践的に活用しました。
+          </p>
+          <div class="role"><strong>担当範囲:</strong> 設計 / JavaScript開発 / 運用</div>
+          <div class="impact-box">
+            <h4><i class="fas fa-seedling"></i> インパクト</h4>
+            <p>日常業務のWebサービス操作性を改善。DOM操作・イベント処理・非同期処理のJavaScript力を実践で強化。</p>
+          </div>
+          <div class="tech-tags">
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">Tampermonkey</span>
+            <span class="tech-tag">DOM操作</span>
+            <span class="tech-tag">UI改善</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. ローカルLLM実行環境の構築 -->
+      <div class="timeline-item personal">
+        <span class="timeline-period">個人開発</span>
+        <div class="detail-card">
+          <h3>
+            <span>ローカルLLM実行環境の構築</span>
+            <span class="badge personal">個人開発</span>
+          </h3>
+          <p>
+            WSL2上のUbuntuにDockerを構築し、NVIDIA RTX 4070 Ti GPUを活用したローカルLLM実行環境を整備。
+            Ollama、Open WebUI等のツールを導入し、外部APIに依存しない
+            プライバシー重視のAI実行基盤を構築しました。
+            GPU パススルー設定やメモリ最適化など、ハードウェアリソースの効率的な活用にも取り組みました。
+          </p>
+          <div class="role"><strong>担当範囲:</strong> 環境構築 / GPU設定 / ツール導入・運用</div>
+          <div class="impact-box">
+            <h4><i class="fas fa-seedling"></i> インパクト</h4>
+            <p>WSL2+Docker+GPU（RTX 4070 Ti）でプライバシー重視のAI実行基盤を構築。後のVPS上でのAI協調開発の基礎となった。</p>
+          </div>
+          <div class="tech-tags">
+            <span class="tech-tag">WSL2</span>
+            <span class="tech-tag">Ubuntu</span>
+            <span class="tech-tag">Docker</span>
+            <span class="tech-tag">GPU最適化</span>
+            <span class="tech-tag">Ollama</span>
+            <span class="tech-tag">Open WebUI</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.timeline -->
+
+    <!-- Tech Summary Matrix -->
+    <div class="detail-card" style="margin-top: 64px;">
+      <h3><i class="fas fa-th" style="color:#7c3aed; margin-right:8px;"></i>技術使用マトリクス</h3>
+      <p style="color:#64748b; margin-bottom:16px;">全8プロジェクトにおける技術の使用状況サマリー</p>
+      <table class="tech-matrix">
+        <thead>
+          <tr>
+            <th>技術</th>
+            <th>プロジェクト数</th>
+            <th>主な用途</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>PHP</strong></td>
+            <td class="count">5</td>
+            <td>バックエンド全般</td>
+          </tr>
+          <tr>
+            <td><strong>JavaScript</strong></td>
+            <td class="count">4</td>
+            <td>UI改善、リアルタイム</td>
+          </tr>
+          <tr>
+            <td><strong>Node.js</strong></td>
+            <td class="count">1</td>
+            <td>IoTリアルタイム通信</td>
+          </tr>
+          <tr>
+            <td><strong>MySQL</strong></td>
+            <td class="count">4</td>
+            <td>業務DB</td>
+          </tr>
+          <tr>
+            <td><strong>VPS / Linux</strong></td>
+            <td class="count">2</td>
+            <td>インフラ構築</td>
+          </tr>
+          <tr>
+            <td><strong>API連携</strong></td>
+            <td class="count">3</td>
+            <td>決済、YouTube、Maps</td>
+          </tr>
+          <tr>
+            <td><strong>Docker</strong></td>
+            <td class="count">1</td>
+            <td>AI実行環境</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="text-align:center; margin-top:48px;">
+      <a href="index.html" class="back-link" style="font-size:1rem;"><i class="fas fa-arrow-left"></i> トップページへ戻る</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <p>&copy; 2026 yamashita-yukihito. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
