@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>二択クイズ（FP2級・リスク管理）</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { margin-bottom: 8px; }
+    .desc { color:#666; margin-bottom: 16px; }
+    .kaisetu { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #ccc; font-size: 14px; line-height: 1.6; white-space: pre-wrap;}
+    .question { margin: 20px 0 20px 40px; padding: 12px; border: 1px solid #ddd; background: #f9f9f9; border-radius: 8px; }
+    .meta { font-size: 12px; color:#666; }
+    .choices { margin-top: 10px; }
+    button.choice { font-size: 18px; padding: 8px 16px; margin: 6px 10px 6px 0; border-radius: 8px; border: 1px solid #ccc; cursor: pointer; }
+    .result { margin-top: 8px; font-weight: bold; }
+    .correct { color: #0b63c5; }
+    .incorrect { color: #d11a2a; }
+    .done { opacity: .65; }
+
+    .manager { margin-top: 28px; padding: 16px; border: 1px solid #ddd; border-radius: 10px; background: #fafafa; }
+    .manager h2 { margin: 0 0 12px; font-size: 18px; }
+    .row { display: grid; grid-template-columns: 120px 1fr; gap: 8px; margin-bottom: 8px; align-items: center; }
+    .row input[type="text"], .row textarea { width: 100%; padding: 6px 8px; border: 1px solid #ccc; border-radius: 6px; }
+    .row textarea { min-height: 80px; font-family: inherit; }
+    .btns { margin-top: 10px; }
+    .btns button { margin-right: 8px; padding: 8px 12px; border: 1px solid #bbb; border-radius: 8px; background: #fff; cursor: pointer; }
+    .list { margin-top: 14px; }
+    .list table { width: 100%; border-collapse: collapse; }
+    .list th, .list td { border: 1px solid #e5e5e5; padding: 6px 8px; text-align: left; vertical-align: top; }
+    .list th { background: #f1f1f1; }
+    .pill { display: inline-block; padding: 2px 6px; border-radius: 999px; background: #eef4ff; border: 1px solid #cbd9ff; font-size: 12px; }
+    .danger { color: #b00020; }
+    .muted { color:#777; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <h1>二択クイズ（FP2級・リスク管理）</h1>
+  <div class="desc">○×から<strong>二択</strong>に改造版。回答後に解説（kaisetu）が表示されます。問題は下の「問題管理」で追加・編集・削除できます。</div>
+  <div class="desc"><a href="risk2.html">2へ（理解問題）</a> / <a href="index.html">indexへ</a></div>
+  <div id="quiz-container"></div>
+
+  <div class="manager" id="manager">
+    <h2>問題管理</h2>
+    <div class="row"><label for="m-id">id</label><input id="m-id" type="text" placeholder="例: 1" /></div>
+    <div class="row"><label for="m-category">category</label><input id="m-category" type="text" placeholder="例: 生命保険" /></div>
+    <div class="row"><label for="m-text">text</label><textarea id="m-text" placeholder="問題文"></textarea></div>
+    <div class="row"><label for="m-answer">answer</label><input id="m-answer" type="text" placeholder="正解（文字列）" /></div>
+    <div class="row"><label for="m-matigai">matigai</label><input id="m-matigai" type="text" placeholder="誤り（文字列）" /></div>
+    <div class="row"><label for="m-kaisetu">kaisetu</label><textarea id="m-kaisetu" placeholder="任意。HTML可（自己利用前提）"></textarea></div>
+    <div class="btns">
+      <button id="m-save">新規追加/更新</button>
+      <button id="m-clear-form">フォームをクリア</button>
+      <button id="m-reset-learning">学習履歴のみリセット</button>
+      <button id="m-export">JSONエクスポート</button>
+      <button id="m-import">JSONインポート</button>
+    </div>
+    <div class="row" style="grid-template-columns:1fr;">
+      <textarea id="m-json" placeholder='エクスポート/インポート用のJSONがここに表示・貼り付けされます' style="min-height:100px;"></textarea>
+    </div>
+    <div class="list" id="m-list"></div>
+    <div class="muted">保存先：localStorage（キー: <code>FP2_risk_questions</code>）。既定データは初回ロード時のみ適用。</div>
+  </div>
+
+  <script>
+    const initialQuestions = [
+      { id: 1, category: "保険設計", text: "世帯主死亡後の毎月生活費補填を重視する保険として適しやすいのはXX", answer: "収入保障保険", matigai: "満期重視の養老保険" },
+      { id: 2, category: "火災・地震", text: "地震損害に備える契約方法として実務的に正しいのはXX", answer: "火災保険に地震保険を付帯", matigai: "地震保険のみ単独契約" },
+      { id: 3, category: "損害保険", text: "同一物件に火災保険を重複契約した場合の保険金受取上限はXX", answer: "実際の損害額", matigai: "契約件数分の合計額" },
+      { id: 4, category: "自動車保険", text: "他人に対する人身賠償責任を中心に補償するのはXX", answer: "対人賠償保険", matigai: "人身傷害保険" },
+      { id: 5, category: "契約実務", text: "重要事項を故意に告知しない場合、契約はXXされうる", answer: "解除", matigai: "自動更新" },
+      { id: 6, category: "課税区分", text: "契約者=夫、被保険者=妻、受取人=夫の死亡保険金に主にかかるのはXX", answer: "所得税（一時所得）", matigai: "相続税" },
+      { id: 7, category: "課税区分", text: "契約者=夫、被保険者=夫、受取人=妻の死亡保険金に主にかかるのはXX", answer: "相続税", matigai: "贈与税" },
+      { id: 8, category: "第三分野", text: "先進医療特約が想定する主な費用は公的医療保険のXX部分", answer: "対象外", matigai: "自己負担3割部分" },
+      { id: 9, category: "法人保険", text: "法人契約保険で論点になりやすいのは保険料のXX判定", answer: "損金算入可否", matigai: "住民票記載可否" },
+      { id: 10, category: "団信", text: "団体信用生命保険を付ける主目的はXX", answer: "死亡・高度障害時の残債返済リスク低減", matigai: "固定資産税の直接減額" },
+      { id: 11, category: "保険制度", text: "クーリングオフ可能期間は原則XX日", answer: "8", matigai: "14" },
+      { id: 12, category: "生命保険", text: "保険料算出の3予定基礎率の1つは予定XX率", answer: "事業費", matigai: "配当" },
+      { id: 13, category: "損害保険", text: "自賠責保険の加入はXX", answer: "強制", matigai: "任意" },
+      { id: 14, category: "損害保険", text: "地震保険は火災保険とXXで契約する", answer: "セット", matigai: "単独" },
+      { id: 15, category: "保険制度", text: "生命保険契約者保護機構の補償割合は原則XX%", answer: "90", matigai: "100" },
+      { id: 16, category: "第三分野", text: "がん保険で典型的に支払われる給付金はXX給付金", answer: "診断", matigai: "養老" },
+      { id: 17, category: "損害保険", text: "火災保険の重複契約で受取保険金は実損害額をXX", answer: "超えない", matigai: "超える" },
+      { id: 18, category: "税制", text: "生命保険料控除の区分数は一般・介護医療・個人年金のXX区分", answer: "3", matigai: "2" },
+      { id: 19, category: "保険実務", text: "告知義務違反があると契約がXXされることがある", answer: "解除", matigai: "更新" },
+      { id: 20, category: "保険法", text: "死亡保険契約で保険契約者と被保険者が異なる場合、被保険者の同意はXX", answer: "必要", matigai: "不要" },
+      { id: 21, category: "生命保険", text: "定期保険は満期保険金が原則XX", answer: "ない", matigai: "ある" },
+      { id: 22, category: "生命保険", text: "終身保険は保障が一生涯続き解約返戻金は一般にXX", answer: "ある", matigai: "ない" },
+      { id: 23, category: "損害保険", text: "地震・噴火・津波による損害は火災保険単独では原則XX", answer: "補償対象外", matigai: "補償対象" },
+      { id: 24, category: "保険制度", text: "損害保険の保険金請求権の時効は原則XX年", answer: "3", matigai: "5" }
+    ];
+
+    const STORAGE_KEY_Q = 'FP2_risk_questions';
+    const FREQ_META = {
+      "保険設計": { count: "4回中2〜3回", reason: "家計条件に応じた保険種類の選択問題が反復される" },
+      "火災・地震": { count: "4回中3回前後", reason: "地震保険付帯ルールは類似問題が多い" },
+      "損害保険": { count: "4回中3回前後", reason: "実損填補・補償範囲の判定が定番" },
+      "自動車保険": { count: "4回中2回前後", reason: "対人/人身傷害の区別は再出題されやすい" },
+      "契約実務": { count: "4回中2回前後", reason: "告知義務違反や解除要件の知識が頻出" },
+      "課税区分": { count: "4回中2回前後", reason: "契約形態別の相続税/所得税判定が定番" },
+      "第三分野": { count: "4回中2回前後", reason: "先進医療・がん給付など実務的論点が繰返し問われる" },
+      "法人保険": { count: "4回中2回前後", reason: "損金算入可否が学科・実技で絡みやすい" },
+      "団信": { count: "4回中2回前後", reason: "住宅ローン関連で基本知識として問われる" },
+      "保険制度": { count: "4回中3回前後", reason: "クーリングオフ・保護機構・時効は毎回級で頻出" },
+      "税制": { count: "4回中2回前後", reason: "生命保険料控除は数字問題として定番" },
+      "保険実務": { count: "4回中2回前後", reason: "契約維持/解除条件の判断が問われる" },
+      "保険法": { count: "4回中2回前後", reason: "被保険者同意など法的要件が安定出題" },
+      "生命保険": { count: "4回中3回前後", reason: "定期・終身の性質比較は高頻度で再出題" }
+    };
+
+    function withKaisetu(q) {
+      const meta = FREQ_META[q.category] || { count: "4回中2回前後", reason: "類似・関連問題の再出題傾向があるため" };
+      const base = (q.kaisetu && q.kaisetu.trim()) ? q.kaisetu.trim() : `正解は「${q.answer}」。`;
+      if (base.includes("頻出理由:")) return q;
+      return {
+        ...q,
+        kaisetu: `${base}\n頻出理由: ${meta.reason}\n過去出題目安: ${meta.count}`
+      };
+    }
+
+    function loadQuestions() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY_Q);
+        if (!raw) return initialQuestions.slice().map(withKaisetu);
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) return initialQuestions.slice().map(withKaisetu);
+        return parsed.map(withKaisetu);
+      } catch (_) {
+        return initialQuestions.slice().map(withKaisetu);
+      }
+    }
+
+    function saveQuestions(qs) {
+      localStorage.setItem(STORAGE_KEY_Q, JSON.stringify(qs));
+    }
+
+    let questions = loadQuestions();
+
+    function getCounts(id) {
+      const correctCount = parseInt(localStorage.getItem(`FP2riskcorrect_${id}`) || '0', 10);
+      const incorrectCount = parseInt(localStorage.getItem(`FP2riskincorrect_${id}`) || '0', 10);
+      return { correctCount, incorrectCount };
+    }
+
+    function updateCounts(id, isCorrect) {
+      const key = isCorrect ? `FP2riskcorrect_${id}` : `FP2riskincorrect_${id}`;
+      const count = parseInt(localStorage.getItem(key) || '0', 10) + 1;
+      localStorage.setItem(key, count);
+    }
+
+    function isGraduated(correctCount, incorrectCount) {
+      return (correctCount - incorrectCount) >= 3;
+    }
+
+    function weightFromCounts(correctCount, incorrectCount) {
+      return Math.max(1, (incorrectCount - correctCount) + 3);
+    }
+
+    function shuffle(arr) {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function getWeightedRandomQuestion() {
+      const weighted = [];
+      for (const q of questions) {
+        const { correctCount, incorrectCount } = getCounts(q.id);
+        if (isGraduated(correctCount, incorrectCount)) continue;
+        const weight = weightFromCounts(correctCount, incorrectCount);
+        for (let i = 0; i < weight; i++) weighted.push(q);
+      }
+      if (weighted.length === 0) return null;
+      return weighted[Math.floor(Math.random() * weighted.length)];
+    }
+
+    function showQuestion() {
+      const q = getWeightedRandomQuestion();
+      const container = document.getElementById('quiz-container');
+
+      if (!q) {
+        const box = document.createElement('div');
+        box.className = 'question';
+        box.innerHTML = `
+          <div><strong>おめでとう！全問題を卒業しています。</strong></div>
+          <div class="meta">学習をやり直す場合は「学習履歴のみリセット」を押してね。</div>
+        `;
+        container.appendChild(box);
+        return;
+      }
+
+      const { correctCount, incorrectCount } = getCounts(q.id);
+      const box = document.createElement('div');
+      box.className = 'question';
+      const choices = shuffle([q.answer, q.matigai]);
+
+      box.innerHTML = `
+        <div class="meta"><strong>[${q.category}]</strong> id:${q.id}</div>
+        <div><strong>${q.text}</strong></div>
+        <div class="meta">正解: ${correctCount}回 / 不正解: ${incorrectCount}回</div>
+        <div class="choices"></div>
+        <p class="result"></p>
+        <div class="kaisetu"></div>
+      `;
+
+      const choicesDiv = box.querySelector('.choices');
+      const expDiv = box.querySelector('.kaisetu');
+      expDiv.style.display = 'none';
+      if (q.kaisetu) expDiv.innerHTML = q.kaisetu;
+
+      choices.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'choice';
+        btn.textContent = opt;
+        btn.addEventListener('click', () => checkAnswer(q, opt, box));
+        choicesDiv.appendChild(btn);
+      });
+
+      container.appendChild(box);
+    }
+
+    function disableButtons(box) {
+      box.querySelectorAll('button.choice').forEach(b => { b.disabled = true; b.classList.add('done'); });
+    }
+
+    function checkAnswer(question, userAnswer, box) {
+      const isCorrect = userAnswer === question.answer;
+      const result = box.querySelector('.result');
+      result.textContent = `あなたの答え: ${userAnswer} - ${isCorrect ? '正解！' : '不正解'}`;
+      result.className = 'result ' + (isCorrect ? 'correct' : 'incorrect');
+
+      updateCounts(question.id, isCorrect);
+      disableButtons(box);
+
+      const expDiv = box.querySelector('.kaisetu');
+      if (expDiv) expDiv.style.display = '';
+
+      showQuestion();
+    }
+
+    function fillForm(q = null) {
+      document.getElementById('m-id').value = q ? q.id : '';
+      document.getElementById('m-category').value = q ? q.category : '';
+      document.getElementById('m-text').value = q ? q.text : '';
+      document.getElementById('m-answer').value = q ? q.answer : '';
+      document.getElementById('m-matigai').value = q ? q.matigai : '';
+      document.getElementById('m-kaisetu').value = q && q.kaisetu ? q.kaisetu : '';
+    }
+
+    function readForm() {
+      const idRaw = document.getElementById('m-id').value.trim();
+      const id = idRaw.match(/^\d+$/) ? parseInt(idRaw, 10) : idRaw;
+      return {
+        id,
+        category: document.getElementById('m-category').value.trim(),
+        text: document.getElementById('m-text').value.trim(),
+        answer: document.getElementById('m-answer').value.trim(),
+        matigai: document.getElementById('m-matigai').value.trim(),
+        kaisetu: document.getElementById('m-kaisetu').value
+      };
+    }
+
+    function renderList() {
+      const root = document.getElementById('m-list');
+      if (!questions.length) {
+        root.innerHTML = '<div class="muted">（問題がありません）</div>';
+        return;
+      }
+      const rows = questions.map(q => `
+        <tr>
+          <td class="muted">${q.id}</td>
+          <td>${q.category}</td>
+          <td>${q.text}</td>
+          <td><span class="pill">${q.answer}</span> / ${q.matigai}</td>
+          <td>${q.kaisetu ? 'あり' : '—'}</td>
+          <td>
+            <button data-act="edit" data-id="${q.id}">編集</button>
+            <button data-act="del" data-id="${q.id}" class="danger">削除</button>
+          </td>
+        </tr>`).join('');
+      document.getElementById('m-list').innerHTML = `
+        <table>
+          <thead>
+            <tr><th>id</th><th>category</th><th>text</th><th>answer/matigai</th><th>kaisetu</th><th>操作</th></tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>`;
+
+      document.querySelectorAll('#m-list button[data-act]')
+        .forEach(btn => btn.addEventListener('click', e => {
+          const act = e.currentTarget.getAttribute('data-act');
+          const idStr = e.currentTarget.getAttribute('data-id');
+          const id = idStr.match(/^\d+$/) ? parseInt(idStr, 10) : idStr;
+          const idx = questions.findIndex(x => x.id === id);
+          if (idx < 0) return;
+          if (act === 'edit') {
+            fillForm(questions[idx]);
+            window.scrollTo({ top: document.getElementById('manager').offsetTop - 10, behavior: 'smooth' });
+          } else if (act === 'del') {
+            if (!confirm('この問題を削除します。よろしいですか？')) return;
+            questions.splice(idx, 1);
+            saveQuestions(questions);
+            renderList();
+          }
+        }));
+    }
+
+    function attachManagerEvents() {
+      document.getElementById('m-save').addEventListener('click', () => {
+        const data = readForm();
+        if (!data.id || !data.category || !data.text || !data.answer || !data.matigai) {
+          alert('id / category / text / answer / matigai は必須です');
+          return;
+        }
+        const idx = questions.findIndex(q => q.id === data.id);
+        if (idx >= 0) {
+          questions[idx] = { ...questions[idx], ...data };
+        } else {
+          questions.push(data);
+        }
+        saveQuestions(questions);
+        renderList();
+        fillForm(null);
+      });
+
+      document.getElementById('m-clear-form').addEventListener('click', () => fillForm(null));
+
+      document.getElementById('m-reset-learning').addEventListener('click', () => {
+        if (!confirm('全問題の学習履歴（正解/不正解カウント）をリセットします。よろしいですか？')) return;
+        questions.forEach(q2 => {
+          localStorage.removeItem(`FP2riskcorrect_${q2.id}`);
+          localStorage.removeItem(`FP2riskincorrect_${q2.id}`);
+        });
+        document.getElementById('quiz-container').innerHTML = '';
+        showQuestion();
+      });
+
+      document.getElementById('m-export').addEventListener('click', () => {
+        document.getElementById('m-json').value = JSON.stringify(questions, null, 2);
+      });
+
+      document.getElementById('m-import').addEventListener('click', () => {
+        try {
+          const txt = document.getElementById('m-json').value.trim();
+          if (!txt) { alert('JSONを貼り付けてください'); return; }
+          const arr = JSON.parse(txt);
+          if (!Array.isArray(arr)) { alert('配列(JSON array)を貼ってください'); return; }
+          const ok = arr.every(x => x && x.id != null && x.category && x.text && x.answer && x.matigai);
+          if (!ok) { alert('必要フィールド(id, category, text, answer, matigai)が足りない要素があります'); return; }
+          questions = arr;
+          saveQuestions(questions);
+          renderList();
+          alert('インポートしました');
+        } catch (e) {
+          alert('JSONの解析に失敗しました: ' + e.message);
+        }
+      });
+    }
+
+    function boot() {
+      showQuestion();
+      renderList();
+      attachManagerEvents();
+      console.assert(isGraduated(3,0) && isGraduated(10,1), '卒業判定 OK');
+      console.assert(weightFromCounts(0,0)===3 && weightFromCounts(2,0)===1, '重み計算 OK');
+    }
+
+    boot();
+  </script>
+</body>
+</html>

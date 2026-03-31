@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FP2級 金融とタックス重視の試験戦略プラン</title>
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; color: #333; }
+    .container { max-width: 900px; margin: 0 auto; }
+    h1 { text-align: center; margin-bottom: 4px; font-size: 24px; }
+    .subtitle { text-align: center; color: #666; margin-bottom: 24px; font-size: 14px; }
+    .back { display: inline-block; margin-bottom: 16px; color: #336; text-decoration: none; font-size: 14px; }
+    .back:hover { text-decoration: underline; }
+
+    /* 時間配分 */
+    .time-section { background: #fff; border-radius: 10px; padding: 20px; margin-bottom: 20px; border: 1px solid #ddd; }
+    .time-section h2 { margin: 0 0 14px; font-size: 18px; }
+    .time-bar-row { display: flex; align-items: center; margin-bottom: 8px; }
+    .time-label { width: 130px; font-size: 14px; font-weight: bold; flex-shrink: 0; }
+    .time-bar-wrap { flex: 1; background: #eee; border-radius: 6px; height: 28px; position: relative; overflow: hidden; }
+    .time-bar { height: 100%; border-radius: 6px; display: flex; align-items: center; padding-left: 8px; font-size: 12px; color: #fff; font-weight: bold; min-width: 40px; }
+    .time-hours { width: 50px; text-align: right; font-size: 13px; color: #666; flex-shrink: 0; margin-left: 8px; }
+
+    /* 目標得点 */
+    .score-section { background: #fff; border-radius: 10px; padding: 20px; margin-bottom: 20px; border: 1px solid #ddd; }
+    .score-section h2 { margin: 0 0 14px; font-size: 18px; }
+    .score-table { width: 100%; border-collapse: collapse; }
+    .score-table th, .score-table td { padding: 8px 10px; border-bottom: 1px solid #eee; text-align: left; font-size: 14px; }
+    .score-table th { background: #f8f8f8; font-weight: bold; }
+    .score-badge { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 13px; font-weight: bold; }
+    .score-high { background: #e8f5e9; color: #2e7d32; }
+    .score-mid { background: #fff8e1; color: #f57f17; }
+    .score-low { background: #fce4ec; color: #c62828; }
+    .tag-attack { background: #e3f2fd; color: #1565c0; padding: 2px 8px; border-radius: 10px; font-size: 12px; }
+    .tag-defense { background: #fce4ec; color: #c62828; padding: 2px 8px; border-radius: 10px; font-size: 12px; }
+    .tag-base { background: #fff8e1; color: #e65100; padding: 2px 8px; border-radius: 10px; font-size: 12px; }
+    .tag-save { background: #e8f5e9; color: #2e7d32; padding: 2px 8px; border-radius: 10px; font-size: 12px; }
+    .tag-earn { background: #ede7f6; color: #4527a0; padding: 2px 8px; border-radius: 10px; font-size: 12px; }
+
+    /* 科目別戦略 */
+    .subject-card { background: #fff; border-radius: 10px; padding: 20px; margin-bottom: 16px; border: 1px solid #ddd; }
+    .subject-card h2 { margin: 0 0 6px; font-size: 18px; }
+    .subject-card .strategy-line { color: #555; font-size: 14px; margin-bottom: 12px; font-style: italic; }
+    .priority-box { background: #f0f4ff; border-radius: 8px; padding: 12px 16px; margin-bottom: 14px; }
+    .priority-box h3 { margin: 0 0 6px; font-size: 15px; color: #1a237e; }
+    .priority-box p { margin: 0; font-size: 13px; line-height: 1.6; }
+    .topic-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .topic-table th, .topic-table td { padding: 6px 8px; border-bottom: 1px solid #eee; text-align: left; }
+    .topic-table th { background: #fafafa; font-weight: bold; font-size: 12px; color: #666; }
+    .freq-extreme { color: #c62828; font-weight: bold; }
+    .freq-high { color: #e65100; font-weight: bold; }
+    .freq-mid { color: #1565c0; }
+    .freq-low { color: #999; }
+    .easy-high { color: #2e7d32; }
+    .easy-mid { color: #f57f17; }
+    .easy-low { color: #c62828; }
+
+    /* 学習順序 */
+    .order-section { background: #fff; border-radius: 10px; padding: 20px; margin-bottom: 20px; border: 1px solid #ddd; }
+    .order-section h2 { margin: 0 0 14px; font-size: 18px; }
+    .order-flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 15px; font-weight: bold; }
+    .order-item { padding: 8px 16px; border-radius: 8px; color: #fff; }
+
+    @media (max-width: 600px) {
+      .time-label { width: 90px; font-size: 12px; }
+      .topic-table { font-size: 12px; }
+      .order-flow { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="index.html">&larr; 科目選択に戻る</a>
+    <h1>金融とタックス重視のFP試験戦略プラン</h1>
+    <p class="subtitle">投資経験を武器に、金融で稼いで合格をつかむ戦略</p>
+
+    <!-- 学習順序 -->
+    <div class="order-section">
+      <h2>学習の順序</h2>
+      <div class="order-flow">
+        <span class="order-item" style="background:#e65100;">D. タックス</span>
+        <span>&rarr;</span>
+        <span class="order-item" style="background:#1565c0;">C. 金融</span>
+        <span>&rarr;</span>
+        <span class="order-item" style="background:#6a1b9a;">F. 相続</span>
+        <span>&rarr;</span>
+        <span class="order-item" style="background:#2e7d32;">A. ライフ</span>
+        <span>&rarr;</span>
+        <span class="order-item" style="background:#00838f;">B. リスク</span>
+        <span>&rarr;</span>
+        <span class="order-item" style="background:#795548;">E. 不動産</span>
+      </div>
+    </div>
+
+    <!-- 時間配分 -->
+    <div class="time-section">
+      <h2>残り投入時間の配分（合計70時間）</h2>
+      <div class="time-bar-row">
+        <div class="time-label">C. 金融</div>
+        <div class="time-bar-wrap"><div class="time-bar" style="width:100%;background:#1565c0;">【深化】</div></div>
+        <div class="time-hours">16h</div>
+      </div>
+      <div class="time-bar-row">
+        <div class="time-label">D. タックス</div>
+        <div class="time-bar-wrap"><div class="time-bar" style="width:81%;background:#e65100;">【接続】</div></div>
+        <div class="time-hours">13h</div>
+      </div>
+      <div class="time-bar-row">
+        <div class="time-label">F. 相続</div>
+        <div class="time-bar-wrap"><div class="time-bar" style="width:75%;background:#6a1b9a;">【演習】</div></div>
+        <div class="time-hours">12h</div>
+      </div>
+      <div class="time-bar-row">
+        <div class="time-label">A. ライフ</div>
+        <div class="time-bar-wrap"><div class="time-bar" style="width:63%;background:#2e7d32;">【特化】</div></div>
+        <div class="time-hours">10h</div>
+      </div>
+      <div class="time-bar-row">
+        <div class="time-label">B. リスク</div>
+        <div class="time-bar-wrap"><div class="time-bar" style="width:44%;background:#00838f;">【効率】</div></div>
+        <div class="time-hours">7h</div>
+      </div>
+      <div class="time-bar-row">
+        <div class="time-label">E. 不動産</div>
+        <div class="time-bar-wrap"><div class="time-bar" style="width:44%;background:#795548;">【最小化】</div></div>
+        <div class="time-hours">7h</div>
+      </div>
+      <div class="time-bar-row">
+        <div class="time-label">総仕上げ</div>
+        <div class="time-bar-wrap"><div class="time-bar" style="width:31%;background:#616161;">最終確認</div></div>
+        <div class="time-hours">5h</div>
+      </div>
+    </div>
+
+    <!-- 目標得点 -->
+    <div class="score-section">
+      <h2>科目別 目標得点率</h2>
+      <table class="score-table">
+        <thead><tr><th>分野</th><th>目標</th><th>戦略タイプ</th><th>概要</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>B. リスク</td>
+            <td><span class="score-badge score-high">85%</span></td>
+            <td><span class="tag-save">貯金</span></td>
+            <td>暗記のみで短時間8割超。サービス分野。</td>
+          </tr>
+          <tr>
+            <td>C. 金融</td>
+            <td><span class="score-badge score-high">80%</span></td>
+            <td><span class="tag-attack">攻め：最優先</span></td>
+            <td>投資経験を武器に。満点狙いで他のミスをカバー。</td>
+          </tr>
+          <tr>
+            <td>F. 相続</td>
+            <td><span class="score-badge score-high">80%</span></td>
+            <td><span class="tag-earn">得点源</span></td>
+            <td>パズル的に解ける。実技配点も高いため死守。</td>
+          </tr>
+          <tr>
+            <td>D. タックス</td>
+            <td><span class="score-badge score-mid">65%</span></td>
+            <td><span class="tag-base">土台</span></td>
+            <td>金融の利益にかかる税金と直結。金融の一環として学ぶ。</td>
+          </tr>
+          <tr>
+            <td>E. 不動産</td>
+            <td><span class="score-badge score-low">50%</span></td>
+            <td><span class="tag-defense">守り</span></td>
+            <td>深追い厳禁。計算問題1問＋常識で半分死守。</td>
+          </tr>
+          <tr>
+            <td>A. ライフ</td>
+            <td><span class="score-badge score-low">50%</span></td>
+            <td><span class="tag-defense">守り</span></td>
+            <td>係数＝金融の複利計算。年金は体系整理で失点を防ぐ。</td>
+          </tr>
+          <tr style="background:#f9f9f9; font-weight:bold;">
+            <td>合計平均</td>
+            <td><span class="score-badge score-mid">68%</span></td>
+            <td colspan="2">金融の貯金があるため、不動産が5割でも余裕で合格。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- A. ライフ -->
+    <div class="subject-card">
+      <h2>A. ライフプランニングと資金計画</h2>
+      <div class="strategy-line">戦略：実技で必ず出る「計算」を最優先し、年金は体系整理で失点を防ぐ。</div>
+      <div class="priority-box">
+        <h3>第1位：考え方・手法 / ライフプラン策定</h3>
+        <p>実技試験の第1問目で100%出る。6つの係数とキャッシュフロー表の穴埋め。ここを間違えると合格が遠のく。</p>
+      </div>
+      <div class="priority-box">
+        <h3>第2位：社会保険 / 公的年金</h3>
+        <p>学科での出題数が多い。ただし深追いは禁物。「20年」「65歳」「10年」といった数字だけを暗記。</p>
+      </div>
+      <div class="priority-box">
+        <h3>第3位：倫理 / 関連法規</h3>
+        <p>覚えるだけで確実に1〜2点取れるサービス問題。</p>
+      </div>
+      <table class="topic-table">
+        <thead><tr><th>項目</th><th>頻度</th><th>得点しやすさ</th><th>スタンス</th><th>攻略ポイント</th></tr></thead>
+        <tbody>
+          <tr><td>1. 倫理 / 2. 関連法規</td><td class="freq-high">高</td><td class="easy-high">高</td><td>暗記</td><td>サービス問題。「FPがやってはいけない事」を整理。</td></tr>
+          <tr><td>3. 考え方・手法</td><td class="freq-high">高</td><td class="easy-high">高</td><td>徹底理解</td><td>実技必出。6つの係数の使い分けは完璧に。</td></tr>
+          <tr><td>4. 社会保険</td><td class="freq-mid">中</td><td class="easy-mid">中</td><td>理解＋暗記</td><td>高額療養費の計算、健康保険の傷病手当金を重点。</td></tr>
+          <tr><td>5. 公的年金</td><td class="freq-extreme">極高</td><td class="easy-low">低</td><td>暗記に徹する</td><td>沼ポイント。深入りせず数字優先。</td></tr>
+          <tr><td>6. 企業年金・個人年金</td><td class="freq-mid">中</td><td class="easy-mid">中</td><td>理解</td><td>iDeCoの拠出限度額と税制優遇。</td></tr>
+          <tr><td>7. 年金と税金</td><td class="freq-mid">中</td><td class="easy-mid">中</td><td>理解</td><td>公的年金等控除。タックス分野と連動。</td></tr>
+          <tr><td>8. ライフプラン策定</td><td class="freq-high">高</td><td class="easy-high">高</td><td>徹底理解</td><td>実技必出。キャッシュフロー表の穴埋め計算。</td></tr>
+          <tr><td>9. 中小法人の資金計画</td><td class="freq-low">低</td><td class="easy-low">低</td><td>表面</td><td>資金調達手段の種類を把握する程度でOK。</td></tr>
+          <tr><td>10. ローンとカード</td><td class="freq-mid">中</td><td class="easy-high">高</td><td>暗記</td><td>住宅ローンの繰上げ返済の効果。</td></tr>
+          <tr><td>11. 最新の動向</td><td class="freq-low">低</td><td class="easy-low">低</td><td>表面</td><td>直近1年の改正だけ確認。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- B. リスク -->
+    <div class="subject-card">
+      <h2>B. リスク管理</h2>
+      <div class="strategy-line">戦略：全分野で最も簡単。短時間の暗記で「満点」を狙い、他分野の赤字を埋める。</div>
+      <div class="priority-box">
+        <h3>第1位：生命保険 / 損害保険</h3>
+        <p>実技で「保険証券の読み取り」として必ず出る。専門用語の意味を覚えるだけで得点源に。</p>
+      </div>
+      <div class="priority-box">
+        <h3>第2位：リスク管理と保険（法人保険）</h3>
+        <p>「ハーフタックスプラン」などの経理処理が頻出。タックス分野の知識も深まる。</p>
+      </div>
+      <div class="priority-box">
+        <h3>第3位：保険制度全般</h3>
+        <p>クーリングオフや契約者保護機構。数字を覚えるだけ。</p>
+      </div>
+      <table class="topic-table">
+        <thead><tr><th>項目</th><th>頻度</th><th>得点しやすさ</th><th>スタンス</th><th>攻略ポイント</th></tr></thead>
+        <tbody>
+          <tr><td>1. リスクマネジメント</td><td class="freq-low">低</td><td class="easy-high">高</td><td>理解</td><td>保険の基本的な役割を把握するのみ。</td></tr>
+          <tr><td>2. 保険制度全般</td><td class="freq-high">高</td><td class="easy-high">高</td><td>暗記</td><td>契約者保護機構の補償割合、クーリングオフ期間。</td></tr>
+          <tr><td>3. 生命保険</td><td class="freq-extreme">極高</td><td class="easy-high">高</td><td>暗記に徹する</td><td>実技必出。保険証券から給付金を計算する練習。</td></tr>
+          <tr><td>4. 損害保険</td><td class="freq-high">高</td><td class="easy-mid">中</td><td>暗記</td><td>火災、地震、自賠責、任意保険の補償内容の差。</td></tr>
+          <tr><td>5. 第三分野の保険</td><td class="freq-mid">中</td><td class="easy-high">高</td><td>暗記</td><td>がん保険、医療保険の免責期間などの特徴。</td></tr>
+          <tr><td>6. リスク管理と保険</td><td class="freq-high">高</td><td class="easy-mid">中</td><td>理解</td><td>法人保険の経理処理。全額損金か資産計上か。</td></tr>
+          <tr><td>7. 最新の動向</td><td class="freq-low">低</td><td class="easy-low">低</td><td>表面</td><td>直近1年の改正だけ確認。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- C. 金融 -->
+    <div class="subject-card" style="border-color:#1565c0; border-width:2px;">
+      <h2>C. 金融資産運用 <span style="color:#1565c0;">&#9733; 得意分野</span></h2>
+      <div class="strategy-line">戦略：投資経験を活かし、計算問題で確実に加点。理論も理解して高得点を狙う。</div>
+      <div class="priority-box">
+        <h3>第1位：株式投資 / 債券投資</h3>
+        <p>実技・学科ともに計算の宝庫。PER、PBR、利回り計算。投資家なら体感で理解できるはず。</p>
+      </div>
+      <div class="priority-box">
+        <h3>第2位：金融商品と税金 / セーフティネット</h3>
+        <p>新NISA制度や、銀行・証券会社が破綻した時の保護ルール。実生活でも役立つ。</p>
+      </div>
+      <div class="priority-box">
+        <h3>第3位：マーケット環境 / ポートフォリオ</h3>
+        <p>指標（GDP、日銀短観）の読み方と分散投資。投資経験があればテキストを読むだけで理解できる。</p>
+      </div>
+      <table class="topic-table">
+        <thead><tr><th>項目</th><th>頻度</th><th>得点しやすさ</th><th>スタンス</th><th>攻略ポイント</th></tr></thead>
+        <tbody>
+          <tr><td>1. マーケット環境</td><td class="freq-high">高</td><td class="easy-mid">中</td><td>徹底理解</td><td>金利、物価、景気の関係（シーソーの関係）。</td></tr>
+          <tr><td>2. 預貯金・類似商品</td><td class="freq-low">低</td><td class="easy-high">高</td><td>暗記</td><td>利回り計算の基本式を覚える。</td></tr>
+          <tr><td>3. 投資信託</td><td class="freq-high">高</td><td class="easy-mid">中</td><td>理解</td><td>費用（手数料）、運用報告書の読み方。</td></tr>
+          <tr><td>4. 債券投資</td><td class="freq-high">高</td><td class="easy-mid">中</td><td>徹底理解</td><td>実技必出。最終利回り等の計算式は必須。</td></tr>
+          <tr><td>5. 株式投資</td><td class="freq-extreme">極高</td><td class="easy-high">高</td><td>徹底理解</td><td>実技必出。PER, PBR, ROE, 配当利回りの計算。</td></tr>
+          <tr><td>6. 外貨建商品</td><td class="freq-mid">中</td><td class="easy-mid">中</td><td>理解</td><td>実技必出。為替手数料を加味した利回り計算。</td></tr>
+          <tr><td>7. 保険商品</td><td class="freq-low">低</td><td class="easy-high">高</td><td>理解</td><td>金融商品としての側面。B分野と重複。</td></tr>
+          <tr><td>8. 金融派生商品</td><td class="freq-mid">中</td><td class="easy-low">低</td><td>表面</td><td>デリバティブの用語（オプション等）の概要のみ。</td></tr>
+          <tr><td>9. ポートフォリオ</td><td class="freq-high">高</td><td class="easy-high">高</td><td>理解</td><td>相関係数（-1から1）と分散投資の効果。</td></tr>
+          <tr><td>10. 金融商品と税金</td><td class="freq-high">高</td><td class="easy-mid">中</td><td>暗記</td><td>新NISAの制度（つみたて・成長投資枠）は必修。</td></tr>
+          <tr><td>11. セーフティネット</td><td class="freq-mid">中</td><td class="easy-high">高</td><td>暗記</td><td>預金、証券の保護範囲（1000万円など）。</td></tr>
+          <tr><td>12. 関連法規</td><td class="freq-low">低</td><td class="easy-high">高</td><td>暗記</td><td>適合性の原則など、常識的な内容が多い。</td></tr>
+          <tr><td>13. 最新の動向</td><td class="freq-low">低</td><td class="easy-low">低</td><td>表面</td><td>直近1年の改正だけ確認。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- D. タックス -->
+    <div class="subject-card" style="border-color:#e65100; border-width:2px;">
+      <h2>D. タックスプランニング</h2>
+      <div class="strategy-line">戦略：所得10種類の分類を完璧にし、計算の流れを「構造」で捉える。</div>
+      <div class="priority-box">
+        <h3>第1位：各種所得の内容</h3>
+        <p>全ての基本。「株の利益は譲渡所得」「配当は配当所得」など、10種類を仕分ける力。</p>
+      </div>
+      <div class="priority-box">
+        <h3>第2位：損益通算 / 所得控除</h3>
+        <p>「赤字を引けるのはどれか」「誰が扶養控除を受けられるか」。実技の所得税計算で必須。</p>
+      </div>
+      <div class="priority-box">
+        <h3>第3位：所得税の仕組み</h3>
+        <p>総合課税と分離課税の違い。金融資産の課税関係を理解する上で不可欠。</p>
+      </div>
+      <table class="topic-table">
+        <thead><tr><th>項目</th><th>頻度</th><th>得点しやすさ</th><th>スタンス</th><th>攻略ポイント</th></tr></thead>
+        <tbody>
+          <tr><td>1. わが国の税制</td><td class="freq-low">低</td><td class="easy-high">高</td><td>表面</td><td>直接税・間接税などの分類。</td></tr>
+          <tr><td>2. 所得税の仕組み</td><td class="freq-high">高</td><td class="easy-mid">中</td><td>徹底理解</td><td>所得の合算の流れ、総合課税と分離課税の区別。</td></tr>
+          <tr><td>3. 各種所得の内容</td><td class="freq-extreme">極高</td><td class="easy-low">低</td><td>徹底理解</td><td>最重要。10種類の所得の「収入−経費」を算出。</td></tr>
+          <tr><td>4. 損益通算</td><td class="freq-extreme">極高</td><td class="easy-mid">中</td><td>暗記に徹する</td><td>最重要。「富士山頂（不事山譲）」の語呂。</td></tr>
+          <tr><td>5. 所得控除</td><td class="freq-high">高</td><td class="easy-high">高</td><td>暗記に徹する</td><td>実技必出。配偶者、扶養、社会保険料控除。</td></tr>
+          <tr><td>6. 税額控除</td><td class="freq-mid">中</td><td class="easy-mid">中</td><td>理解</td><td>住宅ローン控除の条件。</td></tr>
+          <tr><td>7. 申告と納付</td><td class="freq-mid">中</td><td class="easy-high">高</td><td>暗記</td><td>確定申告の期限（3/15）や、不要な人の条件。</td></tr>
+          <tr><td>8. 住民税 / 9. 事業税</td><td class="freq-low">低</td><td class="easy-high">高</td><td>暗記</td><td>所得税との時期や税率のわずかな違い。</td></tr>
+          <tr><td>10. 法人税</td><td class="freq-mid">中</td><td class="easy-low">低</td><td>理解</td><td>交際費、役員給与の損金不算入。</td></tr>
+          <tr><td>11. 法人住民 / 12. 事業税</td><td class="freq-low">低</td><td class="easy-low">低</td><td>表面</td><td>所得税優先で、余裕があれば。</td></tr>
+          <tr><td>13. 消費税</td><td class="freq-mid">中</td><td class="easy-mid">中</td><td>理解</td><td>課税事業者になる条件（売上1000万など）。</td></tr>
+          <tr><td>14. 会社・役員間の税務</td><td class="freq-mid">中</td><td class="easy-low">低</td><td>理解</td><td>低額譲渡、高額譲渡の取り扱い。</td></tr>
+          <tr><td>15. 決算書 / 16. 諸外国</td><td class="freq-low">低</td><td class="easy-low">低</td><td>表面</td><td>バランスシートの基本的な読み方のみ。</td></tr>
+          <tr><td>17. 最新の動向</td><td class="freq-low">低</td><td class="easy-low">低</td><td>表面</td><td>直近1年の改正だけ確認。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- E. 不動産 -->
+    <div class="subject-card">
+      <h2>E. 不動産 <span style="color:#c62828;">&#9733; 苦手分野：最小限に</span></h2>
+      <div class="strategy-line">戦略：興味がなくても「算数」として解ける計算問題だけを死守する。</div>
+      <div class="priority-box">
+        <h3>第1位：法令上の規制（建基法）</h3>
+        <p>実技で必出。建ぺい率と容積率の計算。ルール（角地なら+10%など）を覚えるだけ。</p>
+      </div>
+      <div class="priority-box">
+        <h3>第2位：譲渡に係る税金</h3>
+        <p>3000万円特別控除など。タックスの延長で学べるため、効率が良い。</p>
+      </div>
+      <div class="priority-box">
+        <h3>第3位：不動産の見方（登記）</h3>
+        <p>登記簿の「甲区（所有権）」「乙区（抵当権）」の区別。パズル的な知識。</p>
+      </div>
+      <table class="topic-table">
+        <thead><tr><th>項目</th><th>頻度</th><th>得点しやすさ</th><th>スタンス</th><th>攻略ポイント</th></tr></thead>
+        <tbody>
+          <tr><td>1. 不動産の見方</td><td class="freq-mid">中</td><td class="easy-high">高</td><td>暗記</td><td>登記簿謄本、公図、実測図の役割。</td></tr>
+          <tr><td>2. 不動産の取引</td><td class="freq-mid">中</td><td class="easy-high">高</td><td>暗記</td><td>宅建業者への報酬額の上限計算、重要事項説明。</td></tr>
+          <tr><td>3. 法令上の規制</td><td class="freq-extreme">極高</td><td class="easy-mid">中</td><td>徹底理解</td><td>実技必出。建ぺい率・容積率（角地、防火地域）。</td></tr>
+          <tr><td>4. 取得・保有の税</td><td class="freq-mid">中</td><td class="easy-high">高</td><td>暗記</td><td>不動産取得税、固定資産税の軽減措置。</td></tr>
+          <tr><td>5. 譲渡に係る税金</td><td class="freq-extreme">極高</td><td class="easy-mid">中</td><td>理解</td><td>実技必出。3000万円特別控除、軽減税率。</td></tr>
+          <tr><td>6. 不動産の賃貸</td><td class="freq-low">低</td><td class="easy-mid">中</td><td>理解</td><td>借地借家法の普通借家と定期借家の違い。</td></tr>
+          <tr><td>7. 有効活用 / 8. 証券化</td><td class="freq-low">低</td><td class="easy-low">低</td><td>表面</td><td>建設協力金、等価交換、REITの概要のみ。</td></tr>
+          <tr><td>9. 最新の動向</td><td class="freq-low">低</td><td class="easy-low">低</td><td>表面</td><td>直近1年の改正だけ確認。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- F. 相続 -->
+    <div class="subject-card">
+      <h2>F. 相続・事業承継</h2>
+      <div class="strategy-line">戦略：家系図を見て「誰がいくら貰えるか」を計算するパズルに慣れる。</div>
+      <div class="priority-box">
+        <h3>第1位：相続と法律 / 相続と税金</h3>
+        <p>実技の配点王。法定相続分と、相続税の総額計算。計算手順が決まっているので、練習量で勝てる。</p>
+      </div>
+      <div class="priority-box">
+        <h3>第2位：財産評価（不動産）</h3>
+        <p>路線価方式。実技で「地図を見て土地の値段を出す」問題がよく出る。</p>
+      </div>
+      <div class="priority-box">
+        <h3>第3位：贈与と法律 / 贈与と税金</h3>
+        <p>相続時精算課税制度など。相続とセットで、違いを整理するだけでOK。</p>
+      </div>
+      <table class="topic-table">
+        <thead><tr><th>項目</th><th>頻度</th><th>得点しやすさ</th><th>スタンス</th><th>攻略ポイント</th></tr></thead>
+        <tbody>
+          <tr><td>1. 贈与と法律</td><td class="freq-mid">中</td><td class="easy-high">高</td><td>暗記</td><td>相続時精算課税制度、暦年贈与の基礎控除額。</td></tr>
+          <tr><td>2. 贈与と税金</td><td class="freq-high">高</td><td class="easy-high">高</td><td>暗記</td><td>夫婦間の居住用不動産、教育資金の一括贈与。</td></tr>
+          <tr><td>3. 相続と法律</td><td class="freq-extreme">極高</td><td class="easy-high">高</td><td>徹底理解</td><td>実技必出。法定相続分、遺留分、遺言の形式。</td></tr>
+          <tr><td>4. 相続と税金</td><td class="freq-extreme">極高</td><td class="easy-mid">中</td><td>徹底理解</td><td>実技必出。相続税の基礎控除、配偶者の軽減。</td></tr>
+          <tr><td>5. 財産評価（不動産以外）</td><td class="freq-mid">中</td><td class="easy-mid">中</td><td>暗記</td><td>上場株式の評価（4つの価格の最小値）。</td></tr>
+          <tr><td>6. 財産評価（不動産）</td><td class="freq-extreme">極高</td><td class="easy-mid">中</td><td>徹底理解</td><td>実技必出。路線価方式、倍率方式、借地権割合。</td></tr>
+          <tr><td>7. 不動産の相続対策</td><td class="freq-mid">中</td><td class="easy-mid">中</td><td>理解</td><td>小規模宅地等の特例（自宅・貸付用）の減額率。</td></tr>
+          <tr><td>8. 相続と保険の活用</td><td class="freq-high">高</td><td class="easy-high">高</td><td>理解</td><td>生命保険の非課税枠（500万×法定相続人数）。</td></tr>
+          <tr><td>9. 事業承継対策</td><td class="freq-mid">中</td><td class="easy-low">低</td><td>表面</td><td>自社株対策などの概要。実技ではほぼ出ない。</td></tr>
+          <tr><td>10. 事業と経営 / 11. 動向</td><td class="freq-low">低</td><td class="easy-low">低</td><td>表面</td><td>直近1年の改正だけ確認。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIツール活用分析レポート | yamashita-yukihito</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f172a;--surface:#1e293b;--surface2:#334155;--text:#e2e8f0;--muted:#94a3b8;--accent:#38bdf8;--green:#4ade80;--purple:#a78bfa;--amber:#fbbf24;--rose:#fb7185;--border:#475569;--radius:10px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;min-height:100vh}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.container{max-width:1000px;margin:0 auto;padding:0 24px}
+header.hero{background:linear-gradient(135deg,#1e293b 0%,#0f172a 50%,#1a1a2e 100%);border-bottom:1px solid var(--border);padding:48px 0 40px}
+header.hero h1{font-size:1.8rem;margin-bottom:8px}
+header.hero .subtitle{color:var(--muted);font-size:1rem}
+header.hero .meta{margin-top:16px;display:flex;flex-wrap:wrap;gap:16px;font-size:0.85rem;color:var(--muted)}
+header.hero .meta span{display:flex;align-items:center;gap:4px}
+
+nav.toc{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;margin:32px 0}
+nav.toc h2{font-size:1rem;color:var(--accent);margin-bottom:12px}
+nav.toc ol{padding-left:20px}
+nav.toc li{margin-bottom:4px;font-size:0.9rem}
+
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:32px 0}
+.summary-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center}
+.summary-card .num{font-size:2.2rem;font-weight:700;font-family:'JetBrains Mono',monospace}
+.summary-card .label{font-size:0.8rem;color:var(--muted);margin-top:4px}
+.summary-card.blue .num{color:var(--accent)}
+.summary-card.green .num{color:var(--green)}
+.summary-card.purple .num{color:var(--purple)}
+.summary-card.amber .num{color:var(--amber)}
+.summary-card.rose .num{color:var(--rose)}
+
+section.content{padding:40px 0}
+h2.section-title{font-size:1.4rem;color:var(--accent);border-bottom:2px solid var(--accent);padding-bottom:8px;margin:40px 0 20px}
+h3{font-size:1.1rem;margin:24px 0 12px;color:var(--green)}
+h4{font-size:1rem;margin:16px 0 8px;color:var(--amber)}
+
+.rating{display:inline-flex;gap:2px;font-size:1.1rem;vertical-align:middle}
+.star{color:var(--amber)}
+.star-empty{color:var(--surface2)}
+
+table{width:100%;border-collapse:collapse;font-size:0.88rem;margin:16px 0}
+th{text-align:left;padding:10px 12px;border-bottom:2px solid var(--accent);color:var(--accent);font-weight:600}
+td{padding:10px 12px;border-bottom:1px solid var(--border)}
+tr:last-child td{border-bottom:none}
+.table-wrap{background:var(--surface);border-radius:var(--radius);overflow:hidden;margin:16px 0}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:20px 0}
+.card.good{border-left:4px solid var(--green)}
+.card.warn{border-left:4px solid var(--amber)}
+.card.info{border-left:4px solid var(--accent)}
+.card.crit{border-left:4px solid var(--rose)}
+.card h4{margin-top:0}
+
+ul.features{list-style:none;padding:0}
+ul.features li{padding:8px 0 8px 24px;position:relative;border-bottom:1px solid rgba(71,85,105,0.3)}
+ul.features li::before{content:"▸";position:absolute;left:0;color:var(--accent)}
+ul.features li:last-child{border-bottom:none}
+
+code{font-family:'JetBrains Mono',monospace;background:var(--surface2);padding:2px 6px;border-radius:4px;font-size:0.85em}
+pre{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;overflow-x:auto;font-size:0.85rem;line-height:1.5}
+pre code{background:none;padding:0}
+
+.badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:0.75rem;font-weight:600}
+.badge-green{background:#166534;color:#bbf7d0}
+.badge-amber{background:#78350f;color:#fef3c7}
+.badge-rose{background:#9f1239;color:#fecdd3}
+.badge-blue{background:#1e3a5f;color:#bfdbfe}
+
+.diagram{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:20px 0;text-align:center;font-family:'JetBrains Mono',monospace;font-size:0.85rem;line-height:2;overflow-x:auto;white-space:pre}
+
+.sources{columns:2;column-gap:32px;font-size:0.85rem}
+.sources li{break-inside:avoid;margin-bottom:6px}
+
+footer{text-align:center;padding:32px 0;color:var(--muted);font-size:0.8rem;border-top:1px solid var(--border);margin-top:48px}
+
+@media(max-width:768px){
+  .container{padding:0 16px}
+  .summary-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .summary-card{padding:14px 10px}
+  .summary-card .num{font-size:1.6rem}
+  .sources{columns:1}
+  header.hero{padding:32px 0 28px}
+  header.hero h1{font-size:1.3rem}
+  header.hero .meta{gap:8px;font-size:0.8rem}
+  h2.section-title{font-size:1.2rem;margin:32px 0 16px}
+  h3{font-size:1rem}
+  h4{font-size:0.95rem}
+  .card{padding:16px;margin:14px 0}
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:12px -16px;padding:0 16px}
+  table{font-size:0.78rem;min-width:500px}
+  th,td{padding:8px 8px}
+  .diagram{font-size:0.65rem;padding:10px;line-height:1.6;white-space:pre-wrap;word-break:break-all}
+  nav.toc{padding:14px 16px}
+  nav.toc li{font-size:0.82rem}
+  .badge{font-size:0.7rem;padding:2px 8px}
+  .rating{font-size:0.95rem}
+  code{font-size:0.78em}
+  pre{padding:12px;font-size:0.78rem}
+  ul.features li{padding:6px 0 6px 20px;font-size:0.9rem}
+}
+@media(max-width:480px){
+  .summary-grid{grid-template-columns:1fr 1fr;gap:8px}
+  .summary-card .num{font-size:1.4rem}
+  .summary-card .label{font-size:0.72rem}
+  header.hero h1{font-size:1.15rem}
+  table{min-width:420px;font-size:0.72rem}
+  th,td{padding:6px 6px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+<div class="container">
+  <h1>🤖 AIツール活用 分析レポート</h1>
+  <p class="subtitle">Claude Code / Gemini CLI / GitHub Copilot CLI / OpenClaw の4ツール協調開発体制の評価と改善提案</p>
+  <div class="meta">
+    <span>📅 2026-03-31</span>
+    <span>🔍 調査者: GitHub Copilot CLI (Claude Opus 4.6)</span>
+    <span>📄 調査ソース: 20+（公式ドキュメント・Reddit・Zenn・Qiita他）</span>
+  </div>
+</div>
+</header>
+
+<section class="content">
+<div class="container">
+
+<nav class="toc">
+  <h2>📑 目次</h2>
+  <ol>
+    <li><a href="#summary">エグゼクティブサマリー</a></li>
+    <li><a href="#overview">現在の構成概要</a></li>
+    <li><a href="#evaluation">カテゴリ別評価</a></li>
+    <li><a href="#patterns">独自の先進的パターン</a></li>
+    <li><a href="#comparison">コミュニティとの比較</a></li>
+    <li><a href="#recommendations">推奨アクション</a></li>
+    <li><a href="#sources">調査ソース</a></li>
+  </ol>
+</nav>
+
+<!-- Summary Cards -->
+<div class="summary-grid">
+  <div class="summary-card blue"><div class="num">4</div><div class="label">連携AIツール</div></div>
+  <div class="summary-card amber"><div class="num">794</div><div class="label">総コミット</div></div>
+  <div class="summary-card green"><div class="num">583</div><div class="label">テストケース</div></div>
+  <div class="summary-card purple"><div class="num">49%</div><div class="label">自律コミット率</div></div>
+  <div class="summary-card rose"><div class="num">20+</div><div class="label">調査ソース数</div></div>
+</div>
+
+<!-- 1. Executive Summary -->
+<h2 class="section-title" id="summary">1. エグゼクティブサマリー</h2>
+<div class="card info">
+  <p>yamashita-yukihito氏のVPS環境は、4種類のAIコーディングツールを統合した<strong>本格的なマルチAIオーケストレーションシステム</strong>です。
+  ファイルベースの共有メモリ、git同期による状態共有、自律heartbeatサイクルなど、コミュニティで報告されている先進的なパターンの多くを独自に実装しています。</p>
+  <p style="margin-top:12px;">全体として<strong>コミュニティの標準的な使い方を大きく超えた高度な活用</strong>がなされています。</p>
+</div>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>カテゴリ</th><th>評価</th><th>概要</th></tr></thead>
+<tbody>
+<tr><td>マルチAI協調</td><td><span class="rating"><span class="star">★★★★★</span></span></td><td>共有メモリ+役割分担+handoffプロトコル。コミュニティ最先端</td></tr>
+<tr><td>自律運転</td><td><span class="rating"><span class="star">★★★★★</span></span></td><td>heartbeat、Deep Work、ミステイクログなど独自の仕組みが完成</td></tr>
+<tr><td>メモリ管理</td><td><span class="rating"><span class="star">★★★★★</span></span></td><td>git同期+日次ログ+MEMORY.mdの「Living Document」パターン</td></tr>
+<tr><td>テスト・品質保証</td><td><span class="rating"><span class="star">★★★★★</span></span></td><td>583テスト、全PASS必須ゲート、整合性チェック</td></tr>
+<tr><td>セキュリティ</td><td><span class="rating"><span class="star">★★★★</span><span class="star-empty">☆</span></span></td><td>階層化権限、push制限あり。一部改善の余地</td></tr>
+<tr><td>コスト管理</td><td><span class="rating"><span class="star">★★★★</span><span class="star-empty">☆</span></span></td><td>モデルルーティング+フォールバック</td></tr>
+<tr><td>設定ファイル品質</td><td><span class="rating"><span class="star">★★★</span><span class="star-empty">☆☆</span></span></td><td>内容は充実。公式推奨サイズを大幅に超過</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- 2. Overview -->
+<h2 class="section-title" id="overview">2. 現在の構成概要</h2>
+
+<h3>2.1 ツール一覧と役割</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>AI</th><th>バージョン</th><th>主な役割</th><th>自律度</th><th>push権限</th></tr></thead>
+<tbody>
+<tr><td><strong>Claude Code</strong></td><td>2.1.80</td><td>ユーザー直接指示の実装・運用</td><td>全権（danger mode）</td><td>あり</td></tr>
+<tr><td><strong>Gemini CLI</strong></td><td>最新</td><td>長時間自律作業</td><td>全権（YOLO mode）</td><td>あり</td></tr>
+<tr><td><strong>Copilot CLI</strong></td><td>最新</td><td>CLIタスク・PR作成</td><td>制限付き</td><td>commitのみ</td></tr>
+<tr><td><strong>OpenClaw</strong></td><td>2026.3.24</td><td>自律heartbeat + Discord</td><td>自律（5h周期）</td><td>あり</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>2.2 情報共有アーキテクチャ</h3>
+<div class="diagram">┌─────────────────────────────────────────────────────┐
+│                   Git Repository                     │
+│  ┌──────────┐  ┌─────────────┐  ┌────────────────┐  │
+│  │MEMORY.md │  │memory/      │  │heartbeat-      │  │
+│  │(長期記憶)│  │YYYY-MM-DD.md│  │state.json      │  │
+│  └────┬─────┘  └──────┬──────┘  └───────┬────────┘  │
+│       └───────────────┼─────────────────┘            │
+│                       │ git push / pull              │
+├───────────────────────┼─────────────────────────────┤
+│  ┌────────┐  ┌────────┴──┐  ┌────────┐  ┌────────┐ │
+│  │Claude  │  │  Gemini   │  │Copilot │  │OpenClaw│ │
+│  │Code    │  │  CLI      │  │CLI     │  │(ｱﾝｼｱ)  │ │
+│  │CLAUDE. │  │  GEMINI.  │  │copilot-│  │openclaw│ │
+│  │md      │◄─┤► md       │  │instruc │  │.json   │ │
+│  └────────┘  └───────────┘  └────────┘  └────────┘ │
+│      ↕ 双方向同期                                    │
+│  SOUL.md / AGENTS.md / ai_mistakes_and_prevention.md │
+└─────────────────────────────────────────────────────┘</div>
+
+<h3>2.3 コミット統計</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>作業者</th><th>コミット数</th><th>割合</th><th>備考</th></tr></thead>
+<tbody>
+<tr><td>OpenClaw（自律heartbeat）</td><td><strong>390</strong></td><td>49%</td><td>人間の介入なし</td></tr>
+<tr><td>Claude/Gemini/人間</td><td><strong>365</strong></td><td>46%</td><td>共通author名</td></tr>
+<tr><td>Copilot（Co-authored）</td><td><strong>95+</strong></td><td>—</td><td>トレーラーで追跡</td></tr>
+<tr><td>その他</td><td>39</td><td>5%</td><td>初期コミット等</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- 3. Evaluation -->
+<h2 class="section-title" id="evaluation">3. カテゴリ別評価</h2>
+
+<h3>3.1 設定ファイル（CLAUDE.md / GEMINI.md）</h3>
+
+<div class="card good">
+<h4>✅ 良い点</h4>
+<ul class="features">
+<li><strong>具体的で検証可能なルール</strong>: 「<code>sqlite3.Row</code> → <code>dict(row)</code>を使う」のような即座に適用可能な対処法</li>
+<li><strong>「よくある問題と対策」テーブル</strong>: 過去の失敗から学んだ知見が体系化されている</li>
+<li><strong>双方向同期ルール</strong>: CLAUDE.md↔GEMINI.mdの同期指示が設定ファイル自体に書かれている</li>
+<li><strong>禁止事項が明確</strong>: git push禁止、secrets表示禁止、.bak作成禁止など</li>
+</ul>
+</div>
+
+<div class="card warn">
+<h4>⚠️ 改善の余地</h4>
+<ul class="features">
+<li><strong>行数超過</strong>: CLAUDE.mdは約500行。Anthropic公式推奨は<strong>200行以下</strong>。長すぎるとドメイン固有のルールが無視される可能性あり（<a href="https://qiita.com/pro-tein" target="_blank">@pro-tein氏調査</a>: Claudeの内部プロンプトに「重要でない内容は無視する」指示が含まれている）</li>
+<li><strong>モノリシック構造</strong>: 全情報が1ファイル。公式は<code>.claude/rules/</code>ディレクトリでのパス別モジュール化を推奨</li>
+<li><strong>静的/動的情報の混在</strong>: ポート番号やサービスURLと、コーディングルールが同じファイルに共存</li>
+</ul>
+</div>
+
+<h3>3.2 メモリ管理 <span class="rating"><span class="star">★★★★★</span></span></h3>
+<div class="card good">
+<h4>✅ 理想的な実装</h4>
+<p>コミュニティで「Living Document」パターンと呼ばれる先進的な手法を完全に実装:</p>
+<ul class="features">
+<li><strong>MEMORY.md</strong> = キュレーションされた長期記憶（人間の長期記憶に相当）</li>
+<li><strong>memory/YYYY-MM-DD.md</strong> = 生の作業ログ（エピソード記憶に相当）</li>
+<li><strong>git push/pull</strong> = AI間の記憶同期メカニズム</li>
+<li>AGENTS.mdの象徴的な記述: <em>"You wake up fresh each session. These files are your continuity."</em></li>
+</ul>
+</div>
+
+<h3>3.3 マルチAI協調 <span class="rating"><span class="star">★★★★★</span></span></h3>
+<div class="card good">
+<h4>✅ コミュニティ最先端</h4>
+<p>大半のユーザーは1-2ツールの使用に留まる中、4ツールの体系的な協調運用を実現。特に以下は独自性が高い:</p>
+<ul class="features">
+<li><strong>共有ミステイクログ</strong>: AI横断的な失敗データベース。クリティカル度ランク付き。コミュニティに類似事例はほぼ存在しない</li>
+<li><strong>SOUL.md（行動契約）</strong>: 「実行してから報告」「証拠のない完了報告は虚偽報告」 — AIの典型的問題行動への体系的対策</li>
+<li><strong>完了条件の厳密な4要件</strong>: コード変更→テスト通過、ファイル変更→diff確認、memory記録、設定変更→前後値報告</li>
+</ul>
+</div>
+
+<h3>3.4 自律運転（Heartbeat） <span class="rating"><span class="star">★★★★★</span></span></h3>
+<div class="card info">
+<h4>📋 構成</h4>
+<ul class="features">
+<li><strong>間隔</strong>: 5時間ごと / 稼働時間: 07:00–24:00 JST</li>
+<li><strong>処理</strong>: メモリ読込 → Discord確認 → 状態更新 → Deep Work（任意）</li>
+<li><strong>最重要ルール</strong>: <em>「実行してから報告。「やります」「確認します」は禁止。やってから結果を書け。」</em></li>
+<li><strong>Deep Work時間制限</strong>: 15-20分以内に区切り、次回に引き継ぐ</li>
+</ul>
+</div>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>自律運転方式</th><th>採用例</th><th>評価</th></tr></thead>
+<tbody>
+<tr><td>PM2オーケストレーション</td><td>everything-claude-code</td><td>複雑、Node.js依存</td></tr>
+<tr><td>Scheduled Cloud Tasks</td><td>Claude Code公式（新機能）</td><td>クラウド依存</td></tr>
+<tr><td><strong>systemd + cron + heartbeat</strong></td><td><strong>本環境</strong></td><td><strong>シンプル、堅牢、自己完結</strong></td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>3.5 セキュリティ <span class="rating"><span class="star">★★★★</span><span class="star-empty">☆</span></span></h3>
+<div class="card good">
+<h4>✅ 良い点</h4>
+<ul class="features">
+<li>階層化権限モデル（Copilotはcommitのみ、systemd/Caddy変更禁止）</li>
+<li>secrets管理ルールの明文化</li>
+<li>Gatewayのloopback制限（port 18789）</li>
+</ul>
+</div>
+<div class="card warn">
+<h4>⚠️ 注意点</h4>
+<ul class="features">
+<li><strong>danger mode / YOLO mode</strong>: Claude/Geminiがフルアクセス権限。エフェメラルVPS（2日で消える）前提では合理的だが、認識して運用する必要あり</li>
+<li><strong>MEMORY.md経由のプロンプトインジェクション</strong>: 理論上のリスク。自動実行禁止ルール追加で防御強化可能</li>
+</ul>
+</div>
+
+<!-- 4. Patterns -->
+<h2 class="section-title" id="patterns">4. 独自の先進的パターン</h2>
+
+<div class="card info">
+<h4>コミュニティに類似事例が少ない独自パターン</h4>
+<div class="table-wrap">
+<table>
+<thead><tr><th>パターン</th><th>説明</th><th>コミュニティ普及度</th></tr></thead>
+<tbody>
+<tr><td>4 AI同時運用</td><td>大半のユーザーは1-2ツール</td><td><span class="badge badge-rose">非常に低い</span></td></tr>
+<tr><td>自律heartbeat</td><td>cronベースの定期自律運転+Deep Work</td><td><span class="badge badge-rose">非常に低い</span></td></tr>
+<tr><td>共有ミステイクログ</td><td>AI横断的な失敗学習データベース</td><td><span class="badge badge-rose">非常に低い</span></td></tr>
+<tr><td>Handoffプロトコル</td><td>構造化されたAI間タスク引継ぎ</td><td><span class="badge badge-amber">低い</span></td></tr>
+<tr><td>行動契約（SOUL.md）</td><td>全AIに適用される行動原則</td><td><span class="badge badge-amber">低い</span></td></tr>
+<tr><td>エフェメラルVPS設計</td><td>2日で消えるVPS前提の完全復旧体制</td><td><span class="badge badge-rose">非常に低い</span></td></tr>
+<tr><td>設定ファイルgit管理+ドリフト検出</td><td>自動化された整合性チェック</td><td><span class="badge badge-amber">低い</span></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- 5. Comparison -->
+<h2 class="section-title" id="comparison">5. コミュニティとの比較</h2>
+
+<h3>Claude Code活用レベル</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>レベル</th><th>特徴</th><th>該当</th></tr></thead>
+<tbody>
+<tr><td>初級</td><td>対話的にコードを書かせる</td><td>—</td></tr>
+<tr><td>中級</td><td>CLAUDE.mdで設定、テスト連携</td><td>—</td></tr>
+<tr><td>上級</td><td>Skills/Agents/Rules分割、メモリ管理</td><td>一部</td></tr>
+<tr><td><strong>エキスパート</strong></td><td><strong>マルチAI協調、自律運転、共有ミステイクログ</strong></td><td><strong>✅</strong></td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>ベストプラクティスとの一致度</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>公式推奨事項</th><th>現在の実装</th><th>状態</th></tr></thead>
+<tbody>
+<tr><td>テスト・リンター等の検証手段を提供</td><td>583テスト + run_all_tests.sh</td><td><span class="badge badge-green">完全準拠</span></td></tr>
+<tr><td>Explore → Plan → Code サイクル</td><td>設計→実装→テストの流れが確立</td><td><span class="badge badge-green">完全準拠</span></td></tr>
+<tr><td>タスク間で/clearを実行</td><td>明示的ルールなし</td><td><span class="badge badge-amber">改善余地</span></td></tr>
+<tr><td>CLAUDE.md 200行以下</td><td>約500行</td><td><span class="badge badge-amber">超過</span></td></tr>
+<tr><td>サブエージェントで調査</td><td>Copilot CLIで活用中</td><td><span class="badge badge-green">準拠</span></td></tr>
+<tr><td>.claude/rules/でモジュール化</td><td>モノリシック構造</td><td><span class="badge badge-amber">未実施</span></td></tr>
+<tr><td>Co-authored-byトレーラー</td><td>4AI全てで実装</td><td><span class="badge badge-green">完全準拠</span></td></tr>
+<tr><td>定期的な設定ファイルのレビュー</td><td>check_doc_consistency.py</td><td><span class="badge badge-green">完全準拠</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- 6. Recommendations -->
+<h2 class="section-title" id="recommendations">6. 推奨アクション</h2>
+
+<h3>🔴 高優先度</h3>
+<div class="card crit">
+<div class="table-wrap">
+<table>
+<thead><tr><th>#</th><th>推奨事項</th><th>理由</th><th>工数</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>CLAUDE.mdの分割</strong>（<code>.claude/rules/</code>活用）</td><td>公式推奨200行以下。現状500行で無視されるルールがある可能性</td><td>中</td></tr>
+<tr><td>2</td><td><strong>AGENTS.md標準の採用</strong></td><td>3ツール全てが読む共通ファイルで設定のDRY化</td><td>中</td></tr>
+<tr><td>3</td><td><strong>コンテキスト管理ルール追加</strong></td><td>60Kトークンで/clearするルールを全AI設定に追加</td><td>小</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<h3>🟠 中優先度</h3>
+<div class="card warn">
+<div class="table-wrap">
+<table>
+<thead><tr><th>#</th><th>推奨事項</th><th>理由</th><th>工数</th></tr></thead>
+<tbody>
+<tr><td>4</td><td><strong>Skills/Agentsの活用開始</strong></td><td>ドメイン固有知識をオンデマンドロードに移行</td><td>中</td></tr>
+<tr><td>5</td><td><strong>Writer/Reviewerパターン導入</strong></td><td>1つのAIが書き、別のAIがレビュー</td><td>小</td></tr>
+<tr><td>6</td><td><strong>heartbeatメトリクス追加</strong></td><td>Deep Work ROIの可視化</td><td>小</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<h3>🟡 低優先度</h3>
+<div class="card info">
+<div class="table-wrap">
+<table>
+<thead><tr><th>#</th><th>推奨事項</th><th>理由</th><th>工数</th></tr></thead>
+<tbody>
+<tr><td>7</td><td>Auto Memory機能との統合検討</td><td>Claude標準メモリとMEMORY.mdの重複排除</td><td>小</td></tr>
+<tr><td>8</td><td>MEMORY.md自動実行禁止ルール</td><td>プロンプトインジェクション防御</td><td>極小</td></tr>
+<tr><td>9</td><td><code>/init</code>結果の検証</td><td>AI生成CLAUDE.mdは性能が悪いという報告あり</td><td>極小</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- 7. Sources -->
+<h2 class="section-title" id="sources">7. 調査ソース</h2>
+
+<h3>公式ドキュメント</h3>
+<ul class="sources">
+<li>Anthropic Claude Code Documentation — overview, memory, best-practices, agents, skills</li>
+<li>Google Gemini CLI Repository &amp; Documentation</li>
+<li>GitHub Copilot Documentation — custom instructions, CLI usage</li>
+<li>AGENTS.md Standard (agents.md) — Linux Foundation</li>
+<li>Agent Skills Standard (agentskills.io)</li>
+</ul>
+
+<h3>コミュニティ・ブログ</h3>
+<ul class="sources">
+<li>Reddit r/ClaudeAI — CLAUDE.md best practices, multi-agent patterns</li>
+<li>Qiita @dai_chi — CLAUDE.md WHAT/WHY/HOW Framework</li>
+<li>Qiita @pro-tein — CLAUDE.md内部システムプロンプト調査</li>
+<li>Qiita @MURAMASA2470 — Claude↔Gemini設定マイグレーション</li>
+<li>Qiita @watta10 — Stop Rules / gray-zoneパターン</li>
+<li>rosmur.github.io — claudecode-best-practices (12ソースのメタ分析)</li>
+<li>everything-claude-code (GitHub, 50K+ stars)</li>
+<li>awesome-claude-code (GitHub, 14,250+ repos)</li>
+<li>Zenn — 3,484記事（Claude Code活用）</li>
+</ul>
+
+<h3>VPS内設定ファイル（13ファイル）</h3>
+<ul class="sources">
+<li>CLAUDE.md, GEMINI.md, copilot-instructions.md</li>
+<li>MEMORY.md, AGENTS.md, SOUL.md, HEARTBEAT.md</li>
+<li>IDENTITY.md, USER.md, TOOLS.md</li>
+<li>openclaw.json (構造のみ), personas/, memory/</li>
+</ul>
+
+</div>
+</section>
+
+<footer>
+<div class="container">
+  <p>AIツール活用分析レポート — Generated by GitHub Copilot CLI (Claude Opus 4.6) — 2026-03-31</p>
+  <p style="margin-top:4px;"><a href="ai-works.html">← AI協調制作実績ページへ</a></p>
+</div>
+</footer>
+
+</body>
+</html>
