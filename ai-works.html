@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI協調制作実績 | yamashita-yukihito Portfolio</title>
-  <meta name="description" content="2026年にClaude Code・GitHub Copilot・Gemini CLI・OpenClawの4つのAIと協働し構築した11以上のWebサービス、自動化パイプライン、テスト体制の詳細。">
+  <meta name="description" content="2026年にClaude Code・GitHub Copilot・Gemini CLI・OpenClawの4つのAIと協働し構築した12以上のWebサービス、自動化パイプライン、テスト体制の詳細。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
@@ -406,10 +406,102 @@
       </div>
     </div>
 
-    <!-- J. 資格試験クイズアプリ -->
+    <!-- J. マルチAI協調開発体制 -->
     <div class="detail-card">
       <h3>
-        <span>J. 資格試験クイズアプリ</span>
+        <span>J. マルチAI協調開発体制</span>
+        <span class="badge ai">開発手法</span>
+      </h3>
+      <p>
+        本プロジェクト群の最大の特徴は、<strong>4種類のAIコーディングツールを役割分担させた協調開発体制</strong>です。
+        単にAIにコードを書かせるのではなく、各AIの特性を活かした明確な役割分担、
+        ファイルベースの共有メモリによるセッション間の状態共有、
+        統一されたgitアイデンティティと<code>Co-authored-by</code>トレーラーによる貢献追跡、
+        構造化されたHandoffプロトコルによるAI間のタスク引継ぎなど、
+        <strong>体系的なマルチAIオーケストレーション</strong>を実現しています。
+      </p>
+
+      <h4 style="margin-top:20px; color: var(--accent);">4つのAIと役割分担</h4>
+      <div style="overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; font-size:0.9rem; margin:12px 0;">
+          <thead>
+            <tr style="border-bottom:2px solid var(--accent);">
+              <th style="text-align:left; padding:8px;">AI</th>
+              <th style="text-align:left; padding:8px;">主な役割</th>
+              <th style="text-align:left; padding:8px;">自律度</th>
+              <th style="text-align:left; padding:8px;">特徴</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #eee;">
+              <td style="padding:8px;"><strong>Claude Code</strong></td>
+              <td style="padding:8px;">ユーザー直接指示の実装・運用</td>
+              <td style="padding:8px;">全権（danger mode）</td>
+              <td style="padding:8px;">複雑な設計判断、大規模リファクタリング</td>
+            </tr>
+            <tr style="border-bottom:1px solid #eee;">
+              <td style="padding:8px;"><strong>Gemini CLI</strong></td>
+              <td style="padding:8px;">長時間自律作業</td>
+              <td style="padding:8px;">全権（YOLO mode）</td>
+              <td style="padding:8px;">1Mトークンの長大コンテキスト活用</td>
+            </tr>
+            <tr style="border-bottom:1px solid #eee;">
+              <td style="padding:8px;"><strong>GitHub Copilot CLI</strong></td>
+              <td style="padding:8px;">CLIタスク・PR作成</td>
+              <td style="padding:8px;">制限付き（commitのみ）</td>
+              <td style="padding:8px;">GitHub連携、コードレビュー</td>
+            </tr>
+            <tr>
+              <td style="padding:8px;"><strong>OpenClaw</strong></td>
+              <td style="padding:8px;">自律heartbeat（5h周期）</td>
+              <td style="padding:8px;">自律運転</td>
+              <td style="padding:8px;">ChatGPT OAuth連携、Discord統合</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4 style="margin-top:20px; color: var(--accent);">独自の協調パターン</h4>
+      <ul style="margin:12px 0; padding-left:20px; line-height:1.8;">
+        <li><strong>共有メモリ（MEMORY.md + 日次ログ）</strong> — 全AIがgit経由で読み書きする長期記憶。セッションをまたいだ状態共有を実現</li>
+        <li><strong>統一gitアイデンティティ</strong> — 全AIが同一author名でコミットし、<code>Co-authored-by</code>トレーラーで貢献元を区別</li>
+        <li><strong>共有ミステイクログ</strong> — AI横断的な失敗データベース。クリティカル度でランク分けし、同じ失敗の再発を防止</li>
+        <li><strong>Handoffプロトコル</strong> — PR番号・ブランチ名・変更概要・未解決事項を構造化フォーマットでAI間引継ぎ</li>
+        <li><strong>行動契約（SOUL.md）</strong> — 「実行してから報告」「証拠のない完了報告は虚偽報告」など、全AIに適用される行動原則</li>
+        <li><strong>階層化権限</strong> — Claude/Geminiは全権、Copilotはcommitのみ・systemd変更禁止など、AIごとに異なる権限レベル</li>
+        <li><strong>自律heartbeat</strong> — OpenClawが5時間ごとにシステム状態を確認し、必要に応じてDeep Work（小改善）を自動実行</li>
+      </ul>
+
+      <div class="screenshot-gallery">
+        <div class="screenshot-item">
+          <img src="screenshots/multi-ai-collab.jpg" alt="マルチAI協調コミット履歴" loading="lazy">
+          <span class="screenshot-caption">コミット履歴 — 4種類のAIによる協調開発の実態</span>
+        </div>
+        <div class="screenshot-item">
+          <img src="screenshots/dashboard-copilot.jpg" alt="Copilot作業レポート画面" loading="lazy">
+          <span class="screenshot-caption">Copilot作業レポート — タスク完了状況の可視化</span>
+        </div>
+      </div>
+      <div class="tech-tags">
+        <span class="tech-tag ai">Claude Code</span>
+        <span class="tech-tag ai">Gemini CLI</span>
+        <span class="tech-tag ai">GitHub Copilot</span>
+        <span class="tech-tag ai">OpenClaw</span>
+        <span class="tech-tag ai">MEMORY.md</span>
+        <span class="tech-tag ai">AGENTS.md</span>
+      </div>
+      <div class="detail-card stats">
+        <div class="stat-item">総コミット: <strong>794件</strong></div>
+        <div class="stat-item">自律コミット（OpenClaw）: <strong>390件（49%）</strong></div>
+        <div class="stat-item">連携AI: <strong>4種類</strong></div>
+        <div class="stat-item">設定ファイル同期: <strong>日次自動（03:10 JST）</strong></div>
+      </div>
+    </div>
+
+    <!-- K. 資格試験クイズアプリ -->
+    <div class="detail-card">
+      <h3>
+        <span>K. 資格試験クイズアプリ</span>
         <span class="badge ai">学習ツール</span>
       </h3>
       <p>
