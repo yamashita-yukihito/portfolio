@@ -273,6 +273,15 @@ section { padding: 80px 0; }
   background: #2563eb; color: #fff;
 }
 .contact-link.email:hover { background: #1d4ed8; color: #fff; }
+.contact-link.contact-email-image {
+  gap: 10px;
+}
+.contact-link.contact-email-image img {
+  display: block;
+  width: 248px;
+  max-width: 100%;
+  height: auto;
+}
 .contact-link.github {
   background: #1e293b; color: #fff;
 }
