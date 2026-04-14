@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FP2級 二択クイズ v4（ChatGPT版）</title>
+  <style>
+    :root{
+      --bg:#f7f8fc;
+      --card:#ffffff;
+      --line:#dde3f0;
+      --text:#1f2a44;
+      --muted:#667085;
+      --accent:#5b7cff;
+      --accent2:#8b5cf6;
+      --ok:#0f9d58;
+      --ng:#d93025;
+      --soft:#eef3ff;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic UI","Noto Sans JP",sans-serif;
+      background:linear-gradient(180deg,#f8f9ff 0%, #f4f7fb 100%);
+      color:var(--text);
+    }
+    .wrap{
+      max-width:1080px;
+      margin:0 auto;
+      padding:24px 16px 64px;
+    }
+    .hero{
+      background:linear-gradient(135deg,#5b7cff 0%, #8b5cf6 100%);
+      color:#fff;
+      border-radius:24px;
+      padding:28px 24px;
+      box-shadow:0 18px 40px rgba(91,124,255,.18);
+    }
+    .hero h1{
+      margin:0 0 10px;
+      font-size:clamp(1.7rem,3vw,2.4rem);
+      line-height:1.25;
+    }
+    .hero p{
+      margin:0;
+      opacity:.96;
+      line-height:1.8;
+    }
+    .section-title{
+      margin:28px 4px 14px;
+      font-size:1.05rem;
+      font-weight:800;
+      color:#344054;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:14px;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:18px 16px;
+      box-shadow:0 10px 24px rgba(28,44,94,.06);
+      text-decoration:none;
+      color:inherit;
+      transition:.18s ease;
+      display:block;
+      min-height:146px;
+    }
+    .card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 14px 28px rgba(28,44,94,.1);
+      border-color:#c8d4f3;
+    }
+    .card.disabled{
+      opacity:.58;
+      cursor:not-allowed;
+      pointer-events:none;
+    }
+    .num{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:34px;height:34px;
+      border-radius:999px;
+      background:var(--soft);
+      color:var(--accent);
+      font-weight:800;
+      margin-bottom:10px;
+    }
+    .card h2{
+      margin:0 0 8px;
+      font-size:1rem;
+      line-height:1.45;
+    }
+    .desc{
+      color:var(--muted);
+      line-height:1.7;
+      font-size:.94rem;
+    }
+    .status{
+      margin-top:12px;
+      display:inline-block;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:.82rem;
+      font-weight:700;
+      background:#eef7ee;
+      color:#19713c;
+    }
+    .status.wait{
+      background:#f4f5f7;
+      color:#667085;
+    }
+    .note{
+      margin-top:24px;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:16px 18px;
+      color:#475467;
+      line-height:1.8;
+    }
+    code{
+      background:#f2f4f7;
+      padding:.15em .45em;
+      border-radius:8px;
+      font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+      font-size:.92em;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>FP2級 二択クイズ v4（ChatGPT版）</h1>
+      <p>
+        A/B/Cの3パターンを同時表示。<br>
+        Aは原文ベース、Bはやさしい言い換え、Cは暗記用の最短表現。<br>
+        まずは <strong>タックスプランニング（暗記問題）</strong> の試作版を公開。
+      </p>
+    </section>
+
+    <div class="section-title">問題一覧</div>
+    <div class="grid">
+      <a class="card disabled" href="#">
+        <div class="num">1</div>
+        <h2>ライフプランニング（暗記問題）</h2>
+        <div class="desc">数字・期限などの機械的暗記 40問</div>
+        <span class="status wait">準備中</span>
+      </a>
+
+      <a class="card disabled" href="#">
+        <div class="num">2</div>
+        <h2>ライフプランニング（理解問題）</h2>
+        <div class="desc">概念・制度の理解 30問</div>
+        <span class="status wait">準備中</span>
+      </a>
+
+      <a class="card disabled" href="#">
+        <div class="num">3</div>
+        <h2>リスク管理（暗記問題）</h2>
+        <div class="desc">数字・期限などの機械的暗記 40問</div>
+        <span class="status wait">準備中</span>
+      </a>
+
+      <a class="card disabled" href="#">
+        <div class="num">4</div>
+        <h2>リスク管理（理解問題）</h2>
+        <div class="desc">概念・制度の理解 30問</div>
+        <span class="status wait">準備中</span>
+      </a>
+
+      <a class="card disabled" href="#">
+        <div class="num">5</div>
+        <h2>金融資産運用（暗記問題）</h2>
+        <div class="desc">数字・期限などの機械的暗記 40問</div>
+        <span class="status wait">準備中</span>
+      </a>
+
+      <a class="card disabled" href="#">
+        <div class="num">6</div>
+        <h2>金融資産運用（理解問題）</h2>
+        <div class="desc">概念・制度の理解 30問</div>
+        <span class="status wait">準備中</span>
+      </a>
+
+      <a class="card" href="tax.html">
+        <div class="num">7</div>
+        <h2>タックスプランニング（暗記問題）</h2>
+        <div class="desc">数字・期限などの機械的暗記 40問</div>
+        <span class="status">試作版あり</span>
+      </a>
+
+      <a class="card disabled" href="#">
+        <div class="num">8</div>
+        <h2>タックスプランニング（理解問題）</h2>
+        <div class="desc">概念・制度の理解 30問</div>
+        <span class="status wait">準備中</span>
+      </a>
+
+      <a class="card disabled" href="#">
+        <div class="num">9</div>
+        <h2>不動産（暗記問題）</h2>
+        <div class="desc">数字・期限などの機械的暗記 40問</div>
+        <span class="status wait">準備中</span>
+      </a>
+
+      <a class="card disabled" href="#">
+        <div class="num">10</div>
+        <h2>不動産（理解問題）</h2>
+        <div class="desc">概念・制度の理解 30問</div>
+        <span class="status wait">準備中</span>
+      </a>
+
+      <a class="card disabled" href="#">
+        <div class="num">11</div>
+        <h2>相続・事業承継（暗記問題）</h2>
+        <div class="desc">数字・期限などの機械的暗記 40問</div>
+        <span class="status wait">準備中</span>
+      </a>
+
+      <a class="card disabled" href="#">
+        <div class="num">12</div>
+        <h2>相続・事業承継（理解問題）</h2>
+        <div class="desc">概念・制度の理解 30問</div>
+        <span class="status wait">準備中</span>
+      </a>
+    </div>
+
+    <div class="note">
+      この試作版では <code>tax.html</code> のみ先に作成。<br>
+      問題文は HTML 内に直接埋め込み、A/B/C の問題文と解説も同じファイル内で管理する構成にしてあります。
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FP2級・タックスプランニング（暗記問題）v4</title>
+  <style>
+    :root{
+      --bg:#f7f8fc;
+      --card:#fff;
+      --line:#dde3f0;
+      --text:#1f2a44;
+      --muted:#667085;
+      --accent:#5b7cff;
+      --green:#0f9d58;
+      --red:#d93025;
+      --soft:#eef3ff;
+      --soft2:#f7fbff;
+      --a:#f7f7fb;
+      --b:#f6fbf7;
+      --c:#fff8f2;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic UI","Noto Sans JP",sans-serif;
+      background:linear-gradient(180deg,#f8f9ff 0%, #f4f7fb 100%);
+      color:var(--text);
+    }
+    .wrap{
+      max-width:980px;
+      margin:0 auto;
+      padding:20px 16px 64px;
+    }
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:18px;
+      flex-wrap:wrap;
+    }
+    .links a{
+      color:var(--accent);
+      text-decoration:none;
+      font-weight:700;
+      margin-right:12px;
+    }
+    .hero{
+      background:linear-gradient(135deg,#5b7cff 0%, #8b5cf6 100%);
+      color:#fff;
+      border-radius:24px;
+      padding:24px 22px;
+      box-shadow:0 18px 40px rgba(91,124,255,.18);
+      margin-bottom:18px;
+    }
+    .hero h1{
+      margin:0 0 8px;
+      font-size:clamp(1.4rem,2.7vw,2rem);
+    }
+    .hero p{
+      margin:0;
+      line-height:1.8;
+      opacity:.96;
+    }
+    .status{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:14px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:7px 11px;
+      border-radius:999px;
+      background:rgba(255,255,255,.16);
+      font-size:.88rem;
+      font-weight:700;
+    }
+    .panel{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:22px;
+      box-shadow:0 12px 28px rgba(28,44,94,.06);
+      padding:18px;
+      margin-bottom:16px;
+    }
+    .question-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:12px;
+    }
+    .meta{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .badge{
+      display:inline-block;
+      padding:6px 10px;
+      border-radius:999px;
+      background:var(--soft);
+      color:var(--accent);
+      font-size:.84rem;
+      font-weight:800;
+    }
+    .progress{
+      color:var(--muted);
+      font-size:.95rem;
+      font-weight:700;
+    }
+    .variant{
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:14px 15px;
+      margin-top:12px;
+      line-height:1.9;
+    }
+    .variant-a{ background:var(--a); }
+    .variant-b{ background:var(--b); }
+    .variant-c{ background:var(--c); }
+    .label{
+      display:inline-block;
+      font-size:.84rem;
+      font-weight:800;
+      color:#555;
+      margin-bottom:6px;
+      letter-spacing:.04em;
+    }
+    .key{
+      color:#b00020;
+      font-weight:800;
+    }
+    .actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:18px;
+    }
+    button{
+      border:none;
+      border-radius:14px;
+      padding:12px 18px;
+      font-size:1rem;
+      font-weight:800;
+      cursor:pointer;
+      transition:.16s ease;
+    }
+    button:hover{ transform:translateY(-1px); }
+    .btn-true{ background:#e8f6ee; color:#166534; }
+    .btn-false{ background:#fdecec; color:#b42318; }
+    .btn-next{ background:#edf2ff; color:#375dfb; }
+    .result{
+      margin-top:16px;
+      padding:14px 15px;
+      border-radius:16px;
+      font-weight:800;
+      display:none;
+    }
+    .result.ok{ background:#eaf8ef; color:#166534; display:block; }
+    .result.ng{ background:#fdecec; color:#b42318; display:block; }
+    .explanation{
+      display:none;
+      margin-top:14px;
+      border-top:1px dashed var(--line);
+      padding-top:16px;
+      line-height:1.9;
+    }
+    .explanation.show{ display:block; }
+    .explanation h3{
+      margin:0 0 8px;
+      font-size:1rem;
+    }
+    .point{
+      background:linear-gradient(transparent 60%, #fff1a8 60%);
+      font-weight:800;
+    }
+    .foot{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:18px;
+      color:var(--muted);
+      font-size:.94rem;
+    }
+    .history{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .mini{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:6px 10px;
+      font-weight:700;
+    }
+    .list-title{
+      margin:0 0 10px;
+      font-size:1rem;
+    }
+    .question-list{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(90px,1fr));
+      gap:8px;
+    }
+    .qbtn{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:10px 8px;
+      font-weight:800;
+      color:#344054;
+      cursor:pointer;
+    }
+    .qbtn.current{
+      background:#eef3ff;
+      border-color:#bfd0ff;
+      color:#375dfb;
+    }
+    @media (max-width:640px){
+      .panel{ padding:14px; }
+      button{ width:100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="links">
+        <a href="#">理解問題へ（準備中）</a>
+        <a href="index.html">indexへ</a>
+      </div>
+      <div class="progress" id="progress">1 / 40</div>
+    </div>
+
+    <section class="hero">
+      <h1>FP2級・タックスプランニング（暗記問題）v4</h1>
+      <p>
+        ○×二択クイズ。A/B/Cの3パターンを同時表示します。<br>
+        Aは原文ベース、Bはやさしい言い換え、Cは暗記用の最短表現。<br>
+        回答後に、私の書き直した解説を表示します。
+      </p>
+      <div class="status">
+        <span class="pill">全40問</span>
+        <span class="pill">HTML内埋め込み</span>
+        <span class="pill">ランダム出題</span>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="question-head">
+        <div class="meta">
+          <span class="badge">タックスプランニング</span>
+          <span class="badge">暗記問題</span>
+          <span class="badge" id="correctBadge">○ or ×</span>
+        </div>
+        <div class="progress" id="metaInfo"></div>
+      </div>
+
+      <div id="variantA" class="variant variant-a"></div>
+      <div id="variantB" class="variant variant-b"></div>
+      <div id="variantC" class="variant variant-c"></div>
+
+      <div class="actions">
+        <button class="btn-true" onclick="answer(true)">○ 正しい</button>
+        <button class="btn-false" onclick="answer(false)">× 誤り</button>
+        <button class="btn-next" onclick="nextQuestion()">次の問題へ</button>
+      </div>
+
+      <div id="result" class="result"></div>
+      <div id="explanation" class="explanation"></div>
+
+      <div class="foot">
+        <div class="history">
+          <span class="mini" id="statCorrect">正解 0</span>
+          <span class="mini" id="statWrong">不正解 0</span>
+          <span class="mini" id="statAnswered">回答 0</span>
+        </div>
+        <div>保存先：localStorage（キー: <code>FP2v4_tax_state</code>）</div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 class="list-title">問題一覧</h2>
+      <div id="questionList" class="question-list"></div>
+    </section>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        id:1,
+        source:"2015_1 / 問38系",
+        correct:true,
+        a:'<span class="label">A 原文ベース</span><div>法人税の確定申告書は、原則として、<br>各事業年度終了の日の翌日から<strong class="key">2ヵ月以内</strong>に、<br>納税地の所轄税務署長に提出しなければならない。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>法人税の確定申告書は、<br>事業年度が終わった日の翌日から<strong class="key">2ヵ月以内</strong>に出す。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>法人税申告書 → 終了翌日から<strong class="key">2ヵ月以内</strong></div>',
+        quote:'法人税の確定申告書は、原則として、各事業年度終了の日の翌日から2ヵ月以内に、納税地の所轄税務署長に提出しなければならない。',
+        easy:'これは、「法人税の申告書は事業年度終了後2ヵ月以内に出す」ということだよ。',
+        deep:'これは適切。FP2級では、法人税は「提出も2ヵ月、納付も2ヵ月」でセット暗記が基本。1ヵ月にズラすひっかけがよく出る。'
+      },
+      {
+        id:2,
+        source:"2025_5 / 問37系",
+        correct:false,
+        a:'<span class="label">A 原文ベース</span><div>法人税の確定申告書は、原則として、<br>各事業年度終了の日の翌日から<strong class="key">1カ月以内</strong>に、<br>納税地の所轄税務署長に提出しなければならない。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>法人税の申告書は、<br>事業年度が終わったら<strong class="key">1ヵ月以内</strong>に提出する。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>法人税申告書 → <strong class="key">1ヵ月以内</strong></div>',
+        quote:'法人税の確定申告書は、原則として、各事業年度終了の日の翌日から1カ月以内に、納税地の所轄税務署長に提出しなければならない。',
+        easy:'これは、「法人税の申告は1ヵ月以内」と言っているんだけど、そこが違うよ。',
+        deep:'これは不適切。正しくは2ヵ月以内。税務は「1ヵ月」と「2ヵ月」の入れ替えがひっかけの王道。'
+      },
+      {
+        id:3,
+        source:"新設法人の青色申告",
+        correct:true,
+        a:'<span class="label">A 原文ベース</span><div>新設法人が設立事業年度から青色申告の適用を受けるには、<br><strong class="key">設立の日以後3ヵ月を経過した日</strong>と<br><strong class="key">その事業年度終了の日</strong>のうち、<br>いずれか早い日の前日までに申請しなければならない。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>新しく作った会社が最初の年から青色申告を使いたいときは、<br><strong class="key">3ヵ月ルール</strong>と<strong class="key">決算日ルール</strong>の<br>早いほうまでに申請する。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>新設法人の青色申告 → <strong class="key">3ヵ月経過日</strong>と<strong class="key">事業年度終了日</strong>の早い方の前日</div>',
+        quote:'新設法人が設立事業年度から青色申告の適用を受けるには、設立の日以後3ヵ月を経過した日とその事業年度終了の日のうち、いずれか早い日の前日までに申請しなければならない。',
+        easy:'これは、「新しい会社の青色申告は、3ヵ月と決算日の早いほうまでに申請する」ということだよ。',
+        deep:'これは適切。6ヵ月や2ヵ月にズラす問題がよく出るけど、暗記の芯は「3ヵ月経過日」と「事業年度終了日」の早い方。'
+      },
+      {
+        id:4,
+        source:"2018_1 / 問37系",
+        correct:false,
+        a:'<span class="label">A 原文ベース</span><div>新たに設立された株式会社が、設立第1期から青色申告を行う場合は、<br>設立の日から<strong class="key">6ヵ月以内</strong>に、<br>青色申告承認申請書を提出し、その承認を受けなければならない。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>新しく作った会社が最初の年から青色申告をしたいなら、<br><strong class="key">設立から6ヵ月以内</strong>に申請すればよい。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>新設法人の青色申告 → <strong class="key">6ヵ月以内</strong></div>',
+        quote:'新たに設立された株式会社が、設立第1期から青色申告を行う場合は、設立の日から6ヵ月以内に、青色申告承認申請書を提出し、その承認を受けなければならない。',
+        easy:'これは、「新設法人の青色申告は6ヵ月以内でいい」と言っているんだけど、そこが違うよ。',
+        deep:'これは不適切。新設法人は「3ヵ月経過日」と「事業年度終了日」の早い方の前日まで。6ヵ月は覚えやすそうで危ない数字。'
+      },
+      {
+        id:5,
+        source:"法人税の損金不算入",
+        correct:true,
+        a:'<span class="label">A 原文ベース</span><div>法人税および法人住民税の<strong class="key">本税</strong>は、<br>損金の額に算入することができない。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>会社が払う<strong class="key">法人税そのもの</strong>や法人住民税の本税は、<br>税務上の経費にはできない。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>法人税・法人住民税の<strong class="key">本税</strong> → 損金不算入</div>',
+        quote:'法人税および法人住民税の本税は、損金の額に算入することができない。',
+        easy:'これは、「法人税そのものは経費扱いにできない」ということだよ。',
+        deep:'これは適切。国税・地方税の本税は損金不算入。寄附金や減価償却と混ぜて出ることが多いから、「本税はダメ」を先に固定すると強い。'
+      },
+      {
+        id:6,
+        source:"2015_1 / 問38系",
+        correct:true,
+        a:'<span class="label">A 原文ベース</span><div>法人が国または地方公共団体に支払った一定の寄附金は、<br>所定の書類を添付して確定申告することにより、<br><strong class="key">その全額</strong>を損金の額に算入することができる。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>会社が国や地方公共団体にした一定の寄附は、<br>条件を満たせば<strong class="key">全額</strong>を損金にできる。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>国・地方公共団体への一定の寄附金 → <strong class="key">全額損金</strong></div>',
+        quote:'法人が国または地方公共団体に支払った一定の寄附金は、その全額を損金の額に算入することができる。',
+        easy:'これは、「国や自治体への一定の寄附は全部損金にできる」ということだよ。',
+        deep:'これは適切。一般の寄附金と違って、国や地方公共団体への一定の寄附は全額損金算入。ここは「全額」がキーワード。'
+      },
+      {
+        id:7,
+        source:"交際費",
+        correct:true,
+        a:'<span class="label">A 原文ベース</span><div>期末資本金の額が<strong class="key">1億円以下</strong>の一定の中小法人は、<br>交際費等について、<strong class="key">年800万円まで</strong>の損金算入、<br>または接待飲食費の<strong class="key">50％</strong>の損金算入のいずれかを選択することができる。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>小さめの会社なら、交際費は<br><strong class="key">800万円まで</strong>か、<strong class="key">飲食費の50％</strong>か、<br>有利なほうを選んで損金にできる。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>中小法人の交際費 → <strong class="key">800万円</strong> or <strong class="key">接待飲食費50％</strong></div>',
+        quote:'期末資本金の額が1億円以下の一定の中小法人は、交際費等について、年800万円までの損金算入または接待飲食費の50％の損金算入のいずれかを選択することができる。',
+        easy:'これは、「中小法人の交際費は800万円か飲食費50％のどちらかで処理する」ということだよ。',
+        deep:'これは適切。1,000万円にズラす誤文が出やすい。数字は800万円。'
+      },
+      {
+        id:8,
+        source:"交際費",
+        correct:false,
+        a:'<span class="label">A 原文ベース</span><div>期末資本金の額が1億円以下の一定の中小法人が支出した交際費等のうち、<br><strong class="key">年1,000万円まで</strong>の金額は、<br>損金の額に算入することができる。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>中小法人の交際費は、<br><strong class="key">1,000万円まで</strong>なら損金にできる。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>中小法人の交際費 → <strong class="key">1,000万円まで損金</strong></div>',
+        quote:'期末資本金の額が1億円以下の一定の中小法人が支出した交際費等のうち、年1,000万円までの金額は、損金の額に算入することができる。',
+        easy:'これは、「中小法人なら交際費は1,000万円まで損金」と言っているんだけど、そこが違うよ。',
+        deep:'これは不適切。上限は800万円。FPの交際費論点は数字勝負。'
+      },
+      {
+        id:9,
+        source:"減価償却",
+        correct:false,
+        a:'<span class="label">A 原文ベース</span><div>法人が減価償却費として損金経理した金額のうち、<br>償却限度額を超える部分の金額も、<br>その事業年度の損金の額に算入することができる。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>会社が会計上たくさん減価償却したときは、<br>税法の上限を超えた分もそのまま損金にできる。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>減価償却の上限超え → <strong class="key">損金OK</strong></div>',
+        quote:'法人が減価償却費として損金経理した金額のうち、償却限度額を超える部分の金額も、その事業年度の損金の額に算入することができる。',
+        easy:'これは、「減価償却の上限を超えても経費にできる」と言っているんだけど、そこが違うの。',
+        deep:'これは不適切。税務上損金にできるのは償却限度額まで。超えた部分は損金不算入。'
+      },
+      {
+        id:10,
+        source:"少額減価償却資産",
+        correct:true,
+        a:'<span class="label">A 原文ベース</span><div>取得価額が<strong class="key">10万円未満</strong>の減価償却資産は、<br>事業の用に供した日の属する事業年度において、<br><strong class="key">その全額</strong>を損金に算入することができる。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div><strong class="key">10万円未満</strong>の小さな固定資産は、<br>その年にまとめて経費にしてよい。</div>',
+        c:'<span class="label">C 暗記用最短</span><div><strong class="key">10万円未満</strong>の資産 → <strong class="key">全額損金</strong></div>',
+        quote:'取得価額が10万円未満の減価償却資産は、その全額を損金に算入することができる。',
+        easy:'これは、「10万円未満ならその年に全部経費にしてよい」ということだよ。',
+        deep:'これは適切。10万円、20万円、30万円のラインを混ぜてくる問題が多いから、まずは10万円未満を固定しよう。'
+      },
+      {
+        id:11,
+        source:"役員→会社 無利息貸付",
+        correct:true,
+        a:'<span class="label">A 原文ベース</span><div>役員が会社に対して<strong class="key">無利息</strong>で金銭の貸付けを行った場合、<br>役員について、原則として課税されない。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>役員が自分の会社にタダでお金を貸しても、<br>ふつうはその役員に税金はかからない。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>役員 → 会社へ無利息貸付 → <strong class="key">原則課税なし</strong></div>',
+        quote:'役員が会社に対して無利息で金銭の貸付けを行った場合、役員について、原則として課税されない。',
+        easy:'これは、「役員が会社に無利息で貸しても、原則として役員課税はない」ということだよ。',
+        deep:'これは適切。逆に「会社→役員」の無利息貸付は論点が変わる。矢印の向きが勝負。'
+      },
+      {
+        id:12,
+        source:"会社→役員 無利息貸付",
+        correct:true,
+        a:'<span class="label">A 原文ベース</span><div>会社が役員に対して<strong class="key">無利息</strong>で金銭を貸し付けた場合、<br>通常受け取るべき利息相当額は、<br>その役員への<strong class="key">給与所得</strong>として取り扱われる。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>会社が役員にタダでお金を貸したら、<br>本来払うはずの利息ぶんは、<br>役員への給与みたいに扱われる。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>会社 → 役員へ無利息貸付 → 利息相当額は<strong class="key">給与課税</strong></div>',
+        quote:'会社が役員に対して無利息で金銭を貸し付けた場合、通常受け取るべき利息相当額は、その役員への給与所得として取り扱われる。',
+        easy:'これは、「会社から役員への無利息貸付は、利息ぶんが給与っぽく扱われる」ということだよ。',
+        deep:'これは適切。11番と逆向き。FP2級では、この矢印の取り違えが定番のひっかけ。'
+      },
+      {
+        id:13,
+        source:"会社が役員所有土地を低額取得",
+        correct:true,
+        a:'<span class="label">A 原文ベース</span><div>会社が役員の所有する土地を適正な時価よりも低い価額で取得した場合、<br>その適正な時価と実際に支払った対価との差額は、<br>その会社の<strong class="key">受贈益</strong>となる。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>会社が役員の土地を安く買いすぎたときは、<br>安くしてもらったぶんは会社がもらった利益として扱う。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>会社が役員土地を低額取得 → 差額は<strong class="key">会社の受贈益</strong></div>',
+        quote:'会社が役員の所有する土地を適正な時価よりも低い価額で取得した場合、その差額はその会社の受贈益となる。',
+        easy:'これは、「役員から安く買った差額は、会社の受けた利益になる」ということだよ。',
+        deep:'これは適切。低額譲渡では「差額がどちらの所得になるか」を落ち着いて見る。'
+      },
+      {
+        id:14,
+        source:"役員→会社 無償譲渡",
+        correct:false,
+        a:'<span class="label">A 原文ベース</span><div>役員が所有する土地を会社に<strong class="key">無償</strong>で譲渡した場合、<br>会社は、適正な時価の<strong class="key">2分の1相当額</strong>を<br>受贈益として益金の額に算入する。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>役員が土地をタダで会社に渡したとき、<br>会社が利益として計上するのは<strong class="key">時価の半分</strong>である。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>役員土地を会社へ無償譲渡 → 会社の受贈益は<strong class="key">時価の半分</strong></div>',
+        quote:'役員が所有する土地を会社に無償で譲渡した場合、会社は、適正な時価の2分の1相当額を受贈益として益金の額に算入する。',
+        easy:'これは、「会社の受贈益は時価の半分」と言っているんだけど、そこが違うよ。',
+        deep:'これは不適切。無償譲渡なら会社は適正な時価を受贈益として計上する。半分にするところがひっかけ。'
+      },
+      {
+        id:15,
+        source:"会社→役員 低額譲渡",
+        correct:true,
+        a:'<span class="label">A 原文ベース</span><div>会社が所有する建物を適正な時価よりも低い価額で役員に譲渡した場合、<br>その適正な時価と譲渡価額との差額は、<br>その役員への<strong class="key">給与所得</strong>として取り扱われる。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>会社が役員に建物を安く売りすぎたら、<br>安くしてもらったぶんは役員が受けた給与みたいに扱う。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>会社建物を役員へ低額譲渡 → 差額は<strong class="key">役員の給与</strong></div>',
+        quote:'会社が所有する建物を適正な時価よりも低い価額で役員に譲渡した場合、その差額は、その役員への給与所得として取り扱われる。',
+        easy:'これは、「会社が役員に安く売った差額は、役員の給与みたいに見る」ということだよ。',
+        deep:'これは適切。会社→役員の経済的利益は給与課税、が基本線。'
+      },
+      {
+        id:16,
+        source:"社宅",
+        correct:true,
+        a:'<span class="label">A 原文ベース</span><div>会社の所有する社宅に役員が<strong class="key">無償</strong>で居住している場合、<br>その役員が受けた経済的利益である賃貸料相当額は、<br>役員の<strong class="key">給与所得</strong>の収入金額に算入される。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>役員が会社の社宅にタダで住んでいるなら、<br>本来払う家賃ぶんは役員への給与みたいに扱われる。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>役員の無償社宅 → 賃貸料相当額は<strong class="key">給与課税</strong></div>',
+        quote:'会社の所有する社宅に役員が無償で居住している場合、賃貸料相当額は役員の給与所得の収入金額に算入される。',
+        easy:'これは、「タダで住んだ分は給与みたいに見る」ということだよ。',
+        deep:'これは適切。金銭でなくても、経済的利益なら給与課税されることがある。'
+      },
+      {
+        id:17,
+        source:"役員退職金",
+        correct:true,
+        a:'<span class="label">A 原文ベース</span><div>一時金で支払われる役員退職金の損金算入の時期は、原則として、<br>株主総会の決議等によりその額が具体的に確定した日の属する<br><strong class="key">事業年度</strong>となる。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>役員退職金は、<br>金額が正式に決まった年の会社の経費として扱うのが原則。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>役員退職金の損金算入時期 → <strong class="key">額が確定した事業年度</strong></div>',
+        quote:'一時金で支払われる役員退職金の損金算入の時期は、原則として、株主総会の決議等によりその額が具体的に確定した日の属する事業年度となる。',
+        easy:'これは、「役員退職金は、金額がちゃんと決まった年に経費にする」ということだよ。',
+        deep:'これは適切。支払日そのものではなく、まず「具体的に確定した日」を見るのがコツ。'
+      },
+      {
+        id:18,
+        source:"消費税",
+        correct:true,
+        a:'<span class="label">A 原文ベース</span><div><strong class="key">建物の譲渡</strong>は、消費税の課税取引である。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>建物を売る取引には、原則として消費税がかかる。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>建物の譲渡 → <strong class="key">課税</strong></div>',
+        quote:'建物の譲渡は、消費税の課税取引である。',
+        easy:'これは、「建物を売るのは消費税の対象」ということだよ。',
+        deep:'これは適切。土地は非課税、建物は課税。この切り分けがタックスの超基本。'
+      },
+      {
+        id:19,
+        source:"消費税",
+        correct:false,
+        a:'<span class="label">A 原文ベース</span><div><strong class="key">土地の譲渡</strong>は、消費税の課税取引である。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>土地を売る取引には、消費税がかかる。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>土地の譲渡 → <strong class="key">課税</strong></div>',
+        quote:'土地の譲渡は、消費税の課税取引である。',
+        easy:'これは、「土地を売ると消費税がかかる」と言っているんだけど、そこが違うよ。',
+        deep:'これは不適切。土地の譲渡は非課税。建物と土地を対で覚えると迷いにくい。'
+      },
+      {
+        id:20,
+        source:"消費税",
+        correct:true,
+        a:'<span class="label">A 原文ベース</span><div>貸付期間が<strong class="key">1ヵ月以上</strong>の土地の貸付け<br>（駐車場等の施設の利用に伴う貸付けを除く）は、<br>消費税の<strong class="key">非課税取引</strong>である。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>土地を1ヵ月以上貸す取引は、<br>駐車場みたいな例外をのぞいて、消費税はかからない。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>土地貸付（<strong class="key">1ヵ月以上</strong>・駐車場等除く）→ <strong class="key">非課税</strong></div>',
+        quote:'貸付期間が1ヵ月以上の土地の貸付け（駐車場等の施設の利用に伴う貸付けを除く）は、消費税の非課税取引である。',
+        easy:'これは、「1ヵ月以上の土地貸しは、原則として消費税がかからない」ということだよ。',
+        deep:'これは適切。「1ヵ月以上」と「駐車場等除く」の2か所が試験の見どころ。'
+      },
+      {
+        id:21,
+        source:"消費税",
+        correct:true,
+        a:'<span class="label">A 原文ベース</span><div><strong class="key">有価証券の譲渡</strong>は、消費税の非課税取引である。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>株や債券などの有価証券を売る取引には、<br>消費税はかからない。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>有価証券の譲渡 → <strong class="key">非課税</strong></div>',
+        quote:'有価証券の譲渡は、消費税の非課税取引である。',
+        easy:'これは、「株や債券を売っても消費税はかからない」ということだよ。',
+        deep:'これは適切。土地、有価証券、1ヵ月以上の土地貸付は非課税の基本メンバー。'
+      },
+      {
+        id:22,
+        source:"消費税",
+        correct:true,
+        a:'<span class="label">A 原文ベース</span><div>旅館業を営む法人が受け取る<strong class="key">宿泊料</strong>は、<br>消費税の課税対象となる。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>旅館やホテルの宿泊料には、消費税がかかる。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>宿泊料 → <strong class="key">課税</strong></div>',
+        quote:'旅館業を営む法人が受け取る宿泊料は、消費税の課税対象となる。',
+        easy:'これは、「宿泊料は消費税の対象」ということだよ。',
+        deep:'これは適切。実際にサービス提供の対価を受け取っているから、課税取引になる。'
+      },
+      {
+        id:23,
+        source:"消費税",
+        correct:false,
+        a:'<span class="label">A 原文ベース</span><div>旅館に火災が発生して損害保険会社から受け取った<strong class="key">保険金</strong>は、<br>消費税の課税対象となる。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>火災保険で受け取った保険金には、消費税がかかる。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>保険金 → <strong class="key">課税</strong></div>',
+        quote:'火災保険会社から受け取った保険金は、消費税の課税対象となる。',
+        easy:'これは、「保険金にも消費税がかかる」と言っているんだけど、そこが違うよ。',
+        deep:'これは不適切。保険金は資産の譲渡等の対価ではないから、消費税の課税対象ではない。'
+      },
+      {
+        id:24,
+        source:"消費税",
+        correct:false,
+        a:'<span class="label">A 原文ベース</span><div>法人が所有している上場株式から受け取った<strong class="key">配当金</strong>は、<br>消費税の課税対象となる。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>株の配当金には、消費税がかかる。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>配当金 → <strong class="key">課税</strong></div>',
+        quote:'法人が所有している上場株式から受け取った配当金は、消費税の課税対象となる。',
+        easy:'これは、「配当金に消費税がかかる」と言っているんだけど、そこが違うの。',
+        deep:'これは不適切。配当金は消費税の課税対象外。サービスの対価ではない、という感覚で覚える。'
+      },
+      {
+        id:25,
+        source:"贈与税",
+        correct:true,
+        a:'<span class="label">A 原文ベース</span><div>個人から受ける年末年始の贈答、祝物または見舞い等のための金品であって、<br>社交上の必要によるもので、社会通念上相当と認められるものについては、<br><strong class="key">贈与税は課されない</strong>。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>お歳暮やお見舞いみたいなお金や品物で、<br>ふつうの付き合いの範囲だと認められるものには、贈与税はかからない。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>社交上相当なお歳暮・祝物・見舞金 → <strong class="key">贈与税なし</strong></div>',
+        quote:'個人から受ける年末年始の贈答、祝物または見舞い等のための金品であって、社会通念上相当と認められるものについては、贈与税は課されない。',
+        easy:'これは、「常識的な範囲のお歳暮やお見舞いなら贈与税はかからない」ということだよ。',
+        deep:'これは適切。ポイントは「社交上の必要」と「社会通念上相当」。高額すぎると話が変わる。'
+      },
+      {
+        id:26,
+        source:"贈与税",
+        correct:true,
+        a:'<span class="label">A 原文ベース</span><div>贈与税には、<strong class="key">年間110万円</strong>の基礎控除がある。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>ふつうの暦年課税の贈与では、<br>1年につき<strong class="key">110万円</strong>までは基礎控除がある。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>贈与税の基礎控除 → <strong class="key">110万円</strong></div>',
+        quote:'贈与税には、年間110万円の基礎控除がある。',
+        easy:'これは、「贈与税は1年110万円までは控除がある」ということだよ。',
+        deep:'これは適切。タックスの数字暗記では超基本。110万円はまず落としたくない。'
+      },
+      {
+        id:27,
+        source:"相続時精算課税",
+        correct:true,
+        a:'<span class="label">A 原文ベース</span><div>相続時精算課税制度には、<br><strong class="key">2,500万円</strong>の特別控除額がある。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>相続時精算課税を使うと、<br>大きな控除枠として<strong class="key">2,500万円</strong>がある。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>相続時精算課税の特別控除 → <strong class="key">2,500万円</strong></div>',
+        quote:'相続時精算課税制度には、2,500万円の特別控除額がある。',
+        easy:'これは、「相続時精算課税には2,500万円の大きな控除枠がある」ということだよ。',
+        deep:'これは適切。110万円と2,500万円を混同しないこと。'
+      },
+      {
+        id:28,
+        source:"贈与税",
+        correct:true,
+        a:'<span class="label">A 原文ベース</span><div>暦年課税においては、1年間に受けた贈与額の合計が<br><strong class="key">110万円を超える部分</strong>について、贈与税が課される。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>ふつうの贈与では、1年にもらった合計額のうち、<br><strong class="key">110万円を超えた分</strong>に贈与税がかかる。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>暦年贈与 → <strong class="key">110万円超</strong>の部分に課税</div>',
+        quote:'暦年課税においては、1年間に受けた贈与額の合計が110万円を超える部分について、贈与税が課される。',
+        easy:'これは、「110万円を超えた部分にだけ贈与税がかかる」ということだよ。',
+        deep:'これは適切。まるごと全部に課税されるわけではない、という点も意外と大事。'
+      },
+      {
+        id:29,
+        source:"扶養控除",
+        correct:false,
+        a:'<span class="label">A 原文ベース</span><div><strong class="key">16歳未満</strong>の扶養親族についても、<br>扶養控除の適用を受けることができる。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>16歳未満の子どもも、扶養控除の対象になる。</div>',
+        c:'<span class="label">C 暗記用最短</span><div><strong class="key">16歳未満</strong>も扶養控除OK</div>',
+        quote:'16歳未満の扶養親族についても、扶養控除の適用を受けることができる。',
+        easy:'これは、「16歳未満でも扶養控除が使える」と言っているんだけど、そこが違うよ。',
+        deep:'これは不適切。扶養控除の対象は原則16歳以上。年齢で切る問題は取りやすいから落ち着いて。'
+      },
+      {
+        id:30,
+        source:"扶養控除",
+        correct:true,
+        a:'<span class="label">A 原文ベース</span><div>一般の控除対象扶養親族に係る扶養控除額は、<br><strong class="key">38万円</strong>である。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>ふつうの扶養親族なら、<br>扶養控除は<strong class="key">38万円</strong>で考える。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>一般扶養控除 → <strong class="key">38万円</strong></div>',
+        quote:'一般の控除対象扶養親族に係る扶養控除額は、38万円である。',
+        easy:'これは、「一般の扶養親族なら38万円控除」ということだよ。',
+        deep:'これは適切。特定扶養親族や老人扶養親族と数字を混ぜてくることがある。まず38万円を土台に。'
+      },
+      {
+        id:31,
+        source:"一時所得",
+        correct:true,
+        a:'<span class="label">A 原文ベース</span><div>一時所得の金額は、<br>「<strong class="key">総収入金額 − その収入を得るために支出した金額 − 特別控除額</strong>」<br>を計算し、その残額の<strong class="key">2分の1</strong>とする。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>一時所得は、まずもうけを出してから、<br>最後に<strong class="key">2分の1</strong>にする。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>一時所得 → （収入−支出−控除）× <strong class="key">1/2</strong></div>',
+        quote:'一時所得の金額は、「総収入金額−その収入を得るために支出した金額−特別控除額」を計算し、その残額の2分の1とする。',
+        easy:'これは、「一時所得は最後に2分の1する」という公式の話だよ。',
+        deep:'これは適切。FPでは式そのものを問われやすい。最後に1/2、が最大の特徴。'
+      },
+      {
+        id:32,
+        source:"一時所得",
+        correct:true,
+        a:'<span class="label">A 原文ベース</span><div>一時所得の計算における<strong class="key">特別控除額</strong>は、<br>最高<strong class="key">50万円</strong>である。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>一時所得には、<br>最大<strong class="key">50万円</strong>の特別控除がある。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>一時所得の特別控除 → <strong class="key">50万円</strong></div>',
+        quote:'一時所得の計算における特別控除額は、最高50万円である。',
+        easy:'これは、「一時所得には50万円の控除がある」ということだよ。',
+        deep:'これは適切。50万円と1/2、この2点が一時所得の暗記軸。'
+      },
+      {
+        id:33,
+        source:"譲渡所得",
+        correct:true,
+        a:'<span class="label">A 原文ベース</span><div>個人が<strong class="key">金地金</strong>を売却したことによる所得は、<br><strong class="key">譲渡所得</strong>に該当する。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>個人が金地金を売って出た利益は、<br>譲渡所得として扱う。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>金地金の売却益 → <strong class="key">譲渡所得</strong></div>',
+        quote:'個人が金地金を売却したことによる所得は、譲渡所得に該当する。',
+        easy:'これは、「金地金を売った利益は譲渡所得」ということだよ。',
+        deep:'これは適切。一時所得や雑所得と間違えやすいから、金地金は譲渡所得で固定。'
+      },
+      {
+        id:34,
+        source:"配当控除",
+        correct:true,
+        a:'<span class="label">A 原文ベース</span><div><strong class="key">配当控除</strong>は、国内株式などの配当について<br><strong class="key">総合課税</strong>を選択して確定申告した場合に適用される税額控除である。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>配当控除は、配当を総合課税で申告したときに使う控除だよ。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>配当控除 → <strong class="key">総合課税で申告</strong>したとき</div>',
+        quote:'配当控除は、国内株式などの配当について総合課税を選択して確定申告した場合に適用される税額控除である。',
+        easy:'これは、「配当控除は総合課税を選んだときの控除」ということだよ。',
+        deep:'これは適切。申告分離課税ではなく、総合課税を選ぶ点がポイント。'
+      },
+      {
+        id:35,
+        source:"青色申告者のみ",
+        correct:true,
+        a:'<span class="label">A 原文ベース</span><div><strong class="key">純損失の繰戻し還付</strong>は、<br>青色申告者に限り適用を受けることができる。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>前年の税金を戻してもらう純損失の繰戻し還付は、<br><strong class="key">青色申告だけ</strong>の特典である。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>純損失の繰戻し還付 → <strong class="key">青色のみ</strong></div>',
+        quote:'純損失の繰戻し還付は、青色申告者に限り適用を受けることができる。',
+        easy:'これは、「繰戻し還付は青色申告だけ」ということだよ。',
+        deep:'これは適切。青色限定の典型論点。寄附金控除や配当控除と混ぜて出る。'
+      },
+      {
+        id:36,
+        source:"雑損失の繰越控除",
+        correct:false,
+        a:'<span class="label">A 原文ベース</span><div><strong class="key">雑損失の繰越控除</strong>は、<br>青色申告者に限り適用を受けることができる。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>雑損失を翌年以降に回せるのは、青色申告だけである。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>雑損失の繰越控除 → <strong class="key">青色のみ</strong></div>',
+        quote:'雑損失の繰越控除は、青色申告者に限り適用を受けることができる。',
+        easy:'これは、「雑損失の繰越は青色だけ」と言っているんだけど、そこが違うよ。',
+        deep:'これは不適切。雑損失の繰越控除は青色申告者に限られない。青色限定なのは純損失の繰戻し還付。'
+      },
+      {
+        id:37,
+        source:"源泉徴収票",
+        correct:false,
+        a:'<span class="label">A 原文ベース</span><div>給与所得の源泉徴収票に記載される<strong class="key">源泉徴収税額</strong>は、<br><strong class="key">所得税のみ</strong>の額である。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>源泉徴収票の「源泉徴収税額」には、<br>所得税だけが書かれている。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>源泉徴収税額 ＝ <strong class="key">所得税のみ</strong></div>',
+        quote:'給与所得の源泉徴収票に記載される源泉徴収税額は、所得税のみの額である。',
+        easy:'これは、「源泉徴収税額は所得税だけ」と言っているんだけど、そこが違うよ。',
+        deep:'これは不適切。源泉徴収票の源泉徴収税額は、所得税および復興特別所得税の合計額。'
+      },
+      {
+        id:38,
+        source:"源泉徴収票",
+        correct:true,
+        a:'<span class="label">A 原文ベース</span><div>給与所得の源泉徴収票に記載される<br>「<strong class="key">給与所得控除後の金額</strong>」は、<br><strong class="key">給与所得</strong>の金額を表している。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>源泉徴収票の「給与所得控除後の金額」は、<br>その人の給与所得そのものを見る欄だよ。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>給与所得控除後の金額 ＝ <strong class="key">給与所得</strong></div>',
+        quote:'給与所得の源泉徴収票に記載される「給与所得控除後の金額」は、給与所得の金額を表している。',
+        easy:'これは、「給与所得控除後の金額の欄は給与所得を見る欄」ということだよ。',
+        deep:'これは適切。収入ではなく、控除後＝所得。用語の言い換えに慣れておくと強い。'
+      },
+      {
+        id:39,
+        source:"養老保険・ハーフタックスプラン",
+        correct:true,
+        a:'<span class="label">A 原文ベース</span><div>被保険者が役員・従業員<strong class="key">全員</strong>、<br>死亡保険金受取人が被保険者の<strong class="key">遺族</strong>、<br>満期保険金受取人が<strong class="key">法人</strong>である養老保険の保険料は、<br>その<strong class="key">2分の1</strong>相当額を資産に計上し、残額を損金に算入することができる。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>養老保険で、<strong class="key">全員加入・遺族受取・法人満期受取</strong>の形なら、<br>保険料は<strong class="key">半分を資産、半分を損金</strong>にできる。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>養老保険（全員・遺族・法人）→ <strong class="key">1/2資産＋1/2損金</strong></div>',
+        quote:'被保険者が役員・従業員全員、死亡保険金受取人が被保険者の遺族、満期保険金受取人が法人である養老保険の保険料は、その2分の1相当額を資産に計上し、残額を損金に算入することができる。',
+        easy:'これは、「ハーフタックスプランの条件を満たすと半分ずつ処理できる」ということだよ。',
+        deep:'これは適切。覚える芯は「全員・遺族・法人」の3条件。ここが1つでも崩れると処理が変わる。'
+      },
+      {
+        id:40,
+        source:"養老保険",
+        correct:false,
+        a:'<span class="label">A 原文ベース</span><div>死亡保険金受取人および満期保険金受取人が<br>いずれも<strong class="key">法人</strong>である養老保険の保険料は、<br><strong class="key">全額を損金</strong>に算入する。</div>',
+        b:'<span class="label">B やさしい言い換え</span><div>死亡保険金も満期保険金も会社が受け取る養老保険なら、<br>保険料は全部経費にできる。</div>',
+        c:'<span class="label">C 暗記用最短</span><div>養老保険（死亡・満期とも法人）→ <strong class="key">全額損金</strong></div>',
+        quote:'死亡保険金受取人および満期保険金受取人がいずれも法人である養老保険の保険料は、全額を損金に算入する。',
+        easy:'これは、「会社が両方受け取る養老保険は全部経費」と言っているんだけど、そこが違うよ。',
+        deep:'これは不適切。こういう契約では支払保険料は全額資産計上。39番のハーフタックスプランと対比して整理すると覚えやすい。'
+      }
+    ];
+
+    let currentIndex = 0;
+    let state = JSON.parse(localStorage.getItem('FP2v4_tax_state') || '{"correct":0,"wrong":0,"answered":0,"lastIndex":0}');
+    const shuffled = [...questions];
+
+    function shuffle(arr){
+      for(let i = arr.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+    shuffle(shuffled);
+
+    function makeExplanation(q){
+      return `
+        <h3>解説</h3>
+        <p><strong>①問題文引用</strong><br>${q.quote}</p>
+        <p><strong>②やさしい言い換え</strong><br>${q.easy}</p>
+        <p><strong>③深掘り解説</strong><br>${q.deep}</p>
+      `;
+    }
+
+    function renderList(){
+      const area = document.getElementById('questionList');
+      area.innerHTML = '';
+      shuffled.forEach((q, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'qbtn' + (i === currentIndex ? ' current' : '');
+        btn.textContent = `Q${i + 1}`;
+        btn.onclick = () => {
+          currentIndex = i;
+          renderQuestion();
+        };
+        area.appendChild(btn);
+      });
+    }
+
+    function renderQuestion(){
+      const q = shuffled[currentIndex];
+      document.getElementById('variantA').innerHTML = q.a;
+      document.getElementById('variantB').innerHTML = q.b;
+      document.getElementById('variantC').innerHTML = q.c;
+      document.getElementById('metaInfo').textContent = `${q.source}`;
+      document.getElementById('progress').textContent = `${currentIndex + 1} / ${shuffled.length}`;
+      document.getElementById('correctBadge').textContent = '○ or ×';
+      document.getElementById('result').className = 'result';
+      document.getElementById('result').textContent = '';
+      document.getElementById('explanation').className = 'explanation';
+      document.getElementById('explanation').innerHTML = makeExplanation(q);
+      document.getElementById('statCorrect').textContent = `正解 ${state.correct}`;
+      document.getElementById('statWrong').textContent = `不正解 ${state.wrong}`;
+      document.getElementById('statAnswered').textContent = `回答 ${state.answered}`;
+      renderList();
+      state.lastIndex = currentIndex;
+      localStorage.setItem('FP2v4_tax_state', JSON.stringify(state));
+    }
+
+    function answer(userAnswer){
+      const q = shuffled[currentIndex];
+      const ok = userAnswer === q.correct;
+      const result = document.getElementById('result');
+      result.className = 'result ' + (ok ? 'ok' : 'ng');
+      result.textContent = ok
+        ? `正解 ○ 先輩、いい感じ。正誤は「${q.correct ? '○ 正しい' : '× 誤り'}」だよ。`
+        : `不正解 × 正誤は「${q.correct ? '○ 正しい' : '× 誤り'}」だよ。`;
+      document.getElementById('correctBadge').textContent = q.correct ? '正解：○' : '正解：×';
+      document.getElementById('explanation').className = 'explanation show';
+
+      state.answered += 1;
+      if(ok){ state.correct += 1; } else { state.wrong += 1; }
+      localStorage.setItem('FP2v4_tax_state', JSON.stringify(state));
+
+      document.getElementById('statCorrect').textContent = `正解 ${state.correct}`;
+      document.getElementById('statWrong').textContent = `不正解 ${state.wrong}`;
+      document.getElementById('statAnswered').textContent = `回答 ${state.answered}`;
+    }
+
+    function nextQuestion(){
+      currentIndex = (currentIndex + 1) % shuffled.length;
+      renderQuestion();
+    }
+
+    renderQuestion();
+  </script>
+</body>
+</html>
