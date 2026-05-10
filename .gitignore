@@ -1,3 +1,8 @@
 *.md
 !README.md
 !**/README.md
+quiz/fp2_copilot_opus/
+quiz/fp2_copilot_opus_v2/
+quiz/fp2_copilot_opus_v3/
+quiz/fp2_copilot_opus_v5/
+quiz/fp2_copilot_opus_v6/
